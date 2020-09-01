@@ -1,3 +1,13 @@
+.gradle
 .idea
-out
+build
+gradle
+build.gradle
+gradlew
+gradlew.bat
+settings.gradle
+web.xml
 caseStudy3.iml
+out
+
+
