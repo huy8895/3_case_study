@@ -3,6 +3,7 @@ package com.codegym.service;
 import com.codegym.model.Product;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
@@ -77,12 +78,39 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> selectAllProduct() {
-        return null;
+       List<Product> products = new ArrayList<>();
+       try {
+           Connection connection = getConnection();
+           PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PRODUCTS);
+           System.out.println(preparedStatement);
+           ResultSet resultSet = preparedStatement.executeQuery();
+
+           while (resultSet.next()){
+               int id = resultSet.getInt("id");
+               String name = resultSet.getString("name");
+               Double price = resultSet.getDouble("price");
+               String description = resultSet.getString("description");
+               String image = resultSet.getString("image");
+
+               products.add(new Product(id,name,price,description,image));
+           }
+       } catch (SQLException e) {
+           printSQLException(e);
+       }
+        return products;
     }
 
     @Override
     public boolean deleteProduct(int id) throws SQLException {
-        return false;
+       boolean rowDeleted;
+       try (
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(DELETE_PRODUCTS_SQL);){
+            statement.setInt(1,id);
+            rowDeleted = statement.executeUpdate() > 0;
+
+        }
+        return rowDeleted;
     }
 
     @Override
