@@ -115,24 +115,100 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean updateProduct(Product product) throws SQLException {
-        return false;
+       boolean rowUpdated;
+       try (Connection connection = getConnection();
+       PreparedStatement statement = connection.prepareStatement(UPDATE_PRODUCTS_SQL);){
+           statement.setString(1,product.getName());
+           statement.setDouble(2,product.getPrice());
+           statement.setString(3,product.getDescription());
+           statement.setString(4,product.getImage());
+           statement.setInt(5,product.getId());
+
+           rowUpdated = statement.executeUpdate() > 0;
+       }
+        return rowUpdated;
     }
 
     @Override
     public Product getProductById(int id) {
-        return null;
+       Product product = null;
+       String query = "{CALL_GET_PRODUCT_BY_ID(?)}";
+       try (Connection connection = getConnection();
+       CallableStatement callableStatement = connection.prepareCall(query);){
+           callableStatement.setInt(1,id);
+           ResultSet resultSet = callableStatement.executeQuery();
+
+           while (resultSet.next()) {
+               String name = resultSet.getString("name");
+               Double price = resultSet.getDouble("price");
+               String description = resultSet.getString("description");
+               String image = resultSet.getString("image");
+
+               product =  new Product(id,name,price,description,image);
+           }
+       } catch (SQLException e) {
+           printSQLException(e);
+       }
+        return product;
     }
 
     @Override
     public void insertProductStore(Product product) throws SQLException {
+       String query = "{CALL_INSERT_PRODUCT(?,?,?,?)}";
+       try (Connection connection = getConnection();
+       CallableStatement callableStatement = connection.prepareCall(query);){
+           callableStatement.setString(1,product.getName());
+           callableStatement.setDouble(2,product.getPrice());
+           callableStatement.setString(3,product.getDescription());
+           callableStatement.setString(4,product.getImage());
+           System.out.println(callableStatement);
+           callableStatement.executeUpdate();
+       } catch (SQLException e) {
+           printSQLException(e);
+       }
 
     }
 
     @Override
-    public List<Product> getProductByName(String name) {
-        return null;
+    public List<Product> getProductByName(String nameIn) {
+        List<Product> products = new ArrayList<>();
+        String query = "{CALL_GET_PRODUCT_BY_NAME(?)}";
+        try(Connection connection = getConnection();
+        CallableStatement callableStatement = connection.prepareCall(query);){
+            callableStatement.setString(1,nameIn);
+            ResultSet resultSet = callableStatement.executeQuery();
+
+            while (resultSet.next()){
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                Double price = resultSet.getDouble("price");
+                String description = resultSet.getString("description");
+                String image = resultSet.getString("image");
+
+                products.add(new Product(id,name,price,description,image));
+            }
+            System.out.println(callableStatement);
+            callableStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return products;
     }
 
-    private void printSQLException(SQLException e) {
+    private void printSQLException(SQLException ex) {
+       for (Throwable e : ex) {
+           if (e  instanceof SQLException) {
+               e.printStackTrace(System.err);
+               System.err.println("SQLState :" + ((SQLException) e).getSQLState());
+               System.err.println("Error Code :" + ((SQLException) e).getErrorCode());
+               System.err.println("Message :" + e.getMessage());
+               Throwable t = ex.getCause();
+               while (t != null) {
+                   System.out.println("Cause : " + t);
+                   t = t.getCause();
+               }
+           }
+       }
     }
 }
