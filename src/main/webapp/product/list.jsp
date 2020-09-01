@@ -1,16 +1,17 @@
 <%--
   Created by IntelliJ IDEA.
-  User: huy8895
-  Date: 9/1/20
-  Time: 9:10 AM
+  User: LapTop
+  Date: 9/1/2020
+  Time: 2:10 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>list customer</title>
 </head>
 <body>
-edit
+<a href="/customers?action=create">Add New User</a>
+
 </body>
 </html>

@@ -22,9 +22,7 @@ create table Customer(
 
 create table User(
     userName varchar(50) primary key ,
-    password varchar(50) not null,
-    cusNumber int unique,
-    constraint foreign key (cusNumber) references Customer(cusNumber)
+    password varchar(50) not null
 );
 
 alter table Customer
