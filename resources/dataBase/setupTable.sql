@@ -22,16 +22,18 @@ create table Customer(
 
 create table User(
     userName varchar(50) primary key ,
-    password varchar(50) not null
+    password varchar(50) not null,
+    cusNumber int unique,
+    constraint foreign key (cusNumber) references Customer(cusNumber)
 );
 
 alter table Customer
 add column userName varchar(50) unique ,
     add constraint foreign key (userName) references User(userName);
 
-create table Admin(
-    userName varchar(50) primary key ,
-    password varchar(50) not null
+create table Role(
+    id bit primary key ,
+    roleName varchar(10) not null
 );
 
 create table Orders(
@@ -51,15 +53,20 @@ create table OrderDetail(
     status varchar(50)
 );
 
+
 alter table User
-add column cusNumber int not null,
-    add constraint foreign key (cusNumber) references Customer(cusNumber);
+add column roleID bit not null,
+    add constraint foreign key (roleID) references Role(id);
 
 insert into Customer (cusName, cusPhoneNumber, cusAddress, cusEmail) VALUES ('huy','012345','hanoi','huy88956');
-update Customer set userName = 'huy889' where cusNumber = 4;
-insert into User values ('huy8895','01423','1');
-insert into User values ('huy889','01423','4');
-insert into Customer (cusName, cusPhoneNumber, cusAddress, cusEmail,userName) VALUES ('huy','df','hanoi','huy88asd956@','huy88');
+
+insert into Role values (1,'admin');
+insert into Role values (0,'customer');
+
+alter table User
+modify column roleID bit not null default 0;
+
+INSERT INTO User (userName, password) values ('huy','1234');
 
 
 
