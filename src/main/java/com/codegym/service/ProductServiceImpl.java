@@ -2,9 +2,7 @@ package com.codegym.service;
 
 import com.codegym.model.Product;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
@@ -38,12 +36,43 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void insertProduct(Product product) throws SQLException {
-
+        System.out.println(INSERT_PRODUCT_SQL);
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCT_SQL)) {
+            preparedStatement.setString(1,product.getName());
+            preparedStatement.setDouble(2,product.getPrice());
+            preparedStatement.setString(3,product.getDescription());
+            preparedStatement.setString(4,product.getImage());
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
     }
+
 
     @Override
     public Product selectProduct(int id) {
-        return null;
+       Product product = null;
+
+       try {
+           Connection connection = getConnection();
+           PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCT_BY_ID);
+           preparedStatement.setInt(1,id);
+           System.out.println(preparedStatement);
+           ResultSet resultSet = preparedStatement.executeQuery();
+
+           while (resultSet.next()) {
+               String name = resultSet.getString("name");
+               Double price = resultSet.getDouble("price");
+               String description = resultSet.getString("description");
+               String image = resultSet.getString("image");
+               product = new Product(id,name,price,description,image);
+           }
+       } catch (SQLException e) {
+          printSQLException(e);
+       }
+        return product;
     }
 
     @Override
@@ -74,5 +103,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProductByName(String name) {
         return null;
+    }
+
+    private void printSQLException(SQLException e) {
     }
 }
