@@ -6,7 +6,6 @@ public class Product {
     private double price;
     private String description;
     private String image;
-    private int quantity;
 
     public Product() {
     }
@@ -18,7 +17,6 @@ public class Product {
         this.price = price;
         this.description = description;
         this.image = image;
-        this.quantity = quantity;
     }
 
     public int getId() {
@@ -61,11 +59,4 @@ public class Product {
         this.image = image;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }
