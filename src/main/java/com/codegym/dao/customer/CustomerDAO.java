@@ -32,15 +32,16 @@ public class CustomerDAO implements ICustomerDAO {
 
 
     @Override
-    public void insertUser(Customer customer, User user) throws SQLException {
+    public void insertCustomer(Customer customer) throws SQLException {
         Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL);
         try {
             preparedStatement.setString(1,customer.getCusName());
-            preparedStatement.setString(2,customer.getCusName());
-            preparedStatement.setString(3,customer.getCusName());
-            preparedStatement.setString(4,customer.getCusName());
-            preparedStatement.setString(5,user.getUserName());
+            preparedStatement.setString(2,customer.getCusPhoneNumber());
+            preparedStatement.setString(3,customer.getCusPhoneNumber());
+            preparedStatement.setString(4,customer.getCusAddress());
+            preparedStatement.setString(5,customer.getUserName());
+            preparedStatement.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();
         }

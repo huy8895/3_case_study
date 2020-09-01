@@ -2,6 +2,7 @@ package com.codegym.controller;
 
 import com.codegym.dao.customer.CustomerDAO;
 import com.codegym.dao.user.UserDAO;
+import com.codegym.model.Customer;
 import com.codegym.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -12,9 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
-@WebServlet(name = "CustomerServlet",urlPatterns = "/customers")
+@WebServlet(name = "CustomerServlet", urlPatterns = "/customers")
 public class CustomerServlet extends HttpServlet {
     private UserDAO userDAO;
     private CustomerDAO customerDAO;
@@ -23,25 +23,24 @@ public class CustomerServlet extends HttpServlet {
         userDAO = new UserDAO();
         customerDAO = new CustomerDAO();
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
         }
-        switch (action) {
-            case "create":
-                insertUser(request, response);
-                break;
-            case "edit":
-                updateUser(request, response);
-                break;
+        try {
+            switch (action) {
+                case "create":
+                    insertCustomer(request, response);
+                    break;
+                case "edit":
+                    updateUser(request, response);
+                    break;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    }
-
-    private void updateUser(HttpServletRequest request, HttpServletResponse response) {
-    }
-
-    private void insertUser(HttpServletRequest request, HttpServletResponse response) {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -61,7 +60,7 @@ public class CustomerServlet extends HttpServlet {
                 deleteUser(request, response);
                 break;
             case "Search":
-                showSearchResult(request,response);
+                showSearchResult(request, response);
                 break;
             default:
                 listUser(request, response);
@@ -70,6 +69,25 @@ public class CustomerServlet extends HttpServlet {
 
 
     }
+
+    private void updateUser(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    private void insertCustomer(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        String name = request.getParameter("cusName");
+        String phoneNumber = request.getParameter("cusPhoneNumber");
+        String address = request.getParameter("cusAddress");
+        String email = request.getParameter("cusEmail");
+        String userName = request.getParameter("userName");
+        String password = request.getParameter("password");
+        Customer newCustomer = new Customer(name, phoneNumber, address, email,userName);
+        User newUser = new User(userName, password);
+        userDAO.insertUser(newUser);
+        customerDAO.insertCustomer(newCustomer);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/create.jsp");
+        dispatcher.forward(request, response);
+    }
+
 
     private void showSearchResult(HttpServletRequest request, HttpServletResponse response) {
     }
@@ -89,7 +107,7 @@ public class CustomerServlet extends HttpServlet {
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("chay vao product/create.js");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("product/create.jsp");
-            dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/create.jsp");
+        dispatcher.forward(request, response);
     }
 }
