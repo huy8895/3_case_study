@@ -3,6 +3,7 @@ package com.codegym.service;
 import com.codegym.model.Product;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -23,6 +24,15 @@ public class ProductServiceImpl implements ProductService {
 
    protected Connection getConnection(){
        Connection connection = null;
+       try {
+           Class.forName("com.mysql.jdbc.Driver");
+           connection = DriverManager.getConnection(jdbcURL,jdbcUsername,jdbcPassword);
+       } catch (ClassNotFoundException e) {
+           e.printStackTrace();
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+       return connection;
    }
 
 
