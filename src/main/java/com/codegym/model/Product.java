@@ -1,62 +1,78 @@
 package com.codegym.model;
 
 public class Product {
-    private int id;
-    private String name;
-    private double price;
-    private String description;
-    private String image;
+    protected int productCode;
+    protected String productName;
+    protected String productBrand;
+    protected double productPrice;
+    protected String productImage;
+    protected String productLine;
 
     public Product() {
     }
 
-    public Product(int id, String name, double price, String description, String image, int quantity) {
-
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.image = image;
+    public Product(String productName, String productBrand, double productPrice, String productImage, String productLine) {
+        this.productName = productName;
+        this.productBrand = productBrand;
+        this.productPrice = productPrice;
+        this.productImage = productImage;
+        this.productLine = productLine;
     }
 
-    public int getId() {
-        return id;
+    public Product(int productCode, String productName, String manufacture, double productPrice, String productImage, String productLine) {
+        this.productCode = productCode;
+        this.productName = productName;
+        this.productBrand = manufacture;
+        this.productPrice = productPrice;
+        this.productImage = productImage;
+        this.productLine = productLine;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getProductCode() {
+        return productCode;
     }
 
-    public String getName() {
-        return name;
+    public void setProductCode(int productCode) {
+        this.productCode = productCode;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getProductName() {
+        return productName;
     }
 
-    public double getPrice() {
-        return price;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public String getProductBrand() {
+        return productBrand;
     }
 
-    public String getDescription() {
-        return description;
+    public void setProductBrand(String productBrand) {
+        this.productBrand = productBrand;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public double getProductPrice() {
+        return productPrice;
     }
 
-    public String getImage() {
-        return image;
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public String getProductImage() {
+        return productImage;
     }
 
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
+    }
+
+    public String getProductLine() {
+        return productLine;
+    }
+
+    public void setProductLine(String productLine) {
+        this.productLine = productLine;
+    }
 }

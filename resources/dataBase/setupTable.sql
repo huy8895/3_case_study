@@ -66,6 +66,9 @@ modify column roleID bit not null default 0;
 
 INSERT INTO User (userName, password) values ('huy','1234');
 
+alter table Product change manufacture productBrand varchar(50) not null;
+
+
 
 
 
