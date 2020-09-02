@@ -8,9 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>list product</title>
 </head>
 <body>
+<a href="/customers?action=create">Add New User</a>
 
 </body>
 </html>
