@@ -17,6 +17,7 @@
             <caption>
                 <h2>Tạo mới tài khoản</h2>
             </caption>
+            <a href="/customers">back to list</a>
             <tr>
                 <th>User Name:</th>
                 <td>

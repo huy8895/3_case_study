@@ -18,6 +18,24 @@ public class Customer {
         this.cusEmail = cusEmail;
         this.userName = userName;
     }
+
+    public Customer(int cusNumber, String cusName, String cusPhoneNumber, String cusAddress, String cusEmail, String userName) {
+        this.cusNumber = cusNumber;
+        this.cusName = cusName;
+        this.cusPhoneNumber = cusPhoneNumber;
+        this.cusAddress = cusAddress;
+        this.cusEmail = cusEmail;
+        this.userName = userName;
+    }
+
+    public int getCusNumber() {
+        return cusNumber;
+    }
+
+    public void setCusNumber(int cusNumber) {
+        this.cusNumber = cusNumber;
+    }
+
     public String getCusName() {
         return cusName;
     }
