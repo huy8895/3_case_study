@@ -24,7 +24,8 @@ public class ProductServlet extends HttpServlet {
         productDAO = new ProductDAO();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -37,18 +38,29 @@ public class ProductServlet extends HttpServlet {
                 case "edit":
                     updateProduct(request, response);
                     break;
+                case "delete":
+                    deleteProduct(request,response);
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int productCode = Integer.parseInt(request.getParameter("id"));
+        Product product = productDAO.selectProduct(productCode);
+        productDAO.deleteProduct(productCode);
+        listProducts(request,response);
+    }
 
-    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
         int productCode = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("productName");
         String brand = request.getParameter("productBrand");
-        Double price = Double.parseDouble(request.getParameter("productPrice"));
+        double price = Double.parseDouble(request.getParameter("productPrice"));
         String image = request.getParameter("productImage");
         String line = request.getParameter("productLine");
 
@@ -58,10 +70,11 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(request,response);
     }
 
-    private void insertProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    private void insertProduct(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
         String name = request.getParameter("productName");
         String brand = request.getParameter("productBrand");
-        Double price = Double.parseDouble(request.getParameter("productPrice"));
+        double price = Double.parseDouble(request.getParameter("productPrice"));
         String image = request.getParameter("productImage");
         String line = request.getParameter("productLine");
 
@@ -71,7 +84,8 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(request,response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -86,7 +100,7 @@ public class ProductServlet extends HttpServlet {
                     showEditForm(request, response);
                     break;
                 case "delete":
-                    deleteProduct(request, response);
+                    showDeleteForm(request, response);
                     break;
                 case "Search":
                     showSearchResult(request, response);
@@ -102,25 +116,26 @@ public class ProductServlet extends HttpServlet {
 
     }
 
-    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
         int productCode = Integer.parseInt(request.getParameter("id"));
-        productDAO.deleteProduct(productCode);
+       Product product = productDAO.selectProduct(productCode);
+       request.setAttribute("product",product);
+       RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/delete.jsp");
+       dispatcher.forward(request,response);
+    }
 
+    private void listProducts(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
         List<Product> listProduct = productDAO.selectAllProduct();
         request.setAttribute("listProduct",listProduct);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
         dispatcher.forward(request,response);
-    }
-
-    private void listProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        List<Product> listProduct = productDAO.selectAllProduct();
-        request.setAttribute("listProduct",listProduct);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
-        dispatcher.forward(request,response);
 
     }
 
-    private void showSearchResult(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showSearchResult(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         List<Product> listProduct = productDAO.getProductByName(request.getParameter("SearchProduct"));
         request.setAttribute("listProduct",listProduct);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/search.jsp");
@@ -128,16 +143,18 @@ public class ProductServlet extends HttpServlet {
 
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int productCode = Integer.parseInt(request.getParameter("id"));
-        Product existingProduct = productDAO.selectProduct(productCode);
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Product product = productDAO.selectProduct(id);
+        request.setAttribute("product",product);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/edit.jsp");
-        request.setAttribute("product",existingProduct);
         dispatcher.forward(request,response);
 
     }
 
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/create.jsp");
         dispatcher.forward(request,response);
     }

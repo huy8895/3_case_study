@@ -17,7 +17,7 @@
         <caption><h2>List of Customers</h2></caption>
         <tr>
             <th>ID</th>
-            <th>userName</th>
+            <th>UserName</th>
             <th>Full Name</th>
             <th>Phone</th>
             <th>Address</th>
@@ -32,8 +32,13 @@
                 <td><c:out value="${customer.cusAddress}"/></td>
                 <td><c:out value="${customer.cusEmail}"/></td>
             </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Delete">
+            </td>
+        </tr>
     </table>
-    <button type="submit">delete</button>
+
 </form>
 </body>
 </html>

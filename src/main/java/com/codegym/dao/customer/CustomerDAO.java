@@ -1,7 +1,6 @@
 package com.codegym.dao.customer;
 
 import com.codegym.model.Customer;
-import com.codegym.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -34,10 +33,8 @@ public class CustomerDAO implements ICustomerDAO {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (SQLException e) {
-
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-
             e.printStackTrace();
         }
         return connection;
@@ -46,14 +43,17 @@ public class CustomerDAO implements ICustomerDAO {
 
     @Override
     public void insertCustomer(Customer customer) throws SQLException {
-        Connection connection = getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CUSTOMER_SQL);
-        try {
+        System.out.println(INSERT_CUSTOMER_SQL);
+        try
+                (Connection connection = getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CUSTOMER_SQL);){
+
             preparedStatement.setString(1,customer.getCusName());
             preparedStatement.setString(2,customer.getCusPhoneNumber());
             preparedStatement.setString(3,customer.getCusAddress());
             preparedStatement.setString(4,customer.getCusEmail());
             preparedStatement.setString(5,customer.getUserName());
+            System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e){
             printSQLException(e);
@@ -83,7 +83,7 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     @Override
-    public List<Customer> selectAllCustomer() {
+    public List<Customer> selectAllCustomers() {
         List<Customer> customers = new ArrayList<>();
         try
                 (Connection connection = getConnection();
@@ -126,6 +126,55 @@ public class CustomerDAO implements ICustomerDAO {
         preparedStatement.setInt(5,customer.getCusNumber());
         rowUpdated = preparedStatement.executeUpdate() > 0;
         return rowUpdated;
+    }
+
+    @Override
+    public List<Customer> getCustomerByName(String cusName) {
+        List<Customer> customers = new ArrayList<>();
+        String query = "{CALL_GET_CUSTOMER_BY_NAME(?)}";
+        try
+                (Connection connection = getConnection();
+                CallableStatement callableStatement = connection.prepareCall(query);) {
+            callableStatement.setString(1,cusName);
+            ResultSet resultSet = callableStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int cusNumber = resultSet.getInt("cusNumber");
+                String name = resultSet.getString("cusName");
+                String phoneNumber = resultSet.getString("cusPhoneNumber");
+                String address = resultSet.getString("cusAddress");
+                String email = resultSet.getString("cusEmail");
+                String userName = resultSet.getString("userName");
+
+                customers.add(new Customer(cusNumber,name,phoneNumber,address,email,userName));
+
+            }
+            System.out.println(callableStatement);
+            callableStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return customers;
+    }
+
+    @Override
+    public void insertCustomerStore(Customer customer) throws SQLException {
+        String query = "{CALL_INSERT_CUSTOMER(?,?,?,?,?)}";
+        try
+                (Connection connection = getConnection();
+                CallableStatement callableStatement = connection.prepareCall(query);) {
+            callableStatement.setString(1,customer.getCusName());
+            callableStatement.setString(1,customer.getCusPhoneNumber());
+            callableStatement.setString(1,customer.getCusAddress());
+            callableStatement.setString(1,customer.getCusEmail());
+            callableStatement.setString(1,customer.getUserName());
+
+            System.out.println(callableStatement);
+            callableStatement.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
     }
 
     private void printSQLException(SQLException ex) {
