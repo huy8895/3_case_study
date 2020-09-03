@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IProductDAO {
-    public void insertProduct(Product customer) throws SQLException;
+    public void insertProduct(Product product) throws SQLException;
 
     public Product selectProduct(int id) throws SQLException;
 
