@@ -9,9 +9,9 @@ public interface IUserDAO {
 
     public boolean checkUser(User user) throws SQLException;
 
-    public boolean changePassword(User user,String newPassword) throws SQLException;
+    public boolean changePassword(User user, String newPassword) throws SQLException;
 
-    public void checkAdmin(User user    );
+    public boolean checkAdmin(User user) throws SQLException;
 
 
 }

@@ -17,6 +17,8 @@ public class UserDAO implements IUserDAO {
 
     private static final String SET_NEW_PASSWORD = "UPDATE User set password = ? where userName = ?;";
 
+    private static final String GET_ROLE = "SELECT (roleID) from User  where userName = ?;";
+
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -83,8 +85,18 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public void checkAdmin(User user) {
-
+    public boolean checkAdmin(User user) throws SQLException {
+        boolean isAdmin = false;
+        Connection connection = getConnection();
+        if (checkUser(user)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ROLE);
+            preparedStatement.setString(1,user.getUserName());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                isAdmin = resultSet.getBoolean(1);
+            }
+        }
+        return isAdmin;
     }
 
 }

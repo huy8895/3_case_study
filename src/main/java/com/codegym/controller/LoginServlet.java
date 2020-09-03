@@ -113,9 +113,15 @@ public class LoginServlet extends HttpServlet {
 
         if (userDAO.checkUser(user)){
             System.out.println("dang nhap thanh cong");
+            if (userDAO.checkAdmin(user)){
+                System.out.println(userName + "la admin");
+            } else {
+                System.out.println(userName + " khong phai la admin");
+            }
         } else {
             System.out.println("sai ten dang nhap hoac mat khau");
         }
+
 
     }
 
