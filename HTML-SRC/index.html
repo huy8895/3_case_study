@@ -81,10 +81,48 @@
         <hr>
         <div class="container col-12">
             <div class="row col-sm-12 col-xs-12">
-              <div class="col-2">
-                One of three columns
+            <!-- ]Search left size -->
+              <div class="col-2 d-none d-sm-block d-md-block">
+                <form>
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Max Price">
+                      </div>
+                      <div class="form-group">
+                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Min Price">
+                      </div>
+                    <div class="dropdown">
+                        <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Brand
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">Action</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="dropdown">
+                        <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Gender
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">Action</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                  </form>
               </div>
-              <div class="col-8 container bg-primary">
+            <!-- ]Search left size -->
+            <!-- ]Product Middle -->
+
+              <div class="col-12 container bg-primary col-sm-8 col-md-8 col-lg-8">
+                <!-- ]Row -->
                 <div class="row">
                     <div class="col-12 bg-dark col-sm-12 col-lg-4 col-md-4">
                         One of three columns
@@ -101,6 +139,7 @@
                         One of three columns
                     </div>
                 </div>    
+                <!-- ]Row -->
                 <div class="row">
                     <div class="col-12 bg-dark col-sm-12 col-lg-4 col-md-4">
                         One of three columns
@@ -118,9 +157,11 @@
                     </div>
                 </div>    
               </div>
-              <div class="col-2">
+              <!-- Ads -->
+              <div class="col-2 d-none d-sm-block d-md-block">
                 One of three columns
               </div>
+              <!-- Ads -->
             </div>
           </div>        
     </main>
