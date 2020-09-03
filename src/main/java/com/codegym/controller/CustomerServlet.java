@@ -3,6 +3,7 @@ package com.codegym.controller;
 import com.codegym.dao.customer.CustomerDAO;
 import com.codegym.dao.user.UserDAO;
 import com.codegym.model.Customer;
+import com.codegym.model.Product;
 import com.codegym.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -98,6 +99,7 @@ public class CustomerServlet extends HttpServlet {
         customerDAO.updateUser(customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/edit.jsp");
         dispatcher.forward(request, response);
+
     }
 
     private void insertCustomer(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {

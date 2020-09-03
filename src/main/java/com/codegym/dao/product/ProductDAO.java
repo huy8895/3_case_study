@@ -118,7 +118,37 @@ public class ProductDAO implements IProductDAO {
 
         return rowUpdated;
     }
-    private void printSQLException(SQLException ex) {
+
+    @Override
+    public List<Product> getProductByName(String productName) {
+        List<Product> products = new ArrayList<>();
+        String query = "{CALL_GET_PRODUCT_BY_NAME(?)}";
+        try
+                (Connection connection = getConnection();
+                CallableStatement callableStatement = connection.prepareCall(query);){
+                callableStatement.setString(1,productName);
+                ResultSet resultSet = callableStatement.executeQuery();
+
+                while (resultSet.next()) {
+                    int productCode = resultSet.getInt("id");
+                    String name = resultSet.getString("productName");
+                    String brand = resultSet.getString("productBrand");
+                    Double price = resultSet.getDouble("productPrice");
+                    String image = resultSet.getString("productImage");
+                    String line = resultSet.getString("productLine");
+
+                    products.add(new Product(productCode,name,brand,price,image,line));
+                }
+
+            System.out.println(callableStatement);
+            callableStatement.executeUpdate();
+        } catch (SQLException e) {
+           printSQLException(e);
+           }
+           return null;
+        }
+
+        private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
                 e.printStackTrace(System.err);
