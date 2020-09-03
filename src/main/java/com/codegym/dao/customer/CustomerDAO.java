@@ -35,9 +35,13 @@ public class CustomerDAO implements ICustomerDAO {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (SQLException e) {
+            System.out.println("khong ket noi dc");
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+
+            System.out.println("khong ket noi dc 2");
+            System.out.println(e);
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

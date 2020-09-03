@@ -4,7 +4,7 @@ use DBmodule3;
 
 create table Product (
     productCode int auto_increment primary key,
-    productName varchar(50) not null ,
+    productName varchar(500) not null ,
     manufacture varchar(50) not null ,
     productPrice double not null ,
     productImage nvarchar(500) ,

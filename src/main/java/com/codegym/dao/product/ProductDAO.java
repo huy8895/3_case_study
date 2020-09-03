@@ -75,7 +75,7 @@ public class ProductDAO implements IProductDAO {
             int productCode = resultSet.getInt("productCode");
             String name = resultSet.getString("productName");
             String brand = resultSet.getString("productBrand");
-            Double price = resultSet.getDouble("productPrice");
+            double price = resultSet.getDouble("productPrice");
             String image = resultSet.getString("productImage");
             String line = resultSet.getString("productLine");
 
