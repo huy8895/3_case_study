@@ -1,28 +1,20 @@
-package com.codegym.model;
+package com.codegym.model.product;
 
 public class Product {
     protected int productCode;
     protected String productName;
     protected String productBrand;
-    protected double productPrice;
+    protected Double productPrice;
     protected String productImage;
     protected String productLine;
 
     public Product() {
     }
 
-    public Product(String productName, String productBrand, double productPrice, String productImage, String productLine) {
-        this.productName = productName;
-        this.productBrand = productBrand;
-        this.productPrice = productPrice;
-        this.productImage = productImage;
-        this.productLine = productLine;
-    }
-
-    public Product(int productCode, String productName, String manufacture, double productPrice, String productImage, String productLine) {
+    public Product(int productCode, String productName, String productBrand, Double productPrice, String productImage, String productLine) {
         this.productCode = productCode;
         this.productName = productName;
-        this.productBrand = manufacture;
+        this.productBrand = productBrand;
         this.productPrice = productPrice;
         this.productImage = productImage;
         this.productLine = productLine;
@@ -52,11 +44,11 @@ public class Product {
         this.productBrand = productBrand;
     }
 
-    public double getProductPrice() {
+    public Double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(double productPrice) {
+    public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
     }
 
