@@ -14,6 +14,8 @@
 <body>
 <center>
     <h1>Search Result</h1>
+    <a href="/customers">Back To List Customer</a>
+
 </center>
 <div align="center">
     <table border="1" cellpadding="5">

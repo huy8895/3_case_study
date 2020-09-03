@@ -135,7 +135,7 @@ public class CustomerDAO implements ICustomerDAO {
         try
                 (Connection connection = getConnection();
                 CallableStatement callableStatement = connection.prepareCall(query);) {
-            callableStatement.setString(1,cusName);
+            callableStatement.setString(2,cusName);
             ResultSet resultSet = callableStatement.executeQuery();
 
             while (resultSet.next()) {
