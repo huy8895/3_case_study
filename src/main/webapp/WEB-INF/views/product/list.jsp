@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: LapTop
@@ -8,10 +9,48 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>list product</title>
+    <title>list products</title>
 </head>
 <body>
-<a href="/customers?action=create">Add New User</a>
+<div class="container" align="center">
+    <h1>Product Management</h1>
+    <h2>
+        <a href="/products?action=create">Add New products</a>
+    </h2>
+    <div class="container">
+        <form method="get" action="/products">
+            <input type="text" name="SearchBox">
+            <input type="submit" name="action" value="Search">
+        </form>
+    </div>
 
+    <div align="center">
+        <table border="1" cellpadding="5">
+            <caption><h2>List of products</h2></caption>
+            <tr>
+                <th>Product Name</th>
+                <th>Brand</th>
+                <th>price</th>
+                <th>image</th>
+                <th>detail</th>
+
+            </tr>
+            <c:forEach var="product" items="${productList}">
+                <tr>
+                    <td><c:out value="${product.productName}"/></td>
+                    <td><c:out value="${product.productBrand}"/></td>
+                    <td><c:out value="${product.productPrice}"/></td>
+                    <td><c:out value="${product.productImage}"/></td>
+                    <td><c:out value="${product.productLine}"/></td>
+                    <td>
+                        <a href="/products?action=edit&id=${product.productCode}">Edit</a>
+                        <a href="/products?action=delete&id=${product.productCode}">Delete</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+</div>
 </body>
+
 </html>

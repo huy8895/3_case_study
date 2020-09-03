@@ -13,5 +13,6 @@
 </head>
 <body>
 <a href="/customers">customers</a>
+<a href="/products">products</a>
 </body>
 </html>

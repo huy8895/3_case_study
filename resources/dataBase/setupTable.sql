@@ -4,8 +4,8 @@ use DBmodule3;
 
 create table Product (
     productCode int auto_increment primary key,
-    productName varchar(50) not null ,
-    manufacture varchar(50) not null ,
+    productName varchar(500) not null ,
+    productBrand varchar(50) not null ,
     productPrice double not null ,
     productImage nvarchar(500) ,
     productDetail text,
@@ -65,6 +65,8 @@ alter table User
 modify column roleID bit not null default 0;
 
 INSERT INTO User (userName, password) values ('huy','1234');
+
+
 
 
 
