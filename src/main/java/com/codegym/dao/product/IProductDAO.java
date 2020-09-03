@@ -14,8 +14,10 @@ public interface IProductDAO {
 
      boolean deleteProduct(int id) throws SQLException;
 
-   boolean updateProduct(Product product) throws SQLException;
+    boolean updateProduct(Product product) throws SQLException;
 
     List<Product> getProductByName(String productName);
+
+    void insertProductStore(Product product) throws SQLException;
 
 }

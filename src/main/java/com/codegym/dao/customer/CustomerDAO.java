@@ -165,10 +165,10 @@ public class CustomerDAO implements ICustomerDAO {
                 (Connection connection = getConnection();
                 CallableStatement callableStatement = connection.prepareCall(query);) {
             callableStatement.setString(1,customer.getCusName());
-            callableStatement.setString(1,customer.getCusPhoneNumber());
-            callableStatement.setString(1,customer.getCusAddress());
-            callableStatement.setString(1,customer.getCusEmail());
-            callableStatement.setString(1,customer.getUserName());
+            callableStatement.setString(2,customer.getCusPhoneNumber());
+            callableStatement.setString(3,customer.getCusAddress());
+            callableStatement.setString(4,customer.getCusEmail());
+            callableStatement.setString(5,customer.getUserName());
 
             System.out.println(callableStatement);
             callableStatement.executeUpdate();

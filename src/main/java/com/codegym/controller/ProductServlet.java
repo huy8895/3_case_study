@@ -20,6 +20,7 @@ import java.util.List;
 public class ProductServlet extends HttpServlet {
     private ProductDAO productDAO;
 
+
     public void init() {
         productDAO = new ProductDAO();
     }
@@ -79,7 +80,7 @@ public class ProductServlet extends HttpServlet {
         String line = request.getParameter("productLine");
 
         Product newProduct = new Product(name,brand,price,image,line);
-        productDAO.insertProduct(newProduct);
+        productDAO.insertProductStore(newProduct);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/create.jsp");
         dispatcher.forward(request,response);
     }
@@ -127,8 +128,8 @@ public class ProductServlet extends HttpServlet {
 
     private void listProducts(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
-        List<Product> listProduct = productDAO.selectAllProduct();
-        request.setAttribute("listProduct",listProduct);
+        List<Product> productList = productDAO.selectAllProduct();
+        request.setAttribute("productList",productList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
         dispatcher.forward(request,response);
 
@@ -136,8 +137,8 @@ public class ProductServlet extends HttpServlet {
 
     private void showSearchResult(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Product> listProduct = productDAO.getProductByName(request.getParameter("SearchProduct"));
-        request.setAttribute("listProduct",listProduct);
+        List<Product> productList = productDAO.getProductByName(request.getParameter("SearchName"));
+        request.setAttribute("productList",productList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/search.jsp");
         dispatcher.forward(request,response);
 
