@@ -5,14 +5,13 @@ import com.codegym.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class CustomerDAO implements ICustomerDAO {
 
-    private String jdbcURL = "jdbc:mysql://localhost:3306/DBmodule3?useSSL=false";
+    private String jdbcURL = "jdbc:mysql://localhost:3306/cs3?useSSL=false";
     private String jdbcUsername = "root";
-    private String jdbcPassword = "root";
+    private String jdbcPassword = "123456";
 
     private static final String INSERT_CUSTOMER_SQL = "INSERT INTO Customer" +
             " (cusName, cusPhoneNumber,cusAddress,cusEmail,userName) VALUES " +

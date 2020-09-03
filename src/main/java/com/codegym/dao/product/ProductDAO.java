@@ -1,6 +1,5 @@
 package com.codegym.dao.product;
 
-import com.codegym.model.Customer;
 import com.codegym.model.Product;
 
 import java.sql.*;
