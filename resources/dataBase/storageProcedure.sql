@@ -9,3 +9,5 @@ begin
     INSERT INTO Customer(cusNumber, cusName, cusPhoneNumber, cusAddress, cusEmail)
     values (name,phone,address,email);
 end;
+
+update User set password =  'huy8895' where userName = 'huy';

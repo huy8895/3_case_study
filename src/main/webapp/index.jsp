@@ -10,9 +10,11 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <a href="/customers">customers</a>
 <a href="/products">products</a>
+<a href="/login">login</a>
 </body>
 </html>

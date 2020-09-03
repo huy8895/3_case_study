@@ -2,19 +2,20 @@ package com.codegym.dao.user;
 
 import com.codegym.model.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 
-public class UserDAO implements IUserDAO{
+public class UserDAO implements IUserDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/DBmodule3?useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "root";
 
     private static final String INSERT_USERS_SQL = "INSERT INTO User (userName, password) VALUES " +
             " (?, ?);";
+
+    private static final String GET_USER_BY_USERNAME = "SELECT * FROM User where userName = ?;";
+
+    private static final String SET_NEW_PASSWORD = "UPDATE User set password = ? where userName = ?;";
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -33,16 +34,56 @@ public class UserDAO implements IUserDAO{
 
     @Override
     public void insertUser(User user) throws SQLException {
-        System.out.println(INSERT_USERS_SQL);
         Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL);
         try {
-            preparedStatement.setString(1,user.getUserName());
-            preparedStatement.setString(2,user.getPassword());
+            preparedStatement.setString(1, user.getUserName());
+            preparedStatement.setString(2, user.getPassword());
             preparedStatement.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public boolean checkUser(User user) throws SQLException {
+        boolean checked = false;
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_USERNAME);
+        preparedStatement.setString(1, user.getUserName());
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            String userName = resultSet.getString("userName");
+            String password = resultSet.getString("password");
+            if (userName.equalsIgnoreCase(user.getUserName()) && password.equals(user.getPassword())) {
+                checked = true;
+            } else {
+                checked = false;
+            }
+        } else {
+            checked = false;
+        }
+        return checked;
+    }
+
+    @Override
+    public boolean changePassword(User user, String newPassword) throws SQLException {
+        boolean changed = false;
+        Connection connection = getConnection();
+        if (checkUser(user)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SET_NEW_PASSWORD);
+            preparedStatement.setString(1, newPassword);
+            preparedStatement.setString(2, user.getUserName());
+            changed = true;
+        } else {
+            changed = false;
+        }
+        return changed;
+    }
+
+    @Override
+    public void checkAdmin(User user) {
 
     }
 

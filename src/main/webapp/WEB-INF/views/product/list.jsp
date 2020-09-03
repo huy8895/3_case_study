@@ -40,7 +40,7 @@
                     <td><c:out value="${product.productName}"/></td>
                     <td><c:out value="${product.productBrand}"/></td>
                     <td><c:out value="${product.productPrice}"/></td>
-                    <td><c:out value="${product.productImage}"/></td>
+                    <td><img src="${product.productImage}" alt="img" height="50px" width="auto"></td>
                     <td><c:out value="${product.productLine}"/></td>
                     <td>
                         <a href="/products?action=edit&id=${product.productCode}">Edit</a>

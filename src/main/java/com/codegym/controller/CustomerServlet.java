@@ -145,7 +145,6 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("chay vao WEB-INF/views/customers/create.js");
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
         dispatcher.forward(request, response);
     }
