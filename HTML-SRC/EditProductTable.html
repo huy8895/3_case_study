@@ -80,93 +80,53 @@
         </div>
         <hr>
         <div class="container col-12">
-          <div class="row col-sm-12 col-xs-12">
-            <!-- ]Search left size -->
-            <div class="col-12 col-sm-2 col-md-2 col-lg-2">
-              <form>
-                  <div class="form-group">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Name">
-                  </div>
-                  <div class="form-group">
-                      <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Max Price">
-                    </div>
-                    <div class="form-group">
-                      <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Min Price">
-                    </div>
-                  <div class="dropdown">
-                      <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Brand
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                  </div>
-                  <br>
-                  <div class="dropdown">
-                      <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Gender
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                  </div>
-                  <br>
-                  <button type="submit" class="btn btn-primary">Search</button>
-                  
-                </form>
-                <br>
-          </div>
-            <!-- ]Search left size -->
-            <!-- ]Enter Middle -->
-
-              <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
-                <!-- ]Row -->
-                <div class="row">
-                  <form class="col-12">
-                    <div class="form-group">
-                      <label for="userName">User Name</label>
-                      <input type="text" class="form-control col-8" id="userName" name="userName" placeholder="Enter User Name...">
-                    </div>
-                    <div class="form-group">
-                      <label for="password">Password</label>
-                      <input type="password" class="form-control col-8" id="password" name="password" placeholder="Enter Password...">
-                    </div>
-                    <div class="form-group">
-                      <label for="nameInput">Full Name</label>
-                      <input type="text" class="form-control col-8" id="nameInput" name="nameInput" placeholder="Enter Name...">
-                    </div>
-                    <div class="form-group">
-                      <label for="emailInput">Email address</label>
-                      <input type="email" class="form-control col-8" id="emailInput" name="emailInput" placeholder="Enter Email...">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleFormControlInput1">Phone Number</label>
-                      <input type="tel" class="form-control col-8" id="exampleFormControlInput1" placeholder="Enter Phone Number....">
-                    </div>
-                    <div class="form-group">
-                      <label for="userName">Address</label>
-                      <input type="text" class="form-control col-8" id="userName" name="userName" placeholder="Enter Address...">
-                    </div>
-                    <input class="btn btn-primary" type="button" value="Input">
-                    <input class="btn btn-primary" type="button" value="Input">
-                    <br><br> 
-                  </form>
-                </div>    
-                <!-- ]Row -->
-                 <!-- ]Enter Middle -->
-               
-              </div>
-              <!-- Ads -->
-              <div class="col-2 d-none d-sm-block d-md-block">
-                One of three columns
-              </div>
-              <!-- Ads -->
-            </div>
-          </div>        
+          <table class="table text-center">
+            <thead class="thead-dark">
+              <tr class="">
+                <th scope="col" style="width:6%">ID</th>
+                <th scope="col-1" style="width:12%">Name</th>
+                <th scope="col-1" style="width:12%">Brand</th>
+                <th scope="col-1" style="width:12%">Price</th>
+                <th scope="col-3" style="width:24%">Image</th>
+                <th scope="col-1" style="width:12%">Line</th>
+                <th scope="col" colspan="2" style="width:12%">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="container">
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td class="container" style="width:12%"><img src="https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/c/i/citizen-promaster-diver-mens-watch-bn0150-28e.jpg" class="col-8"></td>
+                <td>@mdo</td>
+                <td><input type="button" class="btn btn-primary btn-dark" value="Edit"></td>
+                <td><input type="button" class="btn btn-primary btn-dark" value="Delete"></td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+              </tr>
+            </tbody>
+          </table>
+          
+       </div>
     </main>
     <!--Main Layout-->
     <footer class="footer bg-dark">
