@@ -21,10 +21,12 @@ import java.util.List;
 
 @WebServlet(name = "ProductServlet", urlPatterns = "/products")
 public class ProductServlet extends HttpServlet {
+    private List<Product> cart;
     private ProductDAO productDAO;
 
     public void init() {
         productDAO = new ProductDAO();
+        cart = new ArrayList<>();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,6 +51,7 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null) {
@@ -69,6 +72,12 @@ public class ProductServlet extends HttpServlet {
                 case "Search":
                     showSearchResult(request, response);
                     break;
+                case "showcart":
+                    showCart(request, response);
+                    break;
+                case "addtocart":
+                    addToCart(request,response);
+                    break;
                 default:
                     listProducts(request, response);
                     break;
@@ -78,6 +87,22 @@ public class ProductServlet extends HttpServlet {
         }
 
 
+    }
+
+    private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("productList", cart);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/cart.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void addToCart(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int productCode = Integer.parseInt(request.getParameter("id"));
+        Product selected = productDAO.selectProduct(productCode);
+        cart.add(selected);
+        System.out.println(selected.getProductName());
+//        for (Product product: cart){
+//            System.out.println(product.getProductName());
+//        }
     }
 
     private void listProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -109,18 +134,6 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) {
-        CrawlData crawlData = new CrawlData();
-        File file = new File("resources/data/Men-Watches.html");
-        String content = crawlData.getContent(file);
-
-        System.out.println("lay content thanh cong");
-        List<Product> productList = new ArrayList<>();
-        productList = crawlData.crawlPhoneData(content);
-        for (Product product:productList){
-            System.out.println(product.getProductName());
-        }
-
-        System.out.println("lay dc list product tu file html");
 
 
     }

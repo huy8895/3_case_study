@@ -1,22 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: LapTop
-  Date: 9/1/2020
-  Time: 2:10 PM
+  User: huy8895
+  Date: 9/3/20
+  Time: 4:45 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>list products</title>
+    <title>cart</title>
 </head>
-<body>
+
 <div class="container" align="center">
-    <h1>Product Management</h1>
+    <h1>cart</h1>
     <h2>
         <a href="/products?action=create">Add New products</a>
-        <a href="/products?action=showcart">Cart</a>
     </h2>
     <div class="container">
         <form method="get" action="/products">
@@ -44,17 +43,14 @@
                     <td><img src="${product.productImage}" alt="img" height="50px" width="auto"></td>
                     <td><c:out value="${product.productLine}"/></td>
                     <td>
-                        <a href="/products?action=edit&id=${product.getProductCode()}">Edit</a>
-                        <a href="/products?action=delete&id=${product.getProductCode()}">Delete</a>
-                    </td>
-                    <td>
-                        <a href="/products?action=addtocart&id=${product.getProductCode()}">add to cart</a>
+                        <a href="/products?action=edit&id=${product.productCode}">Edit</a>
+                        <a href="/products?action=delete&id=${product.productCode}">Delete</a>
                     </td>
                 </tr>
             </c:forEach>
+
         </table>
     </div>
 </div>
 </body>
-
 </html>

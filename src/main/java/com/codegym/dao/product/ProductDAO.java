@@ -16,7 +16,7 @@ public class ProductDAO implements IProductDAO {
             " (productName, productBrand,productPrice,productImage,productLine) VALUES " +
             " (?, ?, ?, ?, ?);";
 
-    private static final String SELECT_PRODUCT_BY_ID_SQL = "SELECT * FROM Product where cusNumber = ?;";
+    private static final String SELECT_PRODUCT_BY_ID_SQL = "SELECT * FROM Product where productCode = ?;";
 
     private static final String SELECT_ALL_PRODUCTS_SQL = "SELECT * FROM Product";
 
@@ -61,7 +61,21 @@ public class ProductDAO implements IProductDAO {
 
     @Override
     public Product selectProduct(int id) throws SQLException {
-        return null;
+        Product product = null;
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCT_BY_ID_SQL);
+        preparedStatement.setInt(1,id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()){
+            String productName = resultSet.getString("productName");
+            String productBrand = resultSet.getString("productBrand");
+            double productPrice = resultSet.getDouble("productPrice");
+            String productImage = resultSet.getString("productImage");
+            String productLine = resultSet.getString("productLine");
+            product = new Product(id,productName,productBrand,productPrice,productImage,productLine);
+        }
+        return product;
     }
 
     @Override
@@ -79,7 +93,7 @@ public class ProductDAO implements IProductDAO {
             String image = resultSet.getString("productImage");
             String line = resultSet.getString("productLine");
 
-            products.add(new Product(name,brand,price,image,line));
+            products.add(new Product(productCode,name,brand,price,image,line));
         }
         return products;
     }
