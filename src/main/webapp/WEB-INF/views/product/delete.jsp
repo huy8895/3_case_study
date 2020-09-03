@@ -14,15 +14,16 @@
 <form method="post">
     <table border="1" cellpadding="5">
         <caption>
-            <h2>Back To List Product</h2>
+            <h2>List Of Products</h2>
+            <a href="/products">Back To List Product</a>
         </caption>
         <tr>
-            <th>Product ID :</th>
-            <th>Product Name :</th>
-            <th>Product Brand :</th>
-            <th>Product Price :</th>
-            <th>Product Image :</th>
-            <th>Product Line :</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Product Brand</th>
+            <th>Product Price</th>
+            <th>Product Image</th>
+            <th>Product Line</th>
         </tr>
         <tr>
             <td>${product.getProductCode()}</td>

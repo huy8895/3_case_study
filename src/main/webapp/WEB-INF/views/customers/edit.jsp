@@ -57,7 +57,7 @@
                 <th>Email:</th>
                 <td>
                     <input type="text" name="cusEmail" id="cusEmail"
-                           value="${requestScope["customer"].getCusEmail()}"size="15"/>
+                           value="${requestScope["customer"].getCusEmail()}"size="45"/>
                 </td>
             </tr>
             <tr>

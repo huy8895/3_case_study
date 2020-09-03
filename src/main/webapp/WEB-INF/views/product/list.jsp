@@ -19,7 +19,7 @@
     </h2>
     <div class="container">
         <form method="get" action="/products">
-            <input type="text" name="SearchProduct">
+            <input type="text" name="SearchName">
             <input type="submit" name="action" value="Search">
         </form>
     </div>
@@ -37,7 +37,7 @@
                 <th>Actions</th>
 
             </tr>
-            <c:forEach var="product" items="${listProduct}">
+            <c:forEach var="product" items="${productList}">
                 <tr>
                     <td>${product.getProductCode()}</td>
                     <td>${product.productName}</td>

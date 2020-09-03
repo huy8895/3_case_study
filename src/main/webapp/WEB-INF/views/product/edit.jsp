@@ -16,7 +16,7 @@
     <form method="post">
         <table border="1" cellpadding="5">
             <caption>
-                <h2>Edit Product</h2>
+                <h2>Edit Products</h2>
             </caption>
             <input type="hidden" name="id" value="${requestScope["product"].getProductCode()}"/>
             <a href="/products">Back To List</a>
@@ -24,35 +24,35 @@
                 <th>Product Name :</th>
                 <td>
                     <input type="text" name="productName" id="productName"
-                    value="${requestScope["product"].getProductName()}"/>
+                    value="${requestScope["product"].getProductName()}"size="45" disabled/>
                 </td>
             </tr>
             <tr>
                 <th>Product Brand :</th>
                 <td>
                     <input type="text" name="productBrand" id="productBrand"
-                           value="${requestScope["product"].getProductBrand()}"/>
+                           value="${requestScope["product"].getProductBrand()}"size="45"/>
                 </td>
             </tr>
             <tr>
                 <th>Product Price :</th>
                 <td>
                     <input type="text" name="productPrice" id="productPrice"
-                           value="${requestScope["product"].getProductPrice()}"/>
+                           value="${requestScope["product"].getProductPrice()}"size="45"/>
                 </td>
             </tr>
             <tr>
                 <th>Product Image :</th>
                 <td>
                     <input type="text" name="productImage" id="productImage"
-                           value="${requestScope["product"].getProductImage()}"/>
+                           value="${requestScope["product"].getProductImage()}"size="45"/>
                 </td>
             </tr>
             <tr>
                 <th>Product Line :</th>
                 <td>
                     <input type="text" name="productLine" id="productLine"
-                           value="${requestScope["product"].getProductLine()}"/>
+                           value="${requestScope["product"].getProductLine()}" size="45"/>
                 </td>
             </tr>
             <tr>
