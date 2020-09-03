@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-hello
+<a href="/products">Click</a>
 </body>
 </html>
