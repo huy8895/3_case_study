@@ -7,8 +7,7 @@ end;
 
 drop procedure insert_product;
 
-call insert_product('tv','sony',123,'image','line');
-call insert_product('tulanh','sony',456);
+
 
 call insert_product('Automatic Black Dial Black Rubber Men\'s Watch ','Seiko',319.99,'https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/s/e/seiko-automatic-black-dial-black-rubber-men_s-watch-skx007j1.jpg','Men\'s Watches');
 call insert_product('Flight Chronograph Steel Black Dial Men\'s Watch ','Seiko',239.0,'https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/s/e/seiko-flight-chronograph-steel-black-dial-men_s-watch-sna411_4.jpg','Men\'s Watches');
