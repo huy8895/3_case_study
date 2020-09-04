@@ -36,10 +36,10 @@ public class CustomerServlet extends HttpServlet {
                     insertCustomer(request, response);
                     break;
                 case "edit":
-                    updateCustomer(request, response);
+                    updateUser(request, response);
                     break;
                 case "delete":
-                    deleteCustomer(request, response);
+                    deleteUser(request, response);
                     break;
             }
         } catch (SQLException e) {
@@ -68,7 +68,7 @@ public class CustomerServlet extends HttpServlet {
                     showSearchResult(request, response);
                     break;
                 default:
-                    listCustomer(request, response);
+                    listUser(request, response);
                     break;
             }
         } catch (SQLException e) {
@@ -87,7 +87,7 @@ public class CustomerServlet extends HttpServlet {
 
     }
 
-    private void updateCustomer(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int cusNumber = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("cusName");
         String phoneNumber = request.getParameter("cusPhoneNumber");
@@ -95,10 +95,9 @@ public class CustomerServlet extends HttpServlet {
         String email = request.getParameter("cusEmail");
         String userName = request.getParameter("userName");
         Customer customer = new Customer(cusNumber,name, phoneNumber, address, email, userName);
-        customerDAO.updateCustomer(customer);
+        customerDAO.updateUser(customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/edit.jsp");
         dispatcher.forward(request, response);
-
     }
 
     private void insertCustomer(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -108,34 +107,33 @@ public class CustomerServlet extends HttpServlet {
         String email = request.getParameter("cusEmail");
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-
         Customer newCustomer = new Customer(name, phoneNumber, address, email, userName);
         User newUser = new User(userName, password);
         userDAO.insertUser(newUser);
         customerDAO.insertCustomer(newCustomer);
-       listCustomer(request,response);
-    }
-
-
-    private void showSearchResult(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Customer> listCustomer = customerDAO.getCustomerByName(request.getParameter("SearchName"));
-        request.setAttribute("listCustomer", listCustomer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/search.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void listCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        List<Customer> customerList = customerDAO.selectAllCustomers();
+
+    private void showSearchResult(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    private void listUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        List<Customer> customerList = customerDAO.selectAllCustomer();
+        for (Customer customer : customerList) {
+            System.out.println(customer.getCusNumber());
+        }
         request.setAttribute("customerList", customerList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/list.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int cusNumber = Integer.parseInt(request.getParameter("id"));
         Customer customer = customerDAO.selectCustomer(cusNumber);
         customerDAO.deleteCustomer(cusNumber);
-        listCustomer(request,response);
+        listUser(request,response);
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -147,7 +145,6 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("WEB-INF/views/customers/create.js");
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
         dispatcher.forward(request, response);
     }

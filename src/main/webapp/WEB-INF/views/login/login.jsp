@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+>>>>>>> huy
 <%--
   Created by IntelliJ IDEA.
   User: huy8895
@@ -27,6 +31,10 @@
         <button type="submit" class="btn btn-primary">Login</button>
         <button type="button" class="btn btn-primary" value="create" name="action">Create new</button>
         <a href="/login?action=changepassword">change password</a>
+<<<<<<< HEAD
+=======
+        <c:out value="${message}"></c:out>
+>>>>>>> huy
     </form>
 </div>
 </body>
