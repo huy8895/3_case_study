@@ -16,5 +16,6 @@
 <a href="/customers">customers</a>
 <a href="/products">products</a>
 <a href="/login">login</a>
+<a href="/index">index</a>
 </body>
 </html>

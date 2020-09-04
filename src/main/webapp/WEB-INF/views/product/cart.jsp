@@ -15,7 +15,8 @@
 <div class="container" align="center">
     <h1>cart</h1>
     <h2>
-        <a href="/products?action=create">Add New products</a>
+        <a href="/products?action=create">Add New products</a><br>
+        <a href="/products">Back to list</a>
     </h2>
     <div class="container">
         <form method="get" action="/products">

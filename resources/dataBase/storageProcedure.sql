@@ -10,4 +10,4 @@ begin
     values (name,phone,address,email);
 end;
 
-update User set password =  'huy8895' where userName = 'huy';
+

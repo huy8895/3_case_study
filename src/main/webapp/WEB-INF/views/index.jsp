@@ -1,15 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: LapTop
-  Date: 9/1/2020
-  Time: 2:10 PM
+  User: huy8895
+  Date: 9/4/20
+  Time: 11:49 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>list products</title>
+    <title>Index</title>
 </head>
 <body>
 <div class="container" align="center">
@@ -49,7 +49,7 @@
                     </td>
                     <td>
                         <form method="post" action="/cart">
-<%--                            <a href="/cart?action=showcart&id=${customer.getCusNumber()}">add to cart</a>--%>
+                                <%--                            <a href="/cart?action=showcart&id=${customer.getCusNumber()}">add to cart</a>--%>
 
                             <button type="submit" value="add" name="action" id=${product.getProductCode()}>add</button>
                         </form>
@@ -59,6 +59,6 @@
         </table>
     </div>
 </div>
-</body>
 
+</body>
 </html>

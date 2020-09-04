@@ -20,10 +20,12 @@ import java.util.List;
 public class CartServlet extends HttpServlet {
     private CartDAO cartDAO;
     private CustomerDAO customerDAO;
+    private ProductDAO productDAO;
 
     public void init() {
         cartDAO = new CartDAO();
         customerDAO = new CustomerDAO();
+        productDAO = new ProductDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -79,7 +81,17 @@ public class CartServlet extends HttpServlet {
     private void updatePCart(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private void insertCart(HttpServletRequest request, HttpServletResponse response) {
+    private void insertCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        Customer customer = customerDAO.selectCustomer(6);
+        System.out.println("add to cart");
+//        int id = Integer.parseInt(request.getParameter("id"));
+        String id = request.getParameter("id");
+        System.out.println(id);
+//        Product product = productDAO.selectProduct(id);
+
+//        cartDAO.insertCart(customer,product);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/cart.jsp");
+        dispatcher.forward(request, response);
     }
 
 

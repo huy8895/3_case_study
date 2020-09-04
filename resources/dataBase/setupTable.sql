@@ -75,6 +75,25 @@ create table Cart(
 alter table Cart
 add constraint primary key (productCode,cusNumber);
 
+alter table OrderDetail
+add column orderDate DATE default (date(now()));
+
+alter table OrderDetail
+    add column orderNumber int auto_increment,
+add constraint primary key (orderNumber);
+
+alter table OrderDetail
+modify column orderNumber int auto_increment;
+
+drop table Orders;
+
+alter table OrderDetail
+add column cusNumber int ;
+
+alter table OrderDetail
+add constraint foreign key (cusNumber) references Customer(cusNumber);
+
+
 
 
 
