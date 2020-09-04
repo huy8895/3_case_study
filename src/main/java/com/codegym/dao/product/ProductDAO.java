@@ -144,8 +144,8 @@ public class ProductDAO implements IProductDAO {
                 double price = resultSet.getDouble("productPrice");
                 String image = resultSet.getString("productImage");
                 String line = resultSet.getString("productLine");
-                String name1 = resultSet.getString("productName");
-                product.add(new Product(id, name1, brand, price, image, line));
+                String myName = resultSet.getString("productName");
+                product.add(new Product(id, myName, brand, price, image, line));
             }
 
         } catch (SQLException e) {
