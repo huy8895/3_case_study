@@ -40,16 +40,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/index?action=index">Features</a>
+                <a class="nav-link" href="/cart?action=cart">Cart</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link" href="/edit?action=edit">Edit</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Opinions</a>
+                <a class="nav-link" href="/add?action=add">Add</a>
             </li>
             <li class="nav-item">
 
@@ -57,11 +57,11 @@
 
         </ul>
         <div class="align-content-sm-end">
-            <form action="" method="post" class="form-inline">
+            <form action="" method="post" class="form-inline" action="/login">
                 <input type="text" class="form-control-sm" placeholder="Username.." name="username"><span>&nbsp;</span>
                 <input type="password" class="form-control-sm" placeholder="Password.." name="password"><span>&nbsp;</span>
                 <button class="btn btn-light btn-sm" type="submit" name="login">Login</button><span>&nbsp;</span>
-                <button class="btn btn-light btn-sm" type="submit" name="login">Sign Up</button>
+                <button class="btn btn-light btn-sm" type="button" name="login"><a href="/signup?action=signup">Sign Up</a></button>
             </form>
         </div>
     </div>
@@ -74,7 +74,7 @@
 <!--Main Layout-->
 
 <main class="bd-masthead container col-12" id="content" role="main" style="padding-top:56px">
-    <div id="carouselExampleControls" class="container carousel slide col-7 w-100" data-ride="carousel">
+    <div class="container carousel slide col-7 w-100" data-ride="carousel">
         <div class="carousel-inner con">
             <div class="carousel-item active">
                 <img src="https://cdn2.jomashop.com/media//wysiwyg/sales-event/2020/big_banner_TUDOR_black_bay.jpg" class="d-block col-12" alt="...">
@@ -86,11 +86,11 @@
                 <img src="https://cdn2.jomashop.com/media//wysiwyg/sales-event/2020/big_banner_DIOR_aviator.jpg" class="d-block col-12" alt="...">
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <a class="carousel-control-prev"  role="button" href="#carouselExampleControls" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <a class="carousel-control-next" role="button" href="#carouselExampleControls" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
@@ -137,31 +137,44 @@
                 </form>
                 <br><hr>
             </div>
-                <!-- ]Row -->
+            <!-- ]Row -->
             <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
-<%--                <c:forEach items="product" var="productList">--%>
-                    <c:out value= "<div class=\"row\">" escapeXml="false"></c:out>
-                    <c:forEach begin="0" end="2">
-                        <c:out value= "
-                        <div class=\"col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item\">
-                            <img src=\"https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/s/e/seiko-flight-chronograph-steel-black-dial-men_s-watch-sna411_4.jpg\" class=\"float-left col-lg-12 col-md-12\">
-                            <p>Seiko Automatic Black Dial Black Rubber Men's Watch</p>
-                            <p>$319.99</p>
-                            <i class=\"fa fa-shopping-cart\"></i>&nbsp;<a href=\"#\">Add To Cart</a>
-                            <br>
-                        </div>
-                        " escapeXml="false"/>
-                    </c:forEach>
-                    <c:out value= "</div">"></c:out>
-<%--                    <c:out value= "<div class=\"row\">"></c:out>--%>
-<%--                </c:forEach>--%>
-            <!-- Ads -->
+                <c:set var = "count" scope = "session" value = "${5}"/>
+                <c:forEach items="${productList}" var="product">
+                    <c:if test="${count==0||count==5}">
+                        <c:out value= "<div class=\"row\">" escapeXml="false"/>
+                    </c:if>
+                    <c:out value= "
+                            <div class=\"col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item\">
+                                <img src=\"${product.getProductImage()}\" class=\"float-left col-lg-12 col-md-12\">
+                                <p>${product.getProductBrand()} ${product.getProductName()}</p>
+                                <p>${product.getProductPrice()}</p>
+                                <i class=\"fa fa-shopping-cart\"></i>&nbsp;<a href=\"#\" id=\"${product.getProductCode()}\">Add To Cart</a>
+                                <br>
+                            </div>
+                            " escapeXml="false"/>
+                    <c:if test="${count!=5}">
+                        <c:set var="count" value="${count+1}"/>
+                    </c:if>
+                    <c:if test="${count==5}">
+                        <c:set var="count" value="${1}"/>
+                    </c:if>
 
-            <div class="col-2 d-none d-sm-block d-md-block">
-                One of three columns
+                    <c:if test="${count==3}">
+                        <c:out value= "</div>" escapeXml="false"/>
+                        <c:out value= "<br>" escapeXml="false"/>
+                        <c:set var="count" value="${count=0}"/>
+                    </c:if>
+                </c:forEach>
             </div>
             <!-- Ads -->
+            <br>
         </div>
+        <div class="col-2 d-none d-sm-block d-md-block">
+            One of three columns
+        </div>
+        <!-- Ads -->
+    </div>
     </div>
 </main>
 <!--Main Layout-->

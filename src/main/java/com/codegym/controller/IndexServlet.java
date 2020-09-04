@@ -65,11 +65,10 @@ public class IndexServlet extends HttpServlet {
              ) {
             System.out.println(product.getProductCode());
         }
-        System.out.println("Test ok index");
         request.setAttribute("test",test);
         request.setAttribute("productList", productList);
         request.setAttribute("customer", customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/search-test.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 
