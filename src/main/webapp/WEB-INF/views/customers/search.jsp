@@ -29,6 +29,7 @@
             <th>Phone</th>
             <th>Address</th>
             <th>Email</th>
+            <th>Actions</th>
         </tr>
         <c:forEach items="${customerList}" var="customer">
             <td>${customer.cusNumber}</td>
