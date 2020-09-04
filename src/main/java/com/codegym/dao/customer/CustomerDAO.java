@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CustomerDAO implements ICustomerDAO {
 
-    private String jdbcURL = "jdbc:mysql://localhost:3306/cs3?useSSL=false";
+    private String jdbcURL = "jdbc:mysql://localhost:3306/dbmodule3?useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "123456";
 

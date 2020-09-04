@@ -40,7 +40,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Features</a>
@@ -139,24 +139,35 @@
             </div>
                 <!-- ]Row -->
             <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
-<%--                <c:forEach items="product" var="productList">--%>
-                    <c:out value= "<div class=\"row\">" escapeXml="false"></c:out>
-                    <c:forEach begin="0" end="2">
-                        <c:out value= "
-                        <div class=\"col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item\">
-                            <img src=\"https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/s/e/seiko-flight-chronograph-steel-black-dial-men_s-watch-sna411_4.jpg\" class=\"float-left col-lg-12 col-md-12\">
-                            <p>Seiko Automatic Black Dial Black Rubber Men's Watch</p>
-                            <p>$319.99</p>
-                            <i class=\"fa fa-shopping-cart\"></i>&nbsp;<a href=\"#\">Add To Cart</a>
-                            <br>
-                        </div>
-                        " escapeXml="false"/>
-                    </c:forEach>
-                    <c:out value= "</div">"></c:out>
-<%--                    <c:out value= "<div class=\"row\">"></c:out>--%>
-<%--                </c:forEach>--%>
+                <c:set var = "count" scope = "session" value = "${5}"/>
+                <c:forEach items="${productList}" var="product">
+                    <c:if test="${count==0||count==5}">
+                      <c:out value= "<div class=\"row\">" escapeXml="false"/>
+                    </c:if>
+                            <c:out value= "
+                            <div class=\"col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item\">
+                                <img src=\"${product.getProductImage()}\" class=\"float-left col-lg-12 col-md-12\">
+                                <p>${product.getProductBrand()} ${product.getProductName()}</p>
+                                <p>${product.getProductPrice()}</p>
+                                <i class=\"fa fa-shopping-cart\"></i>&nbsp;<a href=\"#\" id=\"${product.getProductCode()}\">Add To Cart</a>
+                                <br>
+                            </div>
+                            " escapeXml="false"/>
+                    <c:if test="${count==5}">
+                        <c:set var="count" value="${1}"/>
+                    </c:if>
+                    <c:if test="${count!=5}">
+                        <c:set var="count" value="${count+1}"/>
+                    </c:if>
+                    <c:if test="${count==3}">
+                        <c:out value= "</div>" escapeXml="false"/>
+                        <c:out value= "<br>" escapeXml="false"/>
+                        <c:set var="count" value="${count=0}"/>
+                    </c:if>
+                </c:forEach>
             <!-- Ads -->
-
+            <br>
+            </div>
             <div class="col-2 d-none d-sm-block d-md-block">
                 One of three columns
             </div>

@@ -61,6 +61,10 @@ public class IndexServlet extends HttpServlet {
         List<Product> productList = productDAO.selectAllProduct();
         Customer customer = customerDAO.selectCustomer(6);
         String test = "test";
+        for (Product product:productList
+             ) {
+            System.out.println(product.getProductCode());
+        }
         System.out.println("Test ok index");
         request.setAttribute("test",test);
         request.setAttribute("productList", productList);
