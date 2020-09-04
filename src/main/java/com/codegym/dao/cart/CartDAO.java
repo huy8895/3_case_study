@@ -108,7 +108,6 @@ public class CartDAO implements ICartDAO {
             double price = resultSet.getDouble("productPrice");
             String image = resultSet.getString("productImage");
             String line = resultSet.getString("productLine");
-
             products.add(new Product(productCode,name,brand,price,image,line));
         }
         return products;
