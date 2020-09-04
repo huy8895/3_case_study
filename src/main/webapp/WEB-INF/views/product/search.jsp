@@ -36,16 +36,18 @@
             <th>Actions</th>
         </tr>
         <c:forEach items="${productList}" var="product">
-            <td>${product.productCode}</td>
-            <td>${product.productName}</td>
-            <td>${product.productBrand}</td>
-            <td>${product.productPrice}</td>
-            <td>${product.productImage}</td>
-            <td>${product.productLine}</td>
-            <td>
-                <a href="/products?action=edit&id=${product.productCode}">Edit</a>
-                <a href="/products?action=delete&id=${product.productCode}">Delete</a>
-            </td>
+            <tr>
+                <td>${product.productCode}</td>
+                <td>${product.productName}</td>
+                <td>${product.productBrand}</td>
+                <td>${product.productPrice}</td>
+                <td>${product.productImage}</td>
+                <td>${product.productLine}</td>
+                <td>
+                    <a href="/products?action=edit&id=${product.productCode}">Edit</a>
+                    <a href="/products?action=delete&id=${product.productCode}">Delete</a>
+                </td>
+            </tr>
         </c:forEach>
     </table>
 </div>
