@@ -15,7 +15,7 @@ public interface ICustomerDAO {
 
      boolean deleteCustomer(int id) throws SQLException;
 
-    boolean updateUser(Customer customer) throws SQLException;
+    boolean updateCustomer(Customer customer) throws SQLException;
 
 
     List<Customer> getCustomerByName(String cusName);

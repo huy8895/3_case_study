@@ -115,7 +115,7 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     @Override
-    public boolean updateUser(Customer customer) throws SQLException {
+    public boolean updateCustomer(Customer customer) throws SQLException {
         boolean rowUpdated;
         Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CUSTOMER_SQL);
@@ -131,7 +131,7 @@ public class CustomerDAO implements ICustomerDAO {
     @Override
     public List<Customer> getCustomerByName(String cusNameIn) {
         List<Customer> customers = new ArrayList<>();
-        String query = "{CALL_GET_CUSTOMER_BY_NAME(?)}";
+        String query = "{CALL GET_CUSTOMER_BY_NAME(?)}";
         try
                 (Connection connection = getConnection();
                 CallableStatement callableStatement = connection.prepareCall(query);) {

@@ -18,6 +18,6 @@ public interface IProductDAO {
 
     List<Product> getProductByName(String productName);
 
-    void insertProductStore(Product product) throws SQLException;
+
 
 }

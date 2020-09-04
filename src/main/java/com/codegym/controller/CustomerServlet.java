@@ -95,7 +95,7 @@ public class CustomerServlet extends HttpServlet {
         String email = request.getParameter("cusEmail");
         String userName = request.getParameter("userName");
         Customer customer = new Customer(cusNumber,name, phoneNumber, address, email, userName);
-        customerDAO.updateUser(customer);
+        customerDAO.updateCustomer(customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/edit.jsp");
         dispatcher.forward(request, response);
 

@@ -82,7 +82,7 @@ public class ProductServlet extends HttpServlet {
         Product newProduct = new Product(name,brand,price,image,line);
         productDAO.insertProduct(newProduct);
         listProducts(request, response);
-//
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

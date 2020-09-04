@@ -17,7 +17,9 @@ public class ProductDAO implements IProductDAO {
     private static final String SELECT_PRODUCT_BY_ID_SQL = "SELECT * FROM Product where productCode = ?;";
     private static final String SELECT_ALL_PRODUCT_SQL = "SELECT * FROM Product";
     private static final String DELETE_PRODUCT_BY_ID_SQL = "DELETE * FROM Product where productCode = ?;";
-    private static final String UPDATE_PRODUCT_SQL =    "UPDATE Product SET" + "productName = ?,productBrand = ?,productPrice = ?,productImage = ?,productLine = ?;";
+    private static final String UPDATE_PRODUCT_SQL = "UPDATE Product SET " +
+            "productName = ?, productBrand = ? , productPrice = ?, productImage = ?, productLine = ?" +
+            "where productCode = ?;";
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -112,12 +114,14 @@ public class ProductDAO implements IProductDAO {
         boolean rowUpdated;
         Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PRODUCT_SQL);
+
         preparedStatement.setString(1,product.getProductName());
         preparedStatement.setString(2,product.getProductBrand());
         preparedStatement.setDouble(3,product.getProductPrice());
         preparedStatement.setString(4,product.getProductImage());
         preparedStatement.setString(5,product.getProductLine());
         preparedStatement.setInt(6,product.getProductCode());
+
         rowUpdated = preparedStatement.executeUpdate() > 0;
 
         return rowUpdated;
@@ -126,7 +130,7 @@ public class ProductDAO implements IProductDAO {
     @Override
     public List<Product> getProductByName(String productName) {
         List<Product> products = new ArrayList<>();
-        String query = "{CALL_GET_PRODUCT_BY_NAME(?)}";
+        String query = "{CALL GET_PRODUCT_BY_NAME(?)}";
         try
                 (Connection connection = getConnection();
                 CallableStatement callableStatement = connection.prepareCall(query);){
@@ -151,25 +155,6 @@ public class ProductDAO implements IProductDAO {
            }
            return null;
         }
-
-    @Override
-    public void insertProductStore(Product product) throws SQLException {
-        String query = "{CALL_INSERT_PRODUCT(?,?,?,?,?)}";
-        try
-                (Connection connection = getConnection();
-                CallableStatement callableStatement = connection.prepareCall(query);){
-            callableStatement.setString(1,product.getProductName());
-            callableStatement.setString(2,product.getProductBrand());
-            callableStatement.setDouble(3,product.getProductPrice());
-            callableStatement.setString(4,product.getProductImage());
-            callableStatement.setString(5,product.getProductLine());
-
-            System.out.println(callableStatement);
-            callableStatement.executeUpdate();
-        }catch (SQLException e) {
-            printSQLException(e);
-        }
-    }
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
