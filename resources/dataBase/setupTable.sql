@@ -64,7 +64,16 @@ insert into Role values (0,'customer');
 alter table User
 modify column roleID bit not null default 0;
 
-INSERT INTO User (userName, password) values ('huy','1234');
+create table Cart(
+    cusNumber int not null  ,
+    productCode int not null  ,
+    quantity int default 1,
+    foreign key (cusNumber) references Customer(cusNumber),
+    foreign key (productCode) references Product(productCode)
+);
+
+alter table Cart
+add constraint primary key (productCode,cusNumber);
 
 
 

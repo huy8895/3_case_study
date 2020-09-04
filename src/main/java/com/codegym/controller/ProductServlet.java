@@ -21,12 +21,12 @@ import java.util.List;
 
 @WebServlet(name = "ProductServlet", urlPatterns = "/products")
 public class ProductServlet extends HttpServlet {
-    private List<Product> cart;
     private ProductDAO productDAO;
+    private CustomerDAO customerDAO;
 
     public void init() {
         productDAO = new ProductDAO();
-        cart = new ArrayList<>();
+        customerDAO = new CustomerDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,12 +72,6 @@ public class ProductServlet extends HttpServlet {
                 case "Search":
                     showSearchResult(request, response);
                     break;
-                case "showcart":
-                    showCart(request, response);
-                    break;
-                case "addtocart":
-                    addToCart(request,response);
-                    break;
                 default:
                     listProducts(request, response);
                     break;
@@ -89,26 +83,11 @@ public class ProductServlet extends HttpServlet {
 
     }
 
-    private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("productList", cart);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/cart.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    private void addToCart(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int productCode = Integer.parseInt(request.getParameter("id"));
-        Product selected = productDAO.selectProduct(productCode);
-        cart.add(selected);
-        System.out.println(selected.getProductName());
-//        for (Product product: cart){
-//            System.out.println(product.getProductName());
-//        }
-    }
-
     private void listProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         List<Product> productList = productDAO.selectAllProduct();
-
+        Customer customer = customerDAO.selectCustomer(6);
         request.setAttribute("productList", productList);
+        request.setAttribute("customer", customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
         dispatcher.forward(request, response);
     }

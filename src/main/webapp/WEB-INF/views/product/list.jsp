@@ -16,7 +16,7 @@
     <h1>Product Management</h1>
     <h2>
         <a href="/products?action=create">Add New products</a>
-        <a href="/products?action=showcart">Cart</a>
+        <a href="/cart?action=showCart">Cart</a>
     </h2>
     <div class="container">
         <form method="get" action="/products">
@@ -48,7 +48,11 @@
                         <a href="/products?action=delete&id=${product.getProductCode()}">Delete</a>
                     </td>
                     <td>
-                        <a href="/products?action=addtocart&id=${product.getProductCode()}">add to cart</a>
+                        <form method="post" action="/cart">
+<%--                            <a href="/cart?action=showcart&id=${customer.getCusNumber()}">add to cart</a>--%>
+
+                            <button type="submit" value="add" name="action" id=${customer.getCusNumber()}>add</button>
+                        </form>
                     </td>
                 </tr>
             </c:forEach>
