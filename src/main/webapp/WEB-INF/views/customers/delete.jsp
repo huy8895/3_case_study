@@ -35,7 +35,7 @@
                 <td><c:out value="${customer.cusEmail}"/></td>
             </tr>
         <tr>
-            <td colspan="2" align="center">
+            <td >
                 <input type="submit" value="Delete">
             </td>
         </tr>

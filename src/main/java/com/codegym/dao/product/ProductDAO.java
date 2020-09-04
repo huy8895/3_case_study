@@ -16,7 +16,7 @@ public class ProductDAO implements IProductDAO {
             " (?, ?, ?, ?, ?);";
     private static final String SELECT_PRODUCT_BY_ID_SQL = "SELECT * FROM Product where productCode = ?;";
     private static final String SELECT_ALL_PRODUCT_SQL = "SELECT * FROM Product";
-    private static final String DELETE_PRODUCT_BY_ID_SQL = "DELETE * FROM Product where productCode = ?;";
+    private static final String DELETE_PRODUCT_BY_ID_SQL = "DELETE  FROM Product where productCode = ?;";
     private static final String UPDATE_PRODUCT_SQL = "UPDATE Product SET " +
             "productName = ?, productBrand = ? , productPrice = ?, productImage = ?, productLine = ?" +
             "where productCode = ?;";
@@ -141,7 +141,7 @@ public class ProductDAO implements IProductDAO {
                     int productCode = resultSet.getInt("id");
                     String name = resultSet.getString("productName");
                     String brand = resultSet.getString("productBrand");
-                    Double price = resultSet.getDouble("productPrice");
+                    double price = resultSet.getDouble("productPrice");
                     String image = resultSet.getString("productImage");
                     String line = resultSet.getString("productLine");
 

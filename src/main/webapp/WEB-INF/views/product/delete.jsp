@@ -34,7 +34,7 @@
             <td>${product.productLine}</td>
         </tr>
         <tr>
-            <td colspan="2" align="center">
+            <td>
                 <input type="submit" value="Delete"/>
             </td>
         </tr>

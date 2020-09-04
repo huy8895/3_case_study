@@ -33,6 +33,7 @@
             <th>Product Price</th>
             <th>Product Image</th>
             <th>Product Line</th>
+            <th>Actions</th>
         </tr>
         <c:forEach items="${productList}" var="product">
             <td>${product.productCode}</td>
