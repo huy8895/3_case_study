@@ -39,8 +39,11 @@ public class IndexServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        System.out.println("Test ok index");
+
         if (action == null) {
             action = "";
+
         }
 
         try {
@@ -58,10 +61,11 @@ public class IndexServlet extends HttpServlet {
         List<Product> productList = productDAO.selectAllProduct();
         Customer customer = customerDAO.selectCustomer(6);
         String test = "test";
+        System.out.println("Test ok index");
         request.setAttribute("test",test);
         request.setAttribute("productList", productList);
         request.setAttribute("customer", customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/search-test.jsp");
         dispatcher.forward(request, response);
     }
 
