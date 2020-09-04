@@ -153,18 +153,20 @@
                                 <br>
                             </div>
                             " escapeXml="false"/>
-                    <c:if test="${count==5}">
-                        <c:set var="count" value="${1}"/>
-                    </c:if>
                     <c:if test="${count!=5}">
                         <c:set var="count" value="${count+1}"/>
                     </c:if>
+                    <c:if test="${count==5}">
+                        <c:set var="count" value="${1}"/>
+                    </c:if>
+
                     <c:if test="${count==3}">
                         <c:out value= "</div>" escapeXml="false"/>
                         <c:out value= "<br>" escapeXml="false"/>
                         <c:set var="count" value="${count=0}"/>
                     </c:if>
                 </c:forEach>
+            </div>
             <!-- Ads -->
             <br>
             </div>
