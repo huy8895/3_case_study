@@ -11,6 +11,8 @@ public interface ICustomerDAO {
 
     public Customer selectCustomer(int id) throws SQLException;
 
+    public Customer selectCustomer(String userName) throws SQLException;
+
     public List<Customer> selectAllCustomer() throws SQLException;
 
     public boolean deleteCustomer(int id) throws SQLException;

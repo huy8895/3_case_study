@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: huy8895
@@ -27,6 +28,7 @@
         <button type="submit" class="btn btn-primary">Login</button>
         <button type="button" class="btn btn-primary" value="create" name="action">Create new</button>
         <a href="/login?action=changepassword">change password</a>
+        <c:out value="${message}"></c:out>
     </form>
 </div>
 </body>

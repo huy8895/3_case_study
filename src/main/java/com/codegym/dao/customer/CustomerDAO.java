@@ -20,6 +20,8 @@ public class CustomerDAO implements ICustomerDAO {
 
     private static final String SELECT_CUSTOMER_BY_ID_SQL = "SELECT * FROM Customer where cusNumber = ?;";
 
+    private static final String SELECT_CUSTOMER_BY_USERNAME_SQL = "SELECT * FROM Customer where cusNumber = ?;";
+
     private static final String SELECT_ALL_CUSTOMERS_SQL = "SELECT * FROM Customer";
 
     private static final String DELETE_CUSTOMER_BY_ID_SQL = "DELETE FROM Customer WHERE cusNumber = ?;";
@@ -79,6 +81,25 @@ public class CustomerDAO implements ICustomerDAO {
             String address = resultSet.getString("cusAddress");
             String email = resultSet.getString("cusEmail");
             String userName = resultSet.getString("userName");
+            customer = new Customer(id,name,phone,address,email,userName);
+        }
+        return customer;
+    }
+
+    @Override
+    public Customer selectCustomer(String userName) throws SQLException {
+        Customer customer = null;
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CUSTOMER_BY_USERNAME_SQL);
+        preparedStatement.setString(1,userName);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()){
+            int id = resultSet.getInt("cusNumber");
+            String name = resultSet.getString("cusName");
+            String phone = resultSet.getString("cusPhoneNumber");
+            String address = resultSet.getString("cusAddress");
+            String email = resultSet.getString("cusEmail");
             customer = new Customer(id,name,phone,address,email,userName);
         }
         return customer;
