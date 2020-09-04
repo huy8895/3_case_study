@@ -1,9 +1,5 @@
 package com.codegym.service.crawdata;
 
-import com.codegym.dao.customer.CustomerDAO;
-import com.codegym.dao.product.ProductDAO;
-import com.codegym.dao.user.UserDAO;
-import com.codegym.model.Customer;
 import com.codegym.model.Product;
 
 import java.io.File;

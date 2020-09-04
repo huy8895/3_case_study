@@ -15,9 +15,9 @@
     <form method="post">
         <table border="1" cellpadding="5">
             <caption>
-                <h2>Tạo mới tài khoản</h2>
+                <h2>Add New Customer</h2>
             </caption>
-            <a href="/customers">back to list</a>
+            <a href="/customers">Back To List Customer</a>
             <tr>
                 <th>User Name:</th>
                 <td>
@@ -51,7 +51,7 @@
             <tr>
                 <th>Email:</th>
                 <td>
-                    <input type="text" name="cusEmail" id="cusEmail" size="15"/>
+                    <input type="text" name="cusEmail" id="cusEmail" size="45"/>
                 </td>
             </tr>
             <tr>

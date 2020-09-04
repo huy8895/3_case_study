@@ -9,9 +9,9 @@ import java.sql.SQLException;
 
 
 public class UserDAO implements IUserDAO{
-    private String jdbcURL = "jdbc:mysql://localhost:3306/DBmodule3?useSSL=false";
+    private String jdbcURL = "jdbc:mysql://localhost:3306/cs3?useSSL=false";
     private String jdbcUsername = "root";
-    private String jdbcPassword = "root";
+    private String jdbcPassword = "123456";
 
     private static final String INSERT_USERS_SQL = "INSERT INTO User (userName, password) VALUES " +
             " (?, ?);";
