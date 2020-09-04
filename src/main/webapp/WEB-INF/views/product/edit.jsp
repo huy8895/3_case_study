@@ -24,7 +24,7 @@
                 <th>Product Name :</th>
                 <td>
                     <input type="text" name="productName" id="productName"
-                    value="${requestScope["product"].getProductName()}"size="45" disabled/>
+                    value="${requestScope["product"].getProductName()}"size="45"/>
                 </td>
             </tr>
             <tr>
