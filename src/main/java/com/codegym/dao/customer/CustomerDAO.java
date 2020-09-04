@@ -25,6 +25,7 @@ public class CustomerDAO implements ICustomerDAO {
     private static final String UPDATE_CUSTOMER_SQL = "UPDATE Customer SET " +
             "cusName = ?, cusPhoneNumber = ? , cusAddress = ?, cusEmail = ?" +
             "where cusNumber = ?;";
+    private static final String GET_CUSTOMER_BY_NAME = "SELECT * FROM Customer where cusName like ?;";
 
 
     protected Connection getConnection() {
@@ -129,35 +130,27 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     @Override
-    public List<Customer> getCustomerByName(String cusNameIn) {
-        List<Customer> customers = new ArrayList<>();
-        String query = "{CALL GET_CUSTOMER_BY_NAME(?)}";
-        try
-                (Connection connection = getConnection();
-                CallableStatement callableStatement = connection.prepareCall(query);) {
-            callableStatement.setString(1,cusNameIn);
-            ResultSet resultSet = callableStatement.executeQuery();
+    public List<Customer> selectCustomerByName(String name) throws SQLException {
+      List<Customer> customer = new ArrayList<>();
+        try (Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(GET_CUSTOMER_BY_NAME);) {
+            preparedStatement.setString(1,name);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                int cusNumber = resultSet.getInt("cusNumber");
-                String name = resultSet.getString("cusName");
-                String phoneNumber = resultSet.getString("cusPhoneNumber");
-                String address = resultSet.getString("cusAddress");
+                int id = resultSet.getInt("cusNumber");
+                String phone = resultSet.getString("cusPhoneNumber");
                 String email = resultSet.getString("cusEmail");
+                String address = resultSet.getString("cusAddress");
                 String userName = resultSet.getString("userName");
 
-                customers.add(new Customer(cusNumber,name,phoneNumber,address,email,userName));
-
+                customer.add(new Customer(id,name,phone,email,address,userName));
             }
-            System.out.println(callableStatement);
-            callableStatement.executeUpdate();
-
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return customers;
+        return customer;
     }
-
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {

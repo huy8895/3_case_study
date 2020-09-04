@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
                     break;
                 case "changepassword":
                     System.out.println("changing pass");
-                    changePass(request,response);
+                  //  changePass(request,response);
                     break;
 
             }
@@ -70,20 +70,20 @@ public class LoginServlet extends HttpServlet {
 
 
     }
-    private void changePass(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        String userName = request.getParameter("username");
-        String password = request.getParameter("password");
-        String newPassword = request.getParameter("newpassword");
-        User user = new User(userName, password);
-        System.out.println("userName = " + userName);
-        System.out.println("password = " + password);
-
-        if (userDAO.changePassword(user,newPassword)){
-            System.out.println("doi mat khau thanh cong");
-        } else {
-            System.out.println("doi mat khau khong thanh cong");
-        }
-    }
+//    private void changePass(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+//        String userName = request.getParameter("username");
+//        String password = request.getParameter("password");
+//        String newPassword = request.getParameter("newpassword");
+//        User user = new User(userName, password);
+//        System.out.println("userName = " + userName);
+//        System.out.println("password = " + password);
+//
+//        if (userDAO.changePassword(user,newPassword)){
+//            System.out.println("doi mat khau thanh cong");
+//        } else {
+//            System.out.println("doi mat khau khong thanh cong");
+//        }
+//    }
 
 
 
@@ -110,17 +110,17 @@ public class LoginServlet extends HttpServlet {
         User user = new User(userName, password);
         System.out.println("userName = " + userName);
         System.out.println("password = " + password);
-
-        if (userDAO.checkUser(user)){
-            System.out.println("dang nhap thanh cong");
-            if (userDAO.checkAdmin(user)){
-                System.out.println(userName + "la admin");
-            } else {
-                System.out.println(userName + " khong phai la admin");
-            }
-        } else {
-            System.out.println("sai ten dang nhap hoac mat khau");
-        }
+//
+//        if (userDAO.checkUser(user)){
+//            System.out.println("dang nhap thanh cong");
+//            if (userDAO.checkAdmin(user)){
+//                System.out.println(userName + "la admin");
+//            } else {
+//                System.out.println(userName + " khong phai la admin");
+//            }
+//        } else {
+//            System.out.println("sai ten dang nhap hoac mat khau");
+//        }
 
 
     }

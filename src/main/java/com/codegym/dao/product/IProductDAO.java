@@ -18,6 +18,8 @@ public interface IProductDAO {
 
     List<Product> getProductByName(String productName);
 
+    List<Product> getProductByPrice(double minPrice,double maxPrice) throws SQLException;
+
 
 
 }

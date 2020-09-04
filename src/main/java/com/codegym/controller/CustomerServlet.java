@@ -117,11 +117,17 @@ public class CustomerServlet extends HttpServlet {
     }
 
 
-    private void showSearchResult(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Customer> listCustomer = customerDAO.getCustomerByName(request.getParameter("SearchName"));
-        request.setAttribute("listCustomer", listCustomer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/search.jsp");
-        dispatcher.forward(request, response);
+    private void showSearchResult(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+      String name = request.getParameter("SearchName");
+     List<Customer> customer = customerDAO.selectCustomerByName(name);
+      RequestDispatcher dispatcher;
+      if (customer == null) {
+          dispatcher = request.getRequestDispatcher("Error.list");
+      } else {
+          request.setAttribute("customerList",customer);
+          dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/search.jsp");
+      }
+      dispatcher.forward(request,response);
     }
 
     private void listCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {

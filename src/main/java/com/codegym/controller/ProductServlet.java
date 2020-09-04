@@ -106,6 +106,9 @@ public class ProductServlet extends HttpServlet {
                 case "Search":
                     showSearchResult(request, response);
                     break;
+                case "searchPrice":
+                    showSearchPrice(request,response);
+                    break;
                 default:
                     listProducts(request, response);
                     break;
@@ -114,6 +117,10 @@ public class ProductServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+
+    }
+
+    private void showSearchPrice(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
@@ -137,11 +144,16 @@ public class ProductServlet extends HttpServlet {
 
     private void showSearchResult(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Product> productList = productDAO.getProductByName(request.getParameter("SearchName"));
-        request.setAttribute("productList",productList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/search.jsp");
+        String name = request.getParameter("SearchName");
+        List<Product> product = productDAO.getProductByName(name);
+        RequestDispatcher dispatcher;
+        if (product == null) {
+            dispatcher = request.getRequestDispatcher("Error.jsp");
+        } else {
+            request.setAttribute("productList",product);
+            dispatcher = request.getRequestDispatcher("WEB-INF/views/product/search.jsp");
+        }
         dispatcher.forward(request,response);
-
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)

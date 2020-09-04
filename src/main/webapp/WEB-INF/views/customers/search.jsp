@@ -33,7 +33,7 @@
         </tr>
         <c:forEach items="${customerList}" var="customer">
             <td>${customer.cusNumber}</td>
-            <td>${customer.userName()}</td>
+            <td>${customer.userName}</td>
             <td>${customer.cusName}</td>
             <td>${customer.cusPhoneNumber}</td>
             <td>${customer.cusAddress}</td>
