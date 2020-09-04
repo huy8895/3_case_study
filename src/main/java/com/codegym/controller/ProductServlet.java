@@ -80,9 +80,9 @@ public class ProductServlet extends HttpServlet {
         String line = request.getParameter("productLine");
 
         Product newProduct = new Product(name,brand,price,image,line);
-        productDAO.insertProductStore(newProduct);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/create.jsp");
-        dispatcher.forward(request,response);
+        productDAO.insertProduct(newProduct);
+        listProducts(request, response);
+//
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -53,7 +53,7 @@ public class CustomerDAO implements ICustomerDAO {
             preparedStatement.setString(3,customer.getCusAddress());
             preparedStatement.setString(4,customer.getCusEmail());
             preparedStatement.setString(5,customer.getUserName());
-            System.out.println(preparedStatement);
+
             preparedStatement.executeUpdate();
         } catch (SQLException e){
             printSQLException(e);
@@ -129,13 +129,13 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     @Override
-    public List<Customer> getCustomerByName(String cusName) {
+    public List<Customer> getCustomerByName(String cusNameIn) {
         List<Customer> customers = new ArrayList<>();
         String query = "{CALL_GET_CUSTOMER_BY_NAME(?)}";
         try
                 (Connection connection = getConnection();
                 CallableStatement callableStatement = connection.prepareCall(query);) {
-            callableStatement.setString(1,cusName);
+            callableStatement.setString(1,cusNameIn);
             ResultSet resultSet = callableStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -158,24 +158,6 @@ public class CustomerDAO implements ICustomerDAO {
         return customers;
     }
 
-    @Override
-    public void insertCustomerStore(Customer customer) throws SQLException {
-        String query = "{CALL_INSERT_CUSTOMER(?,?,?,?,?)}";
-        try
-                (Connection connection = getConnection();
-                CallableStatement callableStatement = connection.prepareCall(query);) {
-            callableStatement.setString(1,customer.getCusName());
-            callableStatement.setString(2,customer.getCusPhoneNumber());
-            callableStatement.setString(3,customer.getCusAddress());
-            callableStatement.setString(4,customer.getCusEmail());
-            callableStatement.setString(5,customer.getUserName());
-
-            System.out.println(callableStatement);
-            callableStatement.executeUpdate();
-        } catch (SQLException e) {
-            printSQLException(e);
-        }
-    }
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {

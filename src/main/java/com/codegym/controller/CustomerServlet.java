@@ -112,9 +112,8 @@ public class CustomerServlet extends HttpServlet {
         Customer newCustomer = new Customer(name, phoneNumber, address, email, userName);
         User newUser = new User(userName, password);
         userDAO.insertUser(newUser);
-        customerDAO.insertCustomerStore(newCustomer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
-        dispatcher.forward(request, response);
+        customerDAO.insertCustomer(newCustomer);
+       listCustomer(request,response);
     }
 
 

@@ -20,6 +20,6 @@ public interface ICustomerDAO {
 
     List<Customer> getCustomerByName(String cusName);
 
-    void insertCustomerStore(Customer customer) throws SQLException;
+
 
 }

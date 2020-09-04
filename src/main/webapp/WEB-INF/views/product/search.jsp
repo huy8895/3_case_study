@@ -43,7 +43,7 @@
             <td>${product.productLine}</td>
             <td>
                 <a href="/products?action=edit&id=${product.productCode}">Edit</a>
-                <a href="/productss?action=delete&id=${product.productCode}">Delete</a>
+                <a href="/products?action=delete&id=${product.productCode}">Delete</a>
             </td>
         </c:forEach>
     </table>

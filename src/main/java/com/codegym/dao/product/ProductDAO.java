@@ -43,6 +43,8 @@ public class ProductDAO implements IProductDAO {
             preparedStatement.setDouble(3, product.getProductPrice());
             preparedStatement.setString(4, product.getProductImage());
             preparedStatement.setString(5, product.getProductLine());
+
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
         }
