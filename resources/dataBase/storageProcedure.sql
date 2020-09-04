@@ -9,3 +9,5 @@ begin
     INSERT INTO Customer(cusNumber, cusName, cusPhoneNumber, cusAddress, cusEmail)
     values (name,phone,address,email);
 end;
+
+

@@ -7,8 +7,6 @@ end;
 
 drop procedure insert_product;
 
-
-
 call insert_product('Automatic Black Dial Black Rubber Men\'s Watch ','Seiko',319.99,'https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/s/e/seiko-automatic-black-dial-black-rubber-men_s-watch-skx007j1.jpg','Men\'s Watches');
 call insert_product('Flight Chronograph Steel Black Dial Men\'s Watch ','Seiko',239.0,'https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/s/e/seiko-flight-chronograph-steel-black-dial-men_s-watch-sna411_4.jpg','Men\'s Watches');
 call insert_product('Le Locle Powermatic 80 Automatic Men\'s Watch T006.407.16.033.00 ','Tissot',379.99,'https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/t/i/tissot-le-locle-powermatic-80-automatic-mens-watch-t0064071603300.jpg','Men\'s Watches');
