@@ -14,10 +14,12 @@
 <body>
 <form method="post">
     <table border="1" cellpadding="5">
-        <caption><h2>List of Customers</h2></caption>
+        <caption>
+            <h2>List Of Customers</h2>
+            <a href="/customers">Back To List Customers</a>
         <tr>
             <th>ID</th>
-            <th>userName</th>
+            <th>UserName</th>
             <th>Full Name</th>
             <th>Phone</th>
             <th>Address</th>
@@ -32,8 +34,13 @@
                 <td><c:out value="${customer.cusAddress}"/></td>
                 <td><c:out value="${customer.cusEmail}"/></td>
             </tr>
+        <tr>
+            <td >
+                <input type="submit" value="Delete">
+            </td>
+        </tr>
     </table>
-    <button type="submit">delete</button>
+
 </form>
 </body>
 </html>

@@ -8,49 +8,49 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>create new customer</title>
+    <title>Create New Product</title>
 </head>
 <body>
+<center>
+    <h1>Create New Product</h1>
+    <h2>
+        <a href="/products">Back To List Product</a>
+    </h2>
+</center>
 <div align="center">
     <form method="post">
         <table border="1" cellpadding="5">
             <caption>
-                <h2>Tạo mới tài khoản</h2>
+                <h2>Add New Product</h2>
             </caption>
             <tr>
-                <th>User Name:</th>
+                <th>Product Name :</th>
                 <td>
-                    <input type="text" name="userName" id="userName" size="45"/>
+                    <input type="text" name="productName" id="productName" size="55"/>
                 </td>
             </tr>
             <tr>
-                <th>Password:</th>
+                <th>Product Brand :</th>
                 <td>
-                    <input type="text" name="password" id="password" size="45"/>
+                    <input type="text" name="productBrand" id="productBrand" size="55"/>
                 </td>
             </tr>
             <tr>
-                <th>Full Name:</th>
+                <th>Product Price :</th>
                 <td>
-                    <input type="text" name="cusName" id="cusName" size="45"/>
+                    <input type="text" name="productPrice" id="productPrice" size="55"/>
                 </td>
             </tr>
             <tr>
-                <th>PhoneNumber:</th>
+                <th>Product Image :</th>
                 <td>
-                    <input type="text" name="cusPhoneNumber" id="cusPhoneNumber" size="45"/>
+                    <input type="text" name="productImage" id="productImage" size="55"/>
                 </td>
             </tr>
             <tr>
-                <th>Address:</th>
+                <th>Product Line :</th>
                 <td>
-                    <input type="text" name="cusAddress" id="cusAddress" size="45"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Email:</th>
-                <td>
-                    <input type="text" name="cusEmail" id="cusEmail" size="15"/>
+                    <input type="text" name="productLine" id="productLine" size="55"/>
                 </td>
             </tr>
             <tr>
@@ -61,6 +61,5 @@
         </table>
     </form>
 </div>
-
 </body>
 </html>
