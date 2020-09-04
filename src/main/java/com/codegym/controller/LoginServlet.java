@@ -1,7 +1,10 @@
 package com.codegym.controller;
 
 import com.codegym.dao.customer.CustomerDAO;
+import com.codegym.dao.product.ProductDAO;
 import com.codegym.dao.user.UserDAO;
+import com.codegym.model.Customer;
+import com.codegym.model.Product;
 import com.codegym.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -12,15 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     private UserDAO userDAO;
     private CustomerDAO customerDAO;
+    private ProductDAO productDAO;
 
     public void init() {
         userDAO = new UserDAO();
         customerDAO = new CustomerDAO();
+        productDAO = new ProductDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +41,7 @@ public class LoginServlet extends HttpServlet {
                     break;
                 case "changepassword":
                     System.out.println("changing pass");
-                    changePass(request,response);
+                    changePass(request, response);
                     break;
 
             }
@@ -58,10 +64,10 @@ public class LoginServlet extends HttpServlet {
                     showNewForm(request, response);
                     break;
                 case "changepassword":
-                    showChangePasswordForm(request,response);
+                    showChangePasswordForm(request, response);
                     break;
                 default:
-                    showLogin(request,response);
+                    showLogin(request, response);
                     break;
             }
         } catch (Exception e) {
@@ -70,6 +76,7 @@ public class LoginServlet extends HttpServlet {
 
 
     }
+
     private void changePass(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
@@ -78,13 +85,12 @@ public class LoginServlet extends HttpServlet {
         System.out.println("userName = " + userName);
         System.out.println("password = " + password);
 
-        if (userDAO.changePassword(user,newPassword)){
+        if (userDAO.changePassword(user, newPassword)) {
             System.out.println("doi mat khau thanh cong");
         } else {
             System.out.println("doi mat khau khong thanh cong");
         }
     }
-
 
 
     private void showLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -104,24 +110,38 @@ public class LoginServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void doLogin(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+    private void doLogin(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
         User user = new User(userName, password);
         System.out.println("userName = " + userName);
         System.out.println("password = " + password);
+        String message = "";
+        RequestDispatcher dispatcher = null;
+        List<Product> productList = productDAO.selectAllProduct();
+        Customer customer = customerDAO.selectCustomer(userName);
 
-        if (userDAO.checkUser(user)){
+        if (userDAO.checkUser(user)) {
+            request.setAttribute("productList", productList);
+            request.setAttribute("customer", customer);
+
+            dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
             System.out.println("dang nhap thanh cong");
-            if (userDAO.checkAdmin(user)){
+            message = "dang nhap thanh cong";
+            if (userDAO.checkAdmin(user)) {
                 System.out.println(userName + "la admin");
+                dispatcher = request.getRequestDispatcher("index.jsp");
             } else {
                 System.out.println(userName + " khong phai la admin");
+
             }
         } else {
+            dispatcher = request.getRequestDispatcher("WEB-INF/views/login/login.jsp");
             System.out.println("sai ten dang nhap hoac mat khau");
+            message = "sai ten dang nhap hoac mat khau";
         }
-
+        request.setAttribute("message", message);
+        dispatcher.forward(request, response);
 
     }
 

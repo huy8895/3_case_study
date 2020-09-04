@@ -11,7 +11,7 @@ public class CartDAO implements ICartDAO {
     private static final String GET_PRODUCT_BY_ID = "SELECT * FROM Cart where productCode = ?";
     private static final String UPDATE_ADD1_PRODUCT_SQL = "update Cart set quantity = ? where productCode = ? and cusNumber = ?; ";
     private static final String INSERT_PRODUCT_SQL = "INSERT INTO Cart (cusNumber,productCode) values (?,?) ;";
-    private String jdbcURL = "jdbc:mysql://localhost:3306/dbmodule3?useSSL=false";
+    private String jdbcURL = "jdbc:mysql://localhost:3306/DBmodule3?useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "root";
 
