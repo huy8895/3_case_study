@@ -127,7 +127,7 @@ public class ProductDAO implements IProductDAO {
         return rowUpdated;
     }
 
-    @Override
+
     public List<Product> getProductByName(String productName) {
         List<Product> products = new ArrayList<>();
         String query = "{CALL GET_PRODUCT_BY_NAME(?)}";
