@@ -1,5 +1,6 @@
 package com.codegym.dao.customer;
 
+import com.codegym.dao.database.Jdbc;
 import com.codegym.model.Customer;
 import com.codegym.model.User;
 
@@ -10,9 +11,6 @@ import java.util.List;
 
 public class CustomerDAO implements ICustomerDAO {
 
-    private String jdbcURL = "jdbc:mysql://localhost:3306/DBmodule3?useSSL=false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "root";
 
     private static final String INSERT_CUSTOMER_SQL = "INSERT INTO Customer" +
             " (cusName, cusPhoneNumber,cusAddress,cusEmail,userName) VALUES " +
@@ -35,7 +33,7 @@ public class CustomerDAO implements ICustomerDAO {
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+            connection = DriverManager.getConnection(Jdbc.jdbcURL, Jdbc.jdbcUsername, Jdbc.jdbcPassword);
         } catch (SQLException e) {
             System.out.println("khong ket noi dc");
             // TODO Auto-generated catch block

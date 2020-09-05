@@ -1,14 +1,12 @@
 package com.codegym.dao.user;
 
+import com.codegym.dao.database.Jdbc;
 import com.codegym.model.User;
 
 import java.sql.*;
 
 
 public class UserDAO implements IUserDAO {
-    private String jdbcURL = "jdbc:mysql://localhost:3306/DBmodule3?useSSL=false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "root";
 
     private static final String INSERT_USERS_SQL = "INSERT INTO User (userName, password) VALUES " +
             " (?, ?);";
@@ -23,7 +21,7 @@ public class UserDAO implements IUserDAO {
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+            connection = DriverManager.getConnection(Jdbc.jdbcURL, Jdbc.jdbcUsername, Jdbc.jdbcPassword);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
