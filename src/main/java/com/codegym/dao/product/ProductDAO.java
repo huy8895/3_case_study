@@ -1,5 +1,6 @@
 package com.codegym.dao.product;
 
+import com.codegym.dao.database.Jdbc;
 import com.codegym.model.Product;
 
 import java.sql.*;
@@ -7,9 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO implements IProductDAO {
-    private String jdbcURL = "jdbc:mysql://localhost:3306/cs3?useSSL=false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "123456";
 
     private static final String INSERT_PRODUCT_SQL = "INSERT INTO Product" +
             " (productName, productBrand,productPrice,productImage,productLine) VALUES " +
@@ -25,7 +23,7 @@ public class ProductDAO implements IProductDAO {
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL,jdbcUsername,jdbcPassword);
+            connection = DriverManager.getConnection(Jdbc.jdbcURL, Jdbc.jdbcUsername, Jdbc.jdbcPassword);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

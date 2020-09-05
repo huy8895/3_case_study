@@ -1,5 +1,6 @@
 package com.codegym.dao.cart;
 
+import com.codegym.dao.database.Jdbc;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
 
@@ -11,9 +12,6 @@ public class CartDAO implements ICartDAO {
     private static final String GET_PRODUCT_BY_ID = "SELECT * FROM Cart where productCode = ?";
     private static final String UPDATE_ADD1_PRODUCT_SQL = "update Cart set quantity = ? where productCode = ? and cusNumber = ?; ";
     private static final String INSERT_PRODUCT_SQL = "INSERT INTO Cart (cusNumber,productCode) values (?,?) ;";
-    private String jdbcURL = "jdbc:mysql://localhost:3306/DBmodule3?useSSL=false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "root";
 
     private static final String INSERT_CUSTOMER_SQL = "INSERT INTO Customer" +
             " (cusName, cusPhoneNumber,cusAddress,cusEmail,userName) VALUES " +
@@ -34,7 +32,7 @@ public class CartDAO implements ICartDAO {
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+            connection = DriverManager.getConnection(Jdbc.jdbcURL, Jdbc.jdbcUsername, Jdbc.jdbcPassword);
         } catch (SQLException e) {
             System.out.println("khong ket noi dc");
             // TODO Auto-generated catch block
