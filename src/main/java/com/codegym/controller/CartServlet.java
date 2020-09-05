@@ -44,6 +44,9 @@ public class CartServlet extends HttpServlet {
                 case "delete":
                     deleteCart(request, response);
                     break;
+                case "showCart":
+                    showCart(request, response);
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +72,9 @@ public class CartServlet extends HttpServlet {
     }
 
     private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Customer customer = customerDAO.selectCustomer(6);
+        int cusNumber = Integer.parseInt(request.getParameter("id"));
+        System.out.println(cusNumber);
+        Customer customer = customerDAO.selectCustomer(cusNumber);
         List<Product> productList = cartDAO.selectAllCart(customer);
         request.setAttribute("productList", productList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/cart.jsp");

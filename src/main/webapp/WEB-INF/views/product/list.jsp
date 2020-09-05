@@ -16,7 +16,9 @@
     <h1>Product Management</h1>
     <h2>
         <a href="/products?action=create">Add New products</a>
-        <a href="/cart?action=showCart">Cart</a>
+        <form action="/cart?action=showCart&id=${customer.getCusNumber()}"  method="post">
+            <button type="submit" id=${customer.getCusNumber()}>Cart</button>
+        </form>
     </h2>
     <div class="container">
         <form method="get" action="/products">

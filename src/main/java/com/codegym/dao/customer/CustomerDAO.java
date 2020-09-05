@@ -18,7 +18,7 @@ public class CustomerDAO implements ICustomerDAO {
 
     private static final String SELECT_CUSTOMER_BY_ID_SQL = "SELECT * FROM Customer where cusNumber = ?;";
 
-    private static final String SELECT_CUSTOMER_BY_USERNAME_SQL = "SELECT * FROM Customer where cusNumber = ?;";
+    private static final String SELECT_CUSTOMER_BY_USERNAME_SQL = "SELECT * FROM Customer where userName = ?;";
 
     private static final String SELECT_ALL_CUSTOMERS_SQL = "SELECT * FROM Customer";
 

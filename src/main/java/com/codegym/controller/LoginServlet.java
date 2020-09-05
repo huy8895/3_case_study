@@ -120,6 +120,8 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher dispatcher = null;
         List<Product> productList = productDAO.selectAllProduct();
         Customer customer = customerDAO.selectCustomer(userName);
+        System.out.println(customer.getCusNumber());
+
 
         if (userDAO.checkUser(user)) {
             request.setAttribute("productList", productList);
