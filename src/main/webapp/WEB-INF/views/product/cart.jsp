@@ -16,7 +16,11 @@
     <h1>cart</h1>
     <h2>
         <a href="/products?action=create">Add New products</a><br>
-        <a href="/products">Back to list</a>
+        <form action="/products"  method="post">
+            <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
+            <input type="hidden" name="action" value="">
+            <button type="submit">back to list</button>
+        </form>
     </h2>
     <div class="container">
         <form method="get" action="/products">
@@ -33,19 +37,21 @@
                 <th>Brand</th>
                 <th>price</th>
                 <th>image</th>
-                <th>detail</th>
-
+                <th>Quantity</th>
             </tr>
-            <c:forEach var="product" items="${productList}">
+            <c:forEach var="cart" items="${cartList}">
                 <tr>
+                    <c:set var = "product" scope = "session" value = "${productDAO.selectProduct(cart.getProductCode())}"/>
+                    <c:set var = "quantity" scope = "session" value = "${cart.getQuantity()}"/>
+
                     <td><c:out value="${product.productName}"/></td>
                     <td><c:out value="${product.productBrand}"/></td>
                     <td><c:out value="${product.productPrice}"/></td>
                     <td><img src="${product.productImage}" alt="img" height="50px" width="auto"></td>
-                    <td><c:out value="${product.productLine}"/></td>
+                    <td><c:out value="${quantity}"/></td>
                     <td>
-                        <a href="/products?action=edit&id=${product.productCode}">Edit</a>
-                        <a href="/products?action=delete&id=${product.productCode}">Delete</a>
+                        <a href="/cart?action=edit&id=${product.productCode}">Edit</a>
+                        <a href="/cart?action=delete&id=${product.productCode}">Delete</a>
                     </td>
                 </tr>
             </c:forEach>
@@ -53,5 +59,4 @@
         </table>
     </div>
 </div>
-</body>
 </html>

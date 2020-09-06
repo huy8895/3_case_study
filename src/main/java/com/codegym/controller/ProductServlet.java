@@ -45,6 +45,9 @@ public class ProductServlet extends HttpServlet {
                 case "delete":
                     deleteUser(request, response);
                     break;
+                default:
+                    listProducts(request, response);
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,15 +80,24 @@ public class ProductServlet extends HttpServlet {
                     break;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+
         }
 
 
     }
 
     private void listProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        Customer customer;
+        if (request.getParameter("cusNumber") != null ){
+            int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
+            customer = customerDAO.selectCustomer(cusNumber);
+            request.setAttribute("customer", customer);
+        } else {
+            System.out.println("customer =  null" );
+            customer = null;
+        }
         List<Product> productList = productDAO.selectAllProduct();
-        Customer customer = customerDAO.selectCustomer(6);
         request.setAttribute("productList", productList);
         request.setAttribute("customer", customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");

@@ -15,9 +15,18 @@
 <div class="container" align="center">
     <h1>Product Management</h1>
     <h2>
+        <c:if test="${customer != null}">
+            <c:out value="customer number: ${customer.getCusNumber()}"></c:out>
+        </c:if>
+        <c:if test="${customer == null}">
+            <c:out value="customer number: null"></c:out>
+        </c:if>
+    </h2>
+    <h2>
         <a href="/products?action=create">Add New products</a>
-        <form action="/cart?action=showCart&id=${customer.getCusNumber()}"  method="post">
-            <button type="submit" id=${customer.getCusNumber()}>Cart</button>
+        <form action="/cart?action=showCart" method="post">
+            <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
+            <button type="submit">Cart</button>
         </form>
     </h2>
     <div class="container">
@@ -50,10 +59,11 @@
                         <a href="/products?action=delete&id=${product.getProductCode()}">Delete</a>
                     </td>
                     <td>
-                        <form method="post" action="/cart">
-<%--                            <a href="/cart?action=showcart&id=${customer.getCusNumber()}">add to cart</a>--%>
-
-                            <button type="submit" value="add" name="action" id=${product.getProductCode()}>add</button>
+                        <form action="/cart" method="post">
+                            <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
+                            <input type="hidden" name="productCode" value="${product.getProductCode()}">
+                            <input type="hidden" name="action" value="add">
+                            <button type="submit">Add to Cart</button>
                         </form>
                     </td>
                 </tr>

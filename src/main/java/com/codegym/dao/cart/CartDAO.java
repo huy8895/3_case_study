@@ -1,6 +1,7 @@
 package com.codegym.dao.cart;
 
 import com.codegym.dao.database.Jdbc;
+import com.codegym.model.Cart;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
 
@@ -17,7 +18,7 @@ public class CartDAO implements ICartDAO {
             " (cusName, cusPhoneNumber,cusAddress,cusEmail,userName) VALUES " +
             " (?, ?, ?, ?, ?);";
 
-    private static final String SELECT_PRODUCT_BY_ID_SQL = "SELECT * FROM Cart where productCode = ?;";
+    private static final String SELECT_CART_BY_CUS_NUMBER = "SELECT * FROM Cart where cusNumber = ?;";
 
     private static final String SELECT_ALL_PRODUCTS_SQL = "select * from Product join Cart on Cart.productCode = Product.productCode where cusNumber = ?;";
 
@@ -56,8 +57,8 @@ public class CartDAO implements ICartDAO {
         try {
             if (quantity > 0){
                 updateStm.setInt(1,(quantity+1));
-                updateStm.setInt(1,product.getProductCode());
-                updateStm.setInt(1,customer.getCusNumber());
+                updateStm.setInt(2,product.getProductCode());
+                updateStm.setInt(3,customer.getCusNumber());
                 updateStm.executeUpdate();
             } else {
                 insertStm.setInt(1, customer.getCusNumber());
@@ -85,31 +86,27 @@ public class CartDAO implements ICartDAO {
         preparedStatement.setInt(1,product.getProductCode());
         ResultSet set = preparedStatement.executeQuery();
         if (set.next()){
-            quantity = set.getInt(quantity);
+            quantity = set.getInt("quantity");
         }
         return quantity;
     }
 
     @Override
-    public List<Product> selectAllCart(Customer customer) throws SQLException {
-        List<Product> products = new ArrayList<>();
-
+    public List<Cart> selectAllCart(Customer customer) throws SQLException {
+        List<Cart> carts = new ArrayList<>();
         Connection connection = getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PRODUCTS_SQL);
+        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CART_BY_CUS_NUMBER);
         preparedStatement.setInt(1,customer.getCusNumber());
-        System.out.println(customer.getCusNumber());
+
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
-            int productCode = resultSet.getInt(1);
-            String name = resultSet.getString("productName");
-            String brand = resultSet.getString("productBrand");
-            double price = resultSet.getDouble("productPrice");
-            String image = resultSet.getString("productImage");
-            String line = resultSet.getString("productLine");
-
-            products.add(new Product(productCode,name,brand,price,image,line));
+            int cusNumber = resultSet.getInt("cusNumber");
+            int productCode = resultSet.getInt("productCode");
+            int quantity = resultSet.getInt("quantity");
+            carts.add(new Cart(productCode,cusNumber,quantity));
         }
-        return products;
+
+        return carts;
     }
 
 }

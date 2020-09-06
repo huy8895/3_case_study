@@ -1,5 +1,6 @@
 package com.codegym.dao.cart;
 
+import com.codegym.model.Cart;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
 
@@ -14,5 +15,5 @@ public interface ICartDAO {
 
     public Integer getQuantity(Product product) throws SQLException;
 
-    public List<Product> selectAllCart(Customer customer) throws SQLException;
+    public List<Cart> selectAllCart(Customer customer) throws SQLException;
 }
