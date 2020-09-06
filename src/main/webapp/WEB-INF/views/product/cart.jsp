@@ -15,10 +15,8 @@
 <div class="container" align="center">
     <h1>cart</h1>
     <h2>
-        <a href="/products?action=create">Add New products</a><br>
         <form action="/products"  method="post">
             <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
-            <input type="hidden" name="action" value="">
             <button type="submit">back to list</button>
         </form>
         <c:if test="${customer != null}">
@@ -29,9 +27,9 @@
         </c:if>
     </h2>
     <div class="container">
-        <form method="get" action="/products">
-            <input type="text" name="SearchBox">
-            <input type="submit" name="action" value="Search">
+        <form method="post" action="/cart?action=pay">
+            <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
+            <input type="submit"  value="thanh toan">
         </form>
     </div>
 

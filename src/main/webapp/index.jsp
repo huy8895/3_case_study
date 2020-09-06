@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<a href="/customers">customers</a>
-<a href="/products">products</a>
-<a href="/login">login</a>
-<a href="/index">index</a>
+<a href="/customers">customers</a></br>
+<a href="/products">Home</a></br>
+<a href="/login">login</a></br>
+<a href="/index">index</a></br>
 </body>
 </html>
