@@ -72,12 +72,14 @@ public class UserDAO implements IUserDAO {
         boolean changed = false;
         Connection connection = getConnection();
         if (checkUser(user)) {
+            System.out.println("changing pass ");
+            System.out.println("user = " + user.getUserName());
+            System.out.println("newPassword = " + newPassword);
             PreparedStatement preparedStatement = connection.prepareStatement(SET_NEW_PASSWORD);
             preparedStatement.setString(1, newPassword);
             preparedStatement.setString(2, user.getUserName());
+            preparedStatement.executeUpdate();
             changed = true;
-        } else {
-            changed = false;
         }
         return changed;
     }

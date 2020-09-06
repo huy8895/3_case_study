@@ -70,15 +70,21 @@ public class CartServlet extends HttpServlet {
     }
 
     private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
-        System.out.println("show cart of " + cusNumber);
-        Customer customer = customerDAO.selectCustomer(cusNumber);
-        List<Cart> cartList = cartDAO.selectAllCart(customer);
-        request.setAttribute("cartList",cartList);
-        request.setAttribute("customer", customer);
-        request.setAttribute("productDAO", productDAO);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/cart.jsp");
-        dispatcher.forward(request, response);
+        if (!request.getParameter("cusNumber").equals("")){
+            int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
+            Customer customer = customerDAO.selectCustomer(cusNumber);
+            List<Cart> cartList = cartDAO.selectAllCart(customer);
+            request.setAttribute("cartList",cartList);
+            request.setAttribute("customer", customer);
+            request.setAttribute("productDAO", productDAO);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/cart.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            List<Product> productList = productDAO.selectAllProduct();
+            request.setAttribute("productList",productList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     private void deleteCart(HttpServletRequest request, HttpServletResponse response) {

@@ -17,29 +17,30 @@
             <caption>
                 <h2>Tạo mới tài khoản</h2>
             </caption>
-            <a href="/customers">back to list</a>
+            <a href="/customers">back to list</a></br>
+            <a href="/login">back to login</a>
             <tr>
                 <th>User Name:</th>
                 <td>
-                    <input type="text" name="userName" id="userName" size="45"/>
+                    <input type="text" name="userName" id="userName" size="45" required/>
                 </td>
             </tr>
             <tr>
                 <th>Password:</th>
                 <td>
-                    <input type="text" name="password" id="password" size="45"/>
+                    <input type="text" name="password" id="password" size="45" required/>
                 </td>
             </tr>
             <tr>
                 <th>Full Name:</th>
                 <td>
-                    <input type="text" name="cusName" id="cusName" size="45"/>
+                    <input type="text" name="cusName" id="cusName" size="45" required/>
                 </td>
             </tr>
             <tr>
                 <th>PhoneNumber:</th>
                 <td>
-                    <input type="text" name="cusPhoneNumber" id="cusPhoneNumber" size="45"/>
+                    <input type="text" name="cusPhoneNumber" id="cusPhoneNumber" size="45" />
                 </td>
             </tr>
             <tr>

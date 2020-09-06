@@ -93,11 +93,7 @@ public class ProductServlet extends HttpServlet {
 
 
     private void search(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-//        int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
-//        Customer customer = customerDAO.selectCustomer(cusNumber);
-//        request.setAttribute("customer", customer);
-
-
+        checkCustomer(request);
         String productName = request.getParameter("SearchBox_productName");
         String minPrice = request.getParameter("SearchBox_minPrice");
         String maxPrice = request.getParameter("SearchBox_maxPrice");
@@ -114,10 +110,7 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("productList", productList);
         int results_count = productList.size();
         request.setAttribute("results_count", results_count);
-//        request.setAttribute("customer", customer);
-//        for (Product product:productList){
-//            System.out.println(product.getProductName());
-//        }
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
         dispatcher.forward(request, response);
     }
@@ -138,6 +131,19 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("customer", customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void checkCustomer(HttpServletRequest request) throws SQLException {
+        Customer customer;
+        if (request.getParameter("cusNumber") != null ){
+            int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
+            customer = customerDAO.selectCustomer(cusNumber);
+            request.setAttribute("customer", customer);
+        } else {
+            System.out.println("customer =  null" );
+            customer = null;
+        }
+        request.setAttribute("customer", customer);
     }
 
     private void showSearchResult(HttpServletRequest request, HttpServletResponse response) {

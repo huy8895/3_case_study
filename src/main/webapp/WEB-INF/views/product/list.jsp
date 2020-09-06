@@ -38,6 +38,7 @@
             <input type="text" name="SearchBox_productBrand" placeholder="productBrand">
             <input type="text" name="SearchBox_productLine" placeholder="productLine">
             <input type="hidden" name="action" value="search">
+            <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
             <input type="submit" value="search">
         </form>
         <p>results: <c:out value="${results_count}"></c:out></p>

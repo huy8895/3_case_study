@@ -16,18 +16,19 @@
 <body>
 <div class="container">
     <h2>Login</h2>
-    <form action="/login?action=login" method="post">
+    <form action="/login" method="post">
         <div class="form-group">
             <label for="username">Email:</label>
-            <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+            <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" required>
         </div>
         <div class="form-group">
             <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
+            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password" required>
         </div>
+        <input type="hidden" name="action" value="login">
         <button type="submit" class="btn btn-primary">Login</button>
-        <button type="button" class="btn btn-primary" value="create" name="action">Create new</button>
-        <a href="/login?action=changepassword">change password</a>
+        <a type="button" class="btn btn-primary" href="/login?action=create" >Create new</a>
+        <a type="button" class="btn btn-primary" href="/login?action=changepassword" >Change password</a>
         <c:out value="${message}"></c:out>
     </form>
 </div>

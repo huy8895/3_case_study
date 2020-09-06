@@ -21,6 +21,12 @@
             <input type="hidden" name="action" value="">
             <button type="submit">back to list</button>
         </form>
+        <c:if test="${customer != null}">
+            <c:out value="customer number: ${customer.getCusNumber()}"></c:out>
+        </c:if>
+        <c:if test="${customer == null}">
+            <c:out value="customer number: null"></c:out>
+        </c:if>
     </h2>
     <div class="container">
         <form method="get" action="/products">
