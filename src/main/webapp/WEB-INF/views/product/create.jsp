@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: LapTop
@@ -16,6 +17,7 @@
         <table border="1" cellpadding="5">
             <caption>
                 <h2>Tạo mới tài khoản</h2>
+                <h3><c:out value="status"></c:out></h3>
             </caption>
             <tr>
                 <th>User Name:</th>

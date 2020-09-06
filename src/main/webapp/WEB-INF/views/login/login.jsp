@@ -27,7 +27,7 @@
         </div>
         <input type="hidden" name="action" value="login">
         <button type="submit" class="btn btn-primary">Login</button>
-        <a type="button" class="btn btn-primary" href="/login?action=create" >Create new</a>
+        <a type="button" class="btn btn-primary" href="/customers?action=create" >Create new</a>
         <a type="button" class="btn btn-primary" href="/login?action=changepassword" >Change password</a>
         <c:out value="${message}"></c:out>
     </form>

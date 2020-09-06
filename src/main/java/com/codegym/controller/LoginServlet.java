@@ -64,9 +64,6 @@ public class LoginServlet extends HttpServlet {
                     System.out.println("changing pass");
                     showChangePasswordForm(request, response);
                     break;
-                case "create":
-                    showNewForm(request, response);
-                    break;
                 default:
                     showLogin(request, response);
                     break;
@@ -111,11 +108,6 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/login/changepassword.jsp");
         dispatcher.forward(request, response);
 
-    }
-
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
-        dispatcher.forward(request, response);
     }
 
     private void doLogin(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {

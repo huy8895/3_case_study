@@ -33,6 +33,7 @@ public class CustomerServlet extends HttpServlet {
         try {
             switch (action) {
                 case "create":
+                    System.out.println("start create customer");
                     insertCustomer(request, response);
                     break;
                 case "edit":
@@ -56,7 +57,7 @@ public class CustomerServlet extends HttpServlet {
         try {
             switch (action) {
                 case "create":
-                    showNewForm(request, response);
+                    showNewForm(request,response);
                     break;
                 case "edit":
                     showEditForm(request, response);
@@ -109,8 +110,13 @@ public class CustomerServlet extends HttpServlet {
         String password = request.getParameter("password");
         Customer newCustomer = new Customer(name, phoneNumber, address, email, userName);
         User newUser = new User(userName, password);
-        userDAO.insertUser(newUser);
-        customerDAO.insertCustomer(newCustomer);
+        String status;
+        if (userDAO.insertUser(newUser) && customerDAO.insertCustomer(newCustomer)){
+             status = "tao thanh cong";
+        } else {
+            status = "tao khong thanh cong";
+        }
+        request.setAttribute("status",status);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
         dispatcher.forward(request, response);
     }
@@ -132,8 +138,15 @@ public class CustomerServlet extends HttpServlet {
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int cusNumber = Integer.parseInt(request.getParameter("id"));
         Customer customer = customerDAO.selectCustomer(cusNumber);
-        customerDAO.deleteCustomer(cusNumber);
-        listUser(request,response);
+        String status;
+        if (customerDAO.deleteCustomer(cusNumber)&& userDAO.removeUser(customer)){
+            status = "xoa thanh cong";
+        } else {
+            status =" xoa that bai";
+        }
+        request.setAttribute("status",status);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/views/customers/delete.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
