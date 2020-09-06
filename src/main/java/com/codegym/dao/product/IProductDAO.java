@@ -15,4 +15,6 @@ public interface IProductDAO {
     public boolean deleteProduct(int id) throws SQLException;
 
     public boolean updateProduct(Product product) throws SQLException;
+
+    public List<Product> getProductsBySearch(String productName,String minPrice,String maxPrice,String productBrand,String productLine) throws SQLException ;
 }

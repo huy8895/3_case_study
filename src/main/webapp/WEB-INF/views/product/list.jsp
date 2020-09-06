@@ -24,6 +24,7 @@
     </h2>
     <h2>
         <a href="/products?action=create">Add New products</a>
+
         <form action="/cart?action=showCart" method="post">
             <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
             <button type="submit">Cart</button>
@@ -31,9 +32,15 @@
     </h2>
     <div class="container">
         <form method="get" action="/products">
-            <input type="text" name="SearchBox">
-            <input type="submit" name="action" value="Search">
+            <input type="text" name="SearchBox_productName" placeholder="productName">
+            <input type="text" name="SearchBox_minPrice" placeholder="minPrice">
+            <input type="text" name="SearchBox_maxPrice" placeholder="maxPrice">
+            <input type="text" name="SearchBox_productBrand" placeholder="productBrand">
+            <input type="text" name="SearchBox_productLine" placeholder="productLine">
+            <input type="hidden" name="action" value="search">
+            <input type="submit" value="search">
         </form>
+        <p>results: <c:out value="${results_count}"></c:out></p>
     </div>
 
     <div align="center">
