@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAO implements IOrderDAO{
-    private static final String GET_ORDER = "select orderNumber from OrderDetail group by orderNumber;";
+    private static final String GET_ORDER = "select max(orderNumber) from OrderDetail ;";
 
     private static final String INSERT_ORDER = "insert into OrderDetail (orderNumber,cusNumber,productCode, quantityOrdered,status,orderDate) values (?,?,?,?,?,?);";
 
@@ -57,8 +57,8 @@ public class OrderDAO implements IOrderDAO{
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(GET_ORDER);
         int count = 0;
-        while (resultSet.next()){
-            count++;
+        if (resultSet.next()){
+            count  = resultSet.getInt(1);
         }
         System.out.println("count = " + count);
         return count;
