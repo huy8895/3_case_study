@@ -175,6 +175,7 @@
             </div>
             <!-- ]Row -->
             <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
+
                 <c:set var = "count" scope = "session" value = "${5}"/>
                 <c:forEach items="${productList}" var="product">
                     <c:if test="${count==0||count==5}">
@@ -185,7 +186,15 @@
                                 <img src=\"${product.getProductImage()}\" class=\"float-left col-lg-12 col-md-12\">
                                 <p>${product.getProductBrand()} ${product.getProductName()}</p>
                                 <p>${product.getProductPrice()}</p>
-                                <i class=\"fa fa-shopping-cart\"></i>&nbsp;<a href=\"#\" id=\"${product.getProductCode()}\">Add To Cart</a>
+
+                                <span>
+                                 <form action=\"/cart\" method=\"post\">
+                                <input type=\"hidden\" name=\"cusNumber\" value=\"${customer.getCusNumber()}\">
+                                <input type=\"hidden\" name=\"productCode\" value=\"${product.getProductCode()}\">
+                                <input type=\"hidden\" name=\"action\" value=\"add\">
+                                <i class=\"fa fa-shopping-cart\"></i>&nbsp;<button class=\"btn btn-white\" type=\"submit\">Add to Cart</button>
+                                </form>
+                                </span>
                                 <br>
                             </div>
                             " escapeXml="false"/>
