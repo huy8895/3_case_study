@@ -135,7 +135,7 @@ public class ProductServlet extends HttpServlet {
 
     private void checkCustomer(HttpServletRequest request) throws SQLException {
         Customer customer;
-        if (request.getParameter("cusNumber") != null ){
+        if (request.getParameter("cusNumber") != null && !request.getParameter("cusNumber").equals("")){
             int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
             customer = customerDAO.selectCustomer(cusNumber);
             request.setAttribute("customer", customer);
