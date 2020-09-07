@@ -118,13 +118,14 @@ public class LoginServlet extends HttpServlet {
         if (daoManger.userDAO.checkUser(user)) {
             request.setAttribute("productList", productList);
             request.setAttribute("customer", customer);
+            request.setAttribute("daoManger",daoManger);
 
-            dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
+            dispatcher = request.getRequestDispatcher("WEB-INF/views/home/index.jsp");
             System.out.println("dang nhap thanh cong");
             message = "dang nhap thanh cong";
             if (daoManger.userDAO.checkAdmin(user)) {
                 System.out.println(userName + "la admin");
-                dispatcher = request.getRequestDispatcher("index.jsp");
+                dispatcher = request.getRequestDispatcher("WEB-INF/views/home/index.jsp");
             } else {
                 System.out.println(userName + " khong phai la admin");
 

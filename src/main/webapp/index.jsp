@@ -57,11 +57,12 @@
 
         </ul>
         <div class="align-content-sm-end">
-            <form action="" method="post" class="form-inline">
+            <form action="/login" method="post" class="form-inline">
                 <input type="text" class="form-control-sm" placeholder="Username.." name="username"><span>&nbsp;</span>
                 <input type="password" class="form-control-sm" placeholder="Password.." name="password"><span>&nbsp;</span>
+                <input type="hidden" name="action" value="login">
                 <button class="btn btn-light btn-sm" type="submit" name="login">Login</button><span>&nbsp;</span>
-                <button class="btn btn-light btn-sm" type="submit" name="login">Sign Up</button>
+                <a class="btn btn-light btn-sm" type="button" href="/customers?action=create">Sign Up</a>
             </form>
         </div>
     </div>
