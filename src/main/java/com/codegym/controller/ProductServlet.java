@@ -2,10 +2,8 @@ package com.codegym.controller;
 
 import com.codegym.dao.customer.CustomerDAO;
 import com.codegym.dao.product.ProductDAO;
-import com.codegym.dao.user.UserDAO;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
-import com.codegym.service.crawdata.CrawlData;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,10 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ProductServlet", urlPatterns = "/products")
@@ -99,6 +95,14 @@ public class ProductServlet extends HttpServlet {
         String maxPrice = request.getParameter("SearchBox_maxPrice");
         String productBrand = request.getParameter("SearchBox_productBrand");
         String productLine = request.getParameter("SearchBox_productLine");
+
+        if (productBrand.trim().equalsIgnoreCase("brand")){
+            productBrand = "";
+        }
+
+        if (productLine.trim().equalsIgnoreCase("Gender")){
+            productLine = "";
+        }
 
         System.out.println("SearchBox_productName = " + productName);
         System.out.println("SearchBox_minPrice = " + minPrice);
