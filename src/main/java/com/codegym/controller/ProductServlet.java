@@ -160,25 +160,28 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        ProductDAO list=new ProductDAO();
-        List productList=list.selectAllProduct();
-        RequestDispatcher dispatcher=request.getRequestDispatcher("adminAdd.jsp");
-        request.setAttribute("productList",productList);
-        dispatcher.forward(request,response);
-
-    }
-
+        int id= Integer.parseInt(request.getParameter("id"));
+        String name= request.getParameter("name");
+        String brand= request.getParameter("brand");
+        double price= Double.parseDouble(request.getParameter("price"));
+        String image= request.getParameter("image");
+        String line= request.getParameter("line");
+        daoManger.productDAO.updateProduct(new Product(id,name,brand,price,image,line));
+        }
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) {
     }
 
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        List<Product> productList=daoManger.productDAO.selectAllProduct();
+        RequestDispatcher dispatcher=request.getRequestDispatcher("adminEdit.jsp");
+        request.setAttribute("productList",productList);
+        dispatcher.forward(request,response);
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher=request.getRequestDispatcher("adminAdd.jsp");
         dispatcher.forward(request,response);
-
     }
 
 }
