@@ -135,7 +135,56 @@ public class ProductDAO implements IProductDAO {
 
     @Override
     public List<Product> getProductsBySearch(String productName, String minPrice, String maxPrice, String productBrand, String productLine) throws SQLException {
-        return null;
+        List<Product> products = new ArrayList<>();
+
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement;
+
+        if (minPrice.equals("") && maxPrice.equals("")) {
+            System.out.println("SELECT_BY_SEARCH_FORM_NOT_MIN_MAX");
+            preparedStatement = connection.prepareStatement(SELECT_BY_SEARCH_FORM_NOT_MIN_MAX);
+            preparedStatement.setString(1, '%' + productName + '%');
+            preparedStatement.setString(2, '%' + productBrand + '%');
+            preparedStatement.setString(3, '%' + productLine + '%');
+        } else if (minPrice.equals("")) {
+            System.out.println("SELECT_BY_SEARCH_FORM_ONLY_MAX");
+            preparedStatement = connection.prepareStatement(SELECT_BY_SEARCH_FORM_ONLY_MAX);
+            preparedStatement.setString(1, '%' + productName + '%');
+            preparedStatement.setDouble(2, Double.parseDouble(maxPrice));
+            preparedStatement.setString(3, '%' + productBrand + '%');
+            preparedStatement.setString(4, '%' + productLine + '%');
+        } else if (maxPrice.equals("")) {
+            System.out.println("SELECT_BY_SEARCH_FORM_ONLY_MIN");
+            preparedStatement = connection.prepareStatement(SELECT_BY_SEARCH_FORM_ONLY_MIN);
+            preparedStatement.setString(1, '%' + productName + '%');
+            preparedStatement.setDouble(2, Double.parseDouble(minPrice));
+            preparedStatement.setString(3, '%' + productBrand + '%');
+            preparedStatement.setString(4, '%' + productLine + '%');
+        } else {
+            System.out.println("SELECT_BY_SEARCH_FORM_BETWEEN");
+            preparedStatement = connection.prepareStatement(SELECT_BY_SEARCH_FORM_BETWEEN);
+            preparedStatement.setString(1, '%' + productName + '%');
+            preparedStatement.setDouble(2, Double.parseDouble(minPrice));
+            preparedStatement.setDouble(3, Double.parseDouble(maxPrice));
+            preparedStatement.setString(4, '%' + productBrand + '%');
+            preparedStatement.setString(5, '%' + productLine + '%');
+        }
+
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int productCode = resultSet.getInt("productCode");
+                String name = resultSet.getString("productName");
+                String brand = resultSet.getString("productBrand");
+                double price = resultSet.getDouble("productPrice");
+                String image = resultSet.getString("productImage");
+                String line = resultSet.getString("productLine");
+                products.add(new Product(productCode, name, brand, price, image, line));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     private void printSQLException(SQLException ex) {
