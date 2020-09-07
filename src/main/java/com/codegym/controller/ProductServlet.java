@@ -1,10 +1,8 @@
 package com.codegym.controller;
 
 import com.codegym.dao.DAOManger;
-import com.codegym.dao.product.ProductDAO;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
-import com.codegym.model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,7 +37,7 @@ public class ProductServlet extends HttpServlet {
                     updateProduct(request, response);
                     break;
                 case "delete":
-                    deleteUser(request, response);
+                    deleteProduct(request, response);
                     break;
                 case "search":
                     search(request, response);
@@ -167,8 +165,12 @@ public class ProductServlet extends HttpServlet {
         String image= request.getParameter("image");
         String line= request.getParameter("line");
         daoManger.productDAO.updateProduct(new Product(id,name,brand,price,image,line));
-        }
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response) {
+        showEditForm(request,response);
+    }
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int id= Integer.parseInt(request.getParameter("id"));
+        daoManger.productDAO.deleteProduct(id);
+        showEditForm(request,response);
     }
 
 

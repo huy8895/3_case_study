@@ -192,7 +192,7 @@
                         <td scope=\"row\">${product.getProductImage()}</td>
                         <td scope=\"row\">${product.getProductLine()}</td>
                     <td scope=\"row\">
-                    <input type=\"\button\" class=\"btn btn-primary btn-dark\" value=\"Edit\" data-toggle=\"modal\" data-target=\"#exampleModal${product.getProductCode()}\"> </td>
+                    <input type=\"button\" class=\"btn btn-primary btn-dark\" value=\"Edit\" data-toggle=\"modal\" data-target=\"#exampleModal${product.getProductCode()}\"> </td>
                         <div class=\"modal fade\" id=\"exampleModal${product.getProductCode()}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
                           <div class=\"modal-dialog\" role=\"document\">
                             <div class=\"modal-content\">
@@ -222,7 +222,7 @@
                         </div>
 
                     <td scope=\"row\">
-                    <input type=\"\button\" class=\"btn btn-primary btn-dark\" value=\"Delete\" data-toggle=\"modal\" data-target=\"#exampleModalDel${product.getProductCode()}\">
+                    <input type=\"button\" class=\"btn btn-primary btn-dark\" value=\"Delete\" data-toggle=\"modal\" data-target=\"#exampleModalDel${product.getProductCode()}\">
                         <div class=\"modal fade\" id=\"exampleModalDel${product.getProductCode()}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
                           <div class=\"modal-dialog\" role=\"document\">
                             <div class=\"modal-content\">
@@ -243,7 +243,7 @@
                               </div>
                               <div class=\"modal-footer\">
                                 <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
-                                <input type=\"hidden\" name=\"action\" value=\"delele\">
+                                <input type=\"hidden\" name=\"action\" value=\"delete\">
                                 <button type=\"submit\" class=\"btn btn-primary\">Save changes</button>
                               </div>
                               </form>
