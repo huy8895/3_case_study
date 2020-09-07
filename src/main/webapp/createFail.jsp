@@ -168,36 +168,7 @@
             <!-- ]Row -->
             <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
                 <div class="row">
-                    <form class="col-12" action="customers" method="post">
-                        <div class="form-group" method="post">
-                            <label for="userName">User Name</label>
-                            <input type="text" class="form-control col-8" id="userNameCreate" name="userName" placeholder="Enter User Name...">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control col-8" id="password" name="password" placeholder="Enter Password...">
-                        </div>
-                        <div class="form-group">
-                            <label for="nameInput">Full Name</label>
-                            <input type="text" class="form-control col-8" id="nameInput" name="cusName" placeholder="Enter Name...">
-                        </div>
-                        <div class="form-group">
-                            <label for="emailInput">Email address</label>
-                            <input type="email" class="form-control col-8" id="emailInput" name="cusEmail" placeholder="Enter Email...">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Phone Number</label>
-                            <input type="tel" class="form-control col-8" id="exampleFormControlInput1" name="cusPhoneNumber" placeholder="Enter Phone Number....">
-                        </div>
-                        <div class="form-group">
-                            <label for="userName">Address</label>
-                            <input type="text" class="form-control col-8" id="userName" name="cusAddress" placeholder="Enter Address...">
-                        </div>
-                        <input type="hidden" name="action" value="create">
-                        <input class="btn btn-primary" type="submit" value="Save">
-                        <a class="btn btn-primary" href="/products">Cancel</a>
-                        <br><br>
-                    </form>
+                   <H3>Trung Ten Dang Nhap</H3>
                 </div>
             </div>
             <!-- Ads -->
