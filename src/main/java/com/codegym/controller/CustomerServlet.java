@@ -111,14 +111,16 @@ public class CustomerServlet extends HttpServlet {
         String password = request.getParameter("password");
         Customer newCustomer = new Customer(name, phoneNumber, address, email, userName);
         User newUser = new User(userName, password);
+        RequestDispatcher dispatcher;
         String status;
         if (daoManger.userDAO.insertUser(newUser) && daoManger.customerDAO.insertCustomer(newCustomer)){
              status = "tao thanh cong";
+            dispatcher = request.getRequestDispatcher("createSuccess.jsp");
         } else {
             status = "tao khong thanh cong";
+            dispatcher = request.getRequestDispatcher("createFail.jsp");
         }
         request.setAttribute("status",status);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 
