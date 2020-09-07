@@ -16,4 +16,6 @@ public interface ICartDAO {
 
     public void clearCart(Customer customer) throws SQLException;
 
+    public boolean deleteCart(Customer customer,Product product) throws SQLException;
+
 }

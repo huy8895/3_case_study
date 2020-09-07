@@ -240,18 +240,18 @@
                                 </button>
                               </div>
                               <div class=\"modal-body\">
-                                 <form method=\"post\" action=\"products\">
-                                     <input readonly class=\"form-control\" name=\"id\" style=\"width:100%\" readonly type=\"text\" value=\"${product.getProductCode()}\"><br>
+                                 <form method=\"post\" action=\"cart\">
+                                     <input readonly class=\"form-control\" name=\"productCode\" style=\"width:100%\" readonly type=\"text\" value=\"${product.getProductCode()}\"><br>
                                      <input readonly class=\"form-control\" name=\"name\" style=\"width:100%\" type=\"text\" value=\"${product.getProductName()}\"><br>
                                      <input readonly class=\"form-control\" name=\"brand\" style=\"width:100%\" type=\"text\" value=\"${product.getProductBrand()}\"><br>
                                      <input readonly class=\"form-control\" name=\"price\" style=\"width:100%\" type=\"number\" value=\"${product.getProductPrice()}\"><br>
-                                     <input readonly class=\"form-control\" name=\"image\" style=\"width:100%\" type=\"text\" value=\" ${product.getProductImage()}\"><br>
                                      <input readonly class=\"form-control\" name=\"line\" style=\"width:100%\" type=\"text\" value=\"${product.getProductLine()}\"><br>
                               </div>
                               <div class=\"modal-footer\">
                                 <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
                                 <input type=\"hidden\" name=\"action\" value=\"delete\">
-                                <button type=\"submit\" class=\"btn btn-primary\">Save changes</button>
+                                <input type=\"hidden\" name=\"cusNumber\" value=\"${cart.getCusNumber()}\">
+                                <button type=\"submit\" class=\"btn btn-primary\">Delete</button>
                               </div>
                               </form>
                             </div>

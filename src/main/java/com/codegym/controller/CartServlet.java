@@ -108,7 +108,20 @@ public class CartServlet extends HttpServlet {
     }
 
 
-    private void deleteCart(HttpServletRequest request, HttpServletResponse response) {
+    private void deleteCart(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
+        int productCode = Integer.parseInt(request.getParameter("productCode"));
+        Customer customer = daoManger.customerDAO.selectCustomer(cusNumber);
+        Product product = daoManger.productDAO.selectProduct(productCode);
+
+        daoManger.cartDAO.deleteCart(customer, product);
+        List<Cart> cartList = daoManger.cartDAO.selectAllCart(customer);
+        request.setAttribute("customer", customer);
+        request.setAttribute("cartList", cartList);
+        request.setAttribute("productDAO", daoManger.productDAO);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customerCart.jsp");
+        dispatcher.forward(request, response);
+
     }
 
     private void updatePCart(HttpServletRequest request, HttpServletResponse response) {

@@ -15,6 +15,7 @@ public class CartDAO implements ICartDAO {
     private static final String INSERT_PRODUCT_SQL = "INSERT INTO Cart (cusNumber,productCode) values (?,?) ;";
     private static final String SELECT_CART_BY_CUS_NUMBER = "SELECT * FROM Cart where cusNumber = ?;";
     private static final String CLEAR_CART_BY_CUSNUMBER = "delete from Cart where cusNumber = ?;";
+    private static final String DELETE_CART_BY_PRODUCT_CODE = "delete from Cart where productCode = ? and cusNumber = ?;";
 
 
     protected Connection getConnection() {
@@ -96,6 +97,15 @@ public class CartDAO implements ICartDAO {
         PreparedStatement preparedStatement = connection.prepareStatement(CLEAR_CART_BY_CUSNUMBER);
         preparedStatement.setInt(1, customer.getCusNumber());
         preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public boolean deleteCart(Customer customer,Product product) throws SQLException {
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CART_BY_PRODUCT_CODE);
+        preparedStatement.setInt(1,product.getProductCode());
+        preparedStatement.setInt(2, customer.getCusNumber());
+        return preparedStatement.executeUpdate() > 0;
     }
 
 }
