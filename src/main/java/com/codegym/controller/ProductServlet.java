@@ -1,7 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.dao.customer.CustomerDAO;
-import com.codegym.dao.product.ProductDAO;
+import com.codegym.dao.DAOManger;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
 
@@ -17,12 +16,10 @@ import java.util.List;
 
 @WebServlet(name = "ProductServlet", urlPatterns = "/products")
 public class ProductServlet extends HttpServlet {
-    private ProductDAO productDAO;
-    private CustomerDAO customerDAO;
+    private DAOManger daoManger;
 
     public void init() {
-        productDAO = new ProductDAO();
-        customerDAO = new CustomerDAO();
+        daoManger = new DAOManger();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -96,7 +93,7 @@ public class ProductServlet extends HttpServlet {
         String productBrand = request.getParameter("SearchBox_productBrand");
         String productLine = request.getParameter("SearchBox_productLine");
 
-        if (productBrand.trim().equalsIgnoreCase("brand")){
+        if (productBrand.trim().equalsIgnoreCase("Brand")){
             productBrand = "";
         }
 
@@ -110,7 +107,7 @@ public class ProductServlet extends HttpServlet {
         System.out.println("SearchBox_productBrand = " + productBrand);
         System.out.println("SearchBox_productLine = " + productLine);
 
-        List<Product> productList = productDAO.getProductsBySearch(productName,minPrice,maxPrice,productBrand,productLine);
+        List<Product> productList = daoManger.productDAO.getProductsBySearch(productName,minPrice,maxPrice,productBrand,productLine);
         request.setAttribute("productList", productList);
         int results_count = productList.size();
         request.setAttribute("results_count", results_count);
@@ -124,13 +121,13 @@ public class ProductServlet extends HttpServlet {
         Customer customer;
         if (request.getParameter("cusNumber") != null ){
             int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
-            customer = customerDAO.selectCustomer(cusNumber);
+            customer = daoManger.customerDAO.selectCustomer(cusNumber);
             request.setAttribute("customer", customer);
         } else {
             System.out.println("customer =  null" );
             customer = null;
         }
-        List<Product> productList = productDAO.selectAllProduct();
+        List<Product> productList = daoManger.productDAO.selectAllProduct();
         request.setAttribute("productList", productList);
         request.setAttribute("customer", customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
@@ -141,7 +138,7 @@ public class ProductServlet extends HttpServlet {
         Customer customer;
         if (request.getParameter("cusNumber") != null && !request.getParameter("cusNumber").equals("")){
             int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
-            customer = customerDAO.selectCustomer(cusNumber);
+            customer = daoManger.customerDAO.selectCustomer(cusNumber);
             request.setAttribute("customer", customer);
         } else {
             System.out.println("customer =  null" );

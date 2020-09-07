@@ -1,7 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.dao.customer.CustomerDAO;
-import com.codegym.dao.product.ProductDAO;
+import com.codegym.dao.DAOManger;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
 
@@ -17,12 +16,10 @@ import java.util.List;
 
 @WebServlet(name = "IndexServlet",urlPatterns = "/index")
 public class IndexServlet extends HttpServlet {
-    private ProductDAO productDAO;
-    private CustomerDAO customerDAO;
+    private DAOManger daoManger;
 
     public void init() {
-        productDAO = new ProductDAO();
-        customerDAO = new CustomerDAO();
+        daoManger = new DAOManger();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -55,8 +52,8 @@ public class IndexServlet extends HttpServlet {
     }
 
     private void listProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        List<Product> productList = productDAO.selectAllProduct();
-        Customer customer = customerDAO.selectCustomer(6);
+        List<Product> productList = daoManger.productDAO.selectAllProduct();
+        Customer customer = daoManger.customerDAO.selectCustomer(6);
         String test = "test";
         request.setAttribute("test",test);
         request.setAttribute("productList", productList);
