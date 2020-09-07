@@ -43,7 +43,7 @@
                 <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/cart?action=cart">Cart</a>
+                <a class="nav-link" href="#">Features</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Pricing</a>
@@ -137,14 +137,14 @@
                 </form>
                 <br><hr>
             </div>
-            <!-- ]Row -->
+                <!-- ]Row -->
             <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
                 <c:set var = "count" scope = "session" value = "${5}"/>
                 <c:forEach items="${productList}" var="product">
                     <c:if test="${count==0||count==5}">
-                        <c:out value= "<div class=\"row\">" escapeXml="false"/>
+                      <c:out value= "<div class=\"row\">" escapeXml="false"/>
                     </c:if>
-                    <c:out value= "
+                            <c:out value= "
                             <div class=\"col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item\">
                                 <img src=\"${product.getProductImage()}\" class=\"float-left col-lg-12 col-md-12\">
                                 <p>${product.getProductBrand()} ${product.getProductName()}</p>
@@ -169,12 +169,12 @@
             </div>
             <!-- Ads -->
             <br>
+            </div>
+            <div class="col-2 d-none d-sm-block d-md-block">
+                One of three columns
+            </div>
+            <!-- Ads -->
         </div>
-        <div class="col-2 d-none d-sm-block d-md-block">
-            One of three columns
-        </div>
-        <!-- Ads -->
-    </div>
     </div>
 </main>
 <!--Main Layout-->

@@ -10,16 +10,14 @@
         <link rel="stylesheet" href="bootstrap/bootstrap-grid.min.css">
         <link rel="stylesheet" href="bootstrap/bootstrap-reboot.min.css">
         <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
-        <style>
-            @media (max-width: 767px) {
-            .navbar-nav .open .dropdown-menu {
-            position: absolute;
-            left: auto;
-            right: 0;
-            }
-        }
-        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Watch Store</title>
+        <style>
+          .shop-item:hover{
+            border-color: #66afe9;
+            box-shadow: 0 0 8px rgba(68, 62, 157, 0.6);
+          }
+        </style>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -45,26 +43,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Opinions</a>
                     </li>
+                    <li class="nav-item">
+                       
+                    </li>
+
                 </ul>
                 <div class="align-content-sm-end">
                     <form action="" method="post" class="form-inline">
                             <input type="text" class="form-control-sm" placeholder="Username.." name="username"><span>&nbsp;</span>
                             <input type="password" class="form-control-sm" placeholder="Password.." name="password"><span>&nbsp;</span>
                             <button class="btn btn-light btn-sm" type="submit" name="login">Login</button><span>&nbsp;</span>
-                            <button class="btn btn-light btn-sm" type="submit" name="login">Sign Up</button><span>&nbsp;</span>
+                            <button class="btn btn-light btn-sm" type="submit" name="login">Sign Up</button>
                     </form>
                 </div>    
-                <ul class="navbar-nav nav-flex-icons">
-                    <li class="nav-item">
-                        <a class="nav-link"><i class="fab fa-facebook-f"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"><i class="fab fa-twitter"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"><i class="fab fa-instagram"></i></a>
-                    </li>
-                </ul>
             </div>
         </nav>
     </header>
@@ -72,18 +63,17 @@
     
     <!--Main Layout-->
   
-    <main class="bd-masthead" id="content" role="main" style="padding-top:56px">
-        <div class="block col-2"></div>
-        <div id="carouselExampleControls" class="carousel slide col-8" data-ride="carousel">
-            <div class="carousel-inner">
+    <main class="bd-masthead container col-12" id="content" role="main" style="padding-top:56px">
+        <div id="carouselExampleControls" class="container carousel slide col-7 w-100" data-ride="carousel">
+            <div class="carousel-inner con">
               <div class="carousel-item active">
-                <img src="https://www.w3schools.com/bootstrap/ny.jpg" class="d-block w-100" alt="...">
+                <img src="https://cdn2.jomashop.com/media//wysiwyg/sales-event/2020/big_banner_TUDOR_black_bay.jpg" class="d-block col-12" alt="...">
               </div>
               <div class="carousel-item">
-                <img src="https://www.w3schools.com/bootstrap/ny.jpg" class="d-block w-100" alt="...">
+                <img src="https://cdn2.jomashop.com/media//wysiwyg/sales-event/2020/big_banner_SEIKO_prospex.jpg" class="d-block col-12" alt="...">
               </div>
               <div class="carousel-item">
-                <img src="https://www.w3schools.com/bootstrap/ny.jpg" class="d-block w-100" alt="...">
+                <img src="https://cdn2.jomashop.com/media//wysiwyg/sales-event/2020/big_banner_DIOR_aviator.jpg" class="d-block col-12" alt="...">
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -95,9 +85,141 @@
               <span class="sr-only">Next</span>
             </a>
         </div>
-        <div class=" col-2"></div>  
+        <hr>
+        <div class="container col-12">
+            <div class="row col-sm-12 col-xs-12">
+            <!-- ]Search left size -->
+              <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                <form>
+                    <div class="form-group">
+                      <input type="text" class="form-control border-dark" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control border-dark" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Max Price">
+                      </div>
+                      <div class="form-group">
+                        <input type="number" class="form-control border-dark" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Min Price">
+                      </div>
+                    <div class="dropdown">
+                        <button class="btn btn-white dropdown-toggle border-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Brand
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">Action</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="dropdown">
+                        <button class="btn btn-white dropdown-toggle border-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Gender
+                        </button>
+                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">Action</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    
+                  </form>
+                  <br><hr>
+              </div>
+            <!-- ]Search left size -->
+            <!-- ]Product Middle -->
+
+              <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
+                <!-- ]Row -->
+                <div class="row">
+                    <div class="col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item">
+                          <img src="https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/t/i/tissot-le-locle-powermatic-80-automatic-mens-watch-t0064071603300.jpg" class="float-left col-lg-12 col-md-12">
+                          <p>Seiko Automatic Black Dial Black Rubber Men's Watch</p>
+                          <p>$319.99</p>
+                          <i class="fa fa-shopping-cart"></i>&nbsp;<a href="#">Add To Cart</a>
+                          <br>          
+                    </div>
+                    <div class="col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item">
+                          <img src="https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/c/i/citizen-promaster-diver-mens-watch-bn0150-28e.jpg" class="float-left col-lg-12 col-md-12">
+                          <p>Seiko Automatic Black Dial Black Rubber Men's Watch</p>
+                          <p>$319.99</p>
+                          <i class="fa fa-shopping-cart"></i>&nbsp;<a href="#">Add To Cart</a>
+                          <br>          
+                    </div>
+                    <div class="col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item">
+                          <img src="https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/s/e/seiko-5-sport-automatic-black-canvas-men_s-watch-snzg15.jpg" class="float-left col-lg-12 col-md-12">
+                          <p>Seiko Automatic Black Dial Black Rubber Men's Watch</p>
+                          <p>$319.99</p>
+                          <i class="fa fa-shopping-cart"></i>&nbsp;<a href="#">Add To Cart</a>
+                          <br>          
+                    </div>
+                </div>
+                <br>
+                <!-- ]Row -->
+                <div class="row">
+                  <div class="col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item">
+                    <img src="https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/s/e/seiko-automatic-black-dial-black-rubber-men_s-watch-skx007j1.jpg" class="float-left col-lg-12 col-md-12">
+                    <p>Seiko Automatic Black Dial Black Rubber Men's Watch</p>
+                    <p>$319.99</p>
+                    <i class="fa fa-shopping-cart"></i>&nbsp;<a href="#">Add To Cart</a>          
+                  </div>
+                  <br>
+                  <div class="col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item">
+                        <img src="https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/t/i/tissot-le-locle-powermatic-80-automatic-mens-watch-t0064071603300.jpg" class="float-left col-lg-12 col-md-12">
+                        <p>Seiko Automatic Black Dial Black Rubber Men's Watch</p>
+                        <p>$319.99</p>
+                        <i class="fa fa-shopping-cart"></i>&nbsp;<a href="#">Add To Cart</a>          
+                  </div>
+                  <br>
+                  <div class="col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item">
+                        <img src="https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/s/e/seiko-flight-chronograph-steel-black-dial-men_s-watch-sna411_4.jpg" class="float-left col-lg-12 col-md-12">
+                        <p>Seiko Automatic Black Dial Black Rubber Men's Watch</p>
+                        <p>$319.99</p>
+                        <i class="fa fa-shopping-cart"></i>&nbsp;<a href="#">Add To Cart</a>          
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item">
+                    <img src="https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/c/i/citizen-promaster-diver-mens-watch-bn0150-28e.jpg" class="float-left col-lg-12 col-md-12">
+                    <p>Seiko Automatic Black Dial Black Rubber Men's Watch</p>
+                    <p>$319.99</p>
+                    <i class="fa fa-shopping-cart"></i>&nbsp;<a href="#">Add To Cart</a>          
+                  </div>
+                  <br>
+                  <div class="col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item">
+                        <img src="https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/t/i/tissot-le-locle-powermatic-80-automatic-mens-watch-t0064071603300.jpg" class="float-left col-lg-12 col-md-12">
+                        <p>Seiko Automatic Black Dial Black Rubber Men's Watch</p>
+                        <p>$319.99</p>
+                        <i class="fa fa-shopping-cart"></i>&nbsp;<a href="#">Add To Cart</a>          
+                  </div>
+                  <br>
+                  <div class="col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item">
+                        <img src="https://cdn2.jomashop.com/media/catalog/product/cache/1/small_image/259x/9df78eab33525d08d6e5fb8d27136e95/s/e/seiko-5-sport-automatic-black-canvas-men_s-watch-snzg15.jpg" class="float-left col-lg-12 col-md-12">
+                        <p>Seiko Automatic Black Dial Black Rubber Men's Watch</p>
+                        <p>$319.99</p>
+                        <i class="fa fa-shopping-cart"></i>&nbsp;<a href="#">Add To Cart</a>          
+                  </div>
+                </div>
+                <br>        
+              </div>
+             
+              <!-- Ads -->
+              <div class="col-2 d-none d-sm-block d-md-block">
+                One of three columns
+              </div>
+              <!-- Ads -->
+            </div>
+          </div>        
     </main>
     <!--Main Layout-->
+    <footer class="footer bg-dark">
+        <div class="">
+          <span class="text-muted">Place sticky footer content here.</span>
+        </div>
+      </footer>
+   
         <script src="" async defer></script>
     </body>
 </html>

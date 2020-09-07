@@ -19,7 +19,7 @@
     </h2>
     <div class="container">
         <form method="get" action="/customers">
-            <input type="text" name="SearchBox">
+            <input type="text" name="SearchName">
             <input type="submit" name="action" value="Search">
         </form>
     </div>
@@ -29,21 +29,22 @@
             <caption><h2>List of Customers</h2></caption>
             <tr>
                 <th>ID</th>
-                <th>userName</th>
+                <th>UserName</th>
                 <th>Full Name</th>
                 <th>Phone</th>
                 <th>Address</th>
                 <th>Email</th>
+                <th>Actions</th>
 
             </tr>
             <c:forEach var="customer" items="${customerList}">
                 <tr>
-                    <td><c:out value="${customer.getCusNumber()}"/></td>
-                    <td><c:out value="${customer.userName}"/></td>
-                    <td><c:out value="${customer.cusName}"/></td>
-                    <td><c:out value="${customer.cusPhoneNumber}"/></td>
-                    <td><c:out value="${customer.cusAddress}"/></td>
-                    <td><c:out value="${customer.cusEmail}"/></td>
+                    <td>${customer.getCusNumber()}</td>
+                    <td>${customer.userName}</td>
+                    <td>${customer.cusName}</td>
+                    <td>${customer.cusPhoneNumber}</td>
+                    <td>${customer.cusAddress}</td>
+                    <td>${customer.cusEmail}</td>
                     <td>
                         <a href="/customers?action=edit&id=${customer.cusNumber}">Edit</a>
                         <a href="/customers?action=delete&id=${customer.cusNumber}">Delete</a>

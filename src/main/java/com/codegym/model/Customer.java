@@ -32,8 +32,8 @@ public class Customer {
         return cusNumber;
     }
 
-    public void setCusNumber(int cusNumber) {
-        this.cusNumber = cusNumber;
+    public void setCusNumber(int id) {
+        this.cusNumber = id;
     }
 
     public String getCusName() {
