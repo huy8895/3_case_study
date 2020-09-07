@@ -5,11 +5,17 @@ import com.codegym.model.Customer;
 import com.codegym.model.Order;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderDAO implements IOrderDAO{
     private static final String GET_ORDER = "select orderNumber from OrderDetail group by orderNumber;";
 
     private static final String INSERT_ORDER = "insert into OrderDetail (orderNumber,cusNumber,productCode, quantityOrdered,status,orderDate) values (?,?,?,?,?,?);";
+
+    private static final String SELECT_ORDER_BY_CUSNUMBER = "SELECT * FROM OrderDetail WHERE cusNumber = ?;";
+
+
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -57,6 +63,32 @@ public class OrderDAO implements IOrderDAO{
         System.out.println("count = " + count);
         return count;
 
+    }
+
+    @Override
+    public List<Order> selectOrder(Customer customer) throws SQLException {
+        List<Order> orderList = new ArrayList<>();
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_CUSNUMBER);
+        try{
+            System.out.println("GETTING order");
+            System.out.println("order number: " + customer.getCusNumber() );
+            preparedStatement.setInt(1,customer.getCusNumber());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+//                int orderNumber, int productCode, int cusNumber, int quantityOrdered, String status, String orderDate
+                int orderNumber = resultSet.getInt("orderNumber");
+                int productCode = resultSet.getInt("productCode");
+                int cusNumber = resultSet.getInt("cusNumber");
+                int quantityOrdered = resultSet.getInt("quantityOrdered");
+                String status = resultSet.getString("status");
+                String orderDate = resultSet.getString("orderDate");
+                orderList.add(new Order(orderNumber,productCode,cusNumber,quantityOrdered,status,orderDate));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orderList;
     }
 
 }

@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "CartServlet", urlPatterns = "/cart")
@@ -57,6 +55,9 @@ public class CartServlet extends HttpServlet {
                 case "pay":
                     pay(request, response);
                     break;
+                case "orderDetail":
+                    orderDetail(request, response);
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,7 +80,7 @@ public class CartServlet extends HttpServlet {
     }
 
     private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        if (!request.getParameter("cusNumber").equals("")) {
+        if (!request.getParameter("cusNumber").equals("") && request.getParameter("cusNumber")!=null) {
             int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
             Customer customer = customerDAO.selectCustomer(cusNumber);
             List<Cart> cartList = cartDAO.selectAllCart(customer);
@@ -95,6 +96,26 @@ public class CartServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
     }
+
+
+    private void orderDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        if (!request.getParameter("cusNumber").equals("") && request.getParameter("cusNumber")!=null) {
+            int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
+            Customer customer = customerDAO.selectCustomer(cusNumber);
+            List<Order> orderList = orderDAO.selectOrder(customer);
+            request.setAttribute("orderList", orderList);
+            request.setAttribute("customer", customer);
+            request.setAttribute("productDAO", productDAO);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/order/order.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            List<Product> productList = productDAO.selectAllProduct();
+            request.setAttribute("productList", productList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/order/order.jsp");
+            dispatcher.forward(request, response);
+        }
+    }
+
 
     private void deleteCart(HttpServletRequest request, HttpServletResponse response) {
     }

@@ -29,6 +29,10 @@
             <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
             <button type="submit">Cart</button>
         </form>
+        <form action="/cart?action=orderDetail" method="post">
+            <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
+            <button type="submit">HISTORY</button>
+        </form>
     </h2>
     <div class="container">
         <form method="get" action="/products">
