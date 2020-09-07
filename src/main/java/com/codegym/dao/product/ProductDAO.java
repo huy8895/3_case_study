@@ -20,8 +20,12 @@ public class ProductDAO implements IProductDAO {
     private static final String UPDATE_PRODUCT_SQL = "UPDATE Product SET " +
             "productName = ?, productBrand = ? , productPrice = ?, productImage = ?, productLine = ?" +
             "where productCode = ?;";
-    private static final String GET_PRODUCT_BY_NAME = "SELECT * FROM Product where productName like ?;";
-    private static final String GET_PRODUCT_BY_PRICE = "SELECT * FROM Product where productPrice between ? and ?;";
+    private static final String SELECT_BY_SEARCH_FORM_BETWEEN = "SELECT * from Product where productName like ? and productPrice between ? and ? and productBrand like ? and productLine like  ?;";
+    private static final String SELECT_BY_SEARCH_FORM_ONLY_MIN = "SELECT * from Product where productName like ? and productPrice > ?  and productBrand like ? and productLine like  ?;";
+    private static final String SELECT_BY_SEARCH_FORM_ONLY_MAX = "SELECT * from Product where productName like ? and productPrice < ?  and productBrand like ? and productLine like  ?;";
+    private static final String SELECT_BY_SEARCH_FORM_NOT_MIN_MAX = "SELECT * from Product where productName like ?  and productBrand like ? and productLine like  ?;";
+
+
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -130,52 +134,8 @@ public class ProductDAO implements IProductDAO {
     }
 
     @Override
-    public List<Product> getProductByName(String name) {
-        List<Product> product = new ArrayList<>();
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_BY_NAME);) {
-            String search = "%" + name + "%";
-            preparedStatement.setString(1, search);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("productCode");
-                String brand = resultSet.getString("productBrand");
-                double price = resultSet.getDouble("productPrice");
-                String image = resultSet.getString("productImage");
-                String line = resultSet.getString("productLine");
-                String myName = resultSet.getString("productName");
-                product.add(new Product(id, myName, brand, price, image, line));
-            }
-
-        } catch (SQLException e) {
-            printSQLException(e);
-        }
-        return product;
-    }
-
-    @Override
-    public List<Product> getProductByPrice(double minPrice, double maxPrice) throws SQLException {
-        List<Product> products = new ArrayList<>();
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_BY_PRICE);) {
-            preparedStatement.setDouble(1, minPrice);
-            preparedStatement.setDouble(2, maxPrice);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("productCode");
-                String name = resultSet.getString("productName");
-                String brand = resultSet.getString("productBrand");
-                double price = resultSet.getDouble("productPrice");
-                String image = resultSet.getString("productImage");
-                String line = resultSet.getString("productLine");
-
-                products.add(new Product(id, name, brand, price, image, line));
-
-            }
-        }
-        return products;
+    public List<Product> getProductsBySearch(String productName, String minPrice, String maxPrice, String productBrand, String productLine) throws SQLException {
+        return null;
     }
 
     private void printSQLException(SQLException ex) {

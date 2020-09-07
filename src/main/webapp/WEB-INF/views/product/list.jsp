@@ -19,11 +19,8 @@
     </h2>
     <div class="container">
         <form method="get" action="/products">
-            <input type="text" name="SearchName">
-            <input type="submit" name="action" value="Search">
-<%--            <input type="text" name="minPrice">--%>
-<%--            <input type="text" name="maxPrice">--%>
-<%--            <input type="submit" value="SearchPrice">--%>
+            <input type="text" name="Search">
+            <input type="submit" value="Search">
         </form>
     </div>
 

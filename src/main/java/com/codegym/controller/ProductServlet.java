@@ -144,8 +144,12 @@ public class ProductServlet extends HttpServlet {
 
     private void showSearchResult(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("SearchName");
-        List<Product> product = productDAO.getProductByName(name);
+        String name = request.getParameter("Search");
+        String brand = request.getParameter("Search");
+        double price = Double.parseDouble(request.getParameter("Search"));
+        String line = request.getParameter("Search");
+
+        List<Product> product = productDAO.getProductSearch(name,brand,price,line);
         RequestDispatcher dispatcher;
         if (product == null) {
             dispatcher = request.getRequestDispatcher("Error.jsp");
