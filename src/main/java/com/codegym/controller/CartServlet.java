@@ -1,9 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.dao.cart.CartDAO;
-import com.codegym.dao.customer.CustomerDAO;
-import com.codegym.dao.order.OrderDAO;
-import com.codegym.dao.product.ProductDAO;
+import com.codegym.dao.DAOManger;
 import com.codegym.model.Cart;
 import com.codegym.model.Customer;
 import com.codegym.model.Order;
@@ -17,22 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "CartServlet", urlPatterns = "/cart")
 public class CartServlet extends HttpServlet {
-    private CartDAO cartDAO;
-    private CustomerDAO customerDAO;
-    private ProductDAO productDAO;
-    private OrderDAO orderDAO;
+    private DAOManger daoManger;
 
     public void init() {
-        cartDAO = new CartDAO();
-        customerDAO = new CustomerDAO();
-        productDAO = new ProductDAO();
-        orderDAO = new OrderDAO();
+        daoManger = new DAOManger();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -57,6 +46,9 @@ public class CartServlet extends HttpServlet {
                 case "pay":
                     pay(request, response);
                     break;
+                case "orderDetail":
+                    orderDetail(request, response);
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,22 +71,42 @@ public class CartServlet extends HttpServlet {
     }
 
     private void showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        if (!request.getParameter("cusNumber").equals("")) {
+        if (!request.getParameter("cusNumber").equals("") && request.getParameter("cusNumber")!=null) {
             int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
-            Customer customer = customerDAO.selectCustomer(cusNumber);
-            List<Cart> cartList = cartDAO.selectAllCart(customer);
+            Customer customer = daoManger.customerDAO.selectCustomer(cusNumber);
+            List<Cart> cartList = daoManger.cartDAO.selectAllCart(customer);
             request.setAttribute("cartList", cartList);
             request.setAttribute("customer", customer);
-            request.setAttribute("productDAO", productDAO);
+            request.setAttribute("productDAO", daoManger.productDAO);
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/cart.jsp");
             dispatcher.forward(request, response);
         } else {
-            List<Product> productList = productDAO.selectAllProduct();
+            List<Product> productList = daoManger.productDAO.selectAllProduct();
             request.setAttribute("productList", productList);
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
             dispatcher.forward(request, response);
         }
     }
+
+
+    private void orderDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        if (!request.getParameter("cusNumber").equals("") && request.getParameter("cusNumber")!=null) {
+            int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
+            Customer customer = daoManger.customerDAO.selectCustomer(cusNumber);
+            List<Order> orderList = daoManger.orderDAO.selectOrder(customer);
+            request.setAttribute("orderList", orderList);
+            request.setAttribute("customer", customer);
+            request.setAttribute("productDAO", daoManger.productDAO);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/order/order.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            List<Product> productList = daoManger.productDAO.selectAllProduct();
+            request.setAttribute("productList", productList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/order/order.jsp");
+            dispatcher.forward(request, response);
+        }
+    }
+
 
     private void deleteCart(HttpServletRequest request, HttpServletResponse response) {
     }
@@ -105,16 +117,16 @@ public class CartServlet extends HttpServlet {
     private void insertCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
         int productCode = Integer.parseInt(request.getParameter("productCode"));
-        Customer customer = customerDAO.selectCustomer(cusNumber);
-        Product product = productDAO.selectProduct(productCode);
+        Customer customer = daoManger.customerDAO.selectCustomer(cusNumber);
+        Product product = daoManger.productDAO.selectProduct(productCode);
         System.out.println("add to cart of : " + customer.getCusName());
         System.out.println("product selected : " + product.getProductCode());
         String ads = request.getParameter("cusNumber");
         String asdf = request.getParameter("productCode");
 
 
-        cartDAO.insertCart(customer, product);
-        List<Product> productList = productDAO.selectAllProduct();
+        daoManger.cartDAO.insertCart(customer, product);
+        List<Product> productList = daoManger.productDAO.selectAllProduct();
         request.setAttribute("customer", customer);
         request.setAttribute("productList", productList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
@@ -127,18 +139,18 @@ public class CartServlet extends HttpServlet {
         System.out.println("dang thanh toan");
         int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
 
-        Customer customer = customerDAO.selectCustomer(cusNumber);
-        List<Cart> cartList = cartDAO.selectAllCart(customer);
-        int orderNumber = orderDAO.getOrderNumber() + 1;
+        Customer customer = daoManger.customerDAO.selectCustomer(cusNumber);
+        List<Cart> cartList = daoManger.cartDAO.selectAllCart(customer);
+        int orderNumber = daoManger.orderDAO.getOrderNumber() + 1;
 
         for (Cart cart:cartList){
             int productCode = cart.getProductCode();
             int quantity = cart.getQuantity();
             String status = "done";
             String currentDate = java.time.LocalDate.now().toString();
-            orderDAO.insertOrder(new Order(orderNumber,productCode,cusNumber,quantity,status,currentDate));
+            daoManger.orderDAO.insertOrder(new Order(orderNumber,productCode,cusNumber,quantity,status,currentDate));
         }
-        cartDAO.clearCart(customer);
+        daoManger.cartDAO.clearCart(customer);
         System.out.println("thanh toan thanh cong");
     }
 }

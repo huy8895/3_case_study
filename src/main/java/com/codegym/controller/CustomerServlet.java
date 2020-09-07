@@ -1,7 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.dao.customer.CustomerDAO;
-import com.codegym.dao.user.UserDAO;
+import com.codegym.dao.DAOManger;
 import com.codegym.model.Customer;
 import com.codegym.model.User;
 
@@ -17,12 +16,10 @@ import java.util.List;
 
 @WebServlet(name = "CustomerServlet", urlPatterns = "/customers")
 public class CustomerServlet extends HttpServlet {
-    private UserDAO userDAO;
-    private CustomerDAO customerDAO;
+    private DAOManger daoManger;
 
     public void init() {
-        userDAO = new UserDAO();
-        customerDAO = new CustomerDAO();
+        daoManger = new DAOManger();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -81,7 +78,7 @@ public class CustomerServlet extends HttpServlet {
 
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         int cusNumber = Integer.parseInt(request.getParameter("id"));
-        Customer customer = customerDAO.selectCustomer(cusNumber);
+        Customer customer = daoManger.customerDAO.selectCustomer(cusNumber);
         request.setAttribute("customer",customer);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/views/customers/delete.jsp");
         requestDispatcher.forward(request, response);
@@ -96,7 +93,7 @@ public class CustomerServlet extends HttpServlet {
         String email = request.getParameter("cusEmail");
         String userName = request.getParameter("userName");
         Customer customer = new Customer(cusNumber,name, phoneNumber, address, email, userName);
-        customerDAO.updateUser(customer);
+        daoManger.customerDAO.updateUser(customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/edit.jsp");
         dispatcher.forward(request, response);
     }
@@ -111,7 +108,7 @@ public class CustomerServlet extends HttpServlet {
         Customer newCustomer = new Customer(name, phoneNumber, address, email, userName);
         User newUser = new User(userName, password);
         String status;
-        if (userDAO.insertUser(newUser) && customerDAO.insertCustomer(newCustomer)){
+        if (daoManger.userDAO.insertUser(newUser) && daoManger.customerDAO.insertCustomer(newCustomer)){
              status = "tao thanh cong";
         } else {
             status = "tao khong thanh cong";
@@ -126,7 +123,7 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void listUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        List<Customer> customerList = customerDAO.selectAllCustomer();
+        List<Customer> customerList = daoManger.customerDAO.selectAllCustomer();
         for (Customer customer : customerList) {
             System.out.println(customer.getCusNumber());
         }
@@ -137,9 +134,9 @@ public class CustomerServlet extends HttpServlet {
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int cusNumber = Integer.parseInt(request.getParameter("id"));
-        Customer customer = customerDAO.selectCustomer(cusNumber);
+        Customer customer = daoManger.customerDAO.selectCustomer(cusNumber);
         String status;
-        if (customerDAO.deleteCustomer(cusNumber)&& userDAO.removeUser(customer)){
+        if (daoManger.customerDAO.deleteCustomer(cusNumber)&& daoManger.userDAO.removeUser(customer)){
             status = "xoa thanh cong";
         } else {
             status =" xoa that bai";
@@ -151,7 +148,7 @@ public class CustomerServlet extends HttpServlet {
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Customer customer = customerDAO.selectCustomer(id);
+        Customer customer = daoManger.customerDAO.selectCustomer(id);
         request.setAttribute("customer",customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/edit.jsp");
         dispatcher.forward(request, response);

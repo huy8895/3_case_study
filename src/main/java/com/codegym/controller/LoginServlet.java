@@ -1,8 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.dao.customer.CustomerDAO;
-import com.codegym.dao.product.ProductDAO;
-import com.codegym.dao.user.UserDAO;
+import com.codegym.dao.DAOManger;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
 import com.codegym.model.User;
@@ -19,14 +17,10 @@ import java.util.List;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
-    private UserDAO userDAO;
-    private CustomerDAO customerDAO;
-    private ProductDAO productDAO;
+    private DAOManger daoManger;
 
     public void init() {
-        userDAO = new UserDAO();
-        customerDAO = new CustomerDAO();
-        productDAO = new ProductDAO();
+        daoManger = new DAOManger();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -85,7 +79,7 @@ public class LoginServlet extends HttpServlet {
         System.out.println("newPassword = " + newPassword);
         String status = "";
 
-        if (userDAO.changePassword(user, newPassword)) {
+        if (daoManger.userDAO.changePassword(user, newPassword)) {
             System.out.println("doi mat khau thanh cong");
             status = "doi mat khau thanh cong";
         } else {
@@ -99,7 +93,7 @@ public class LoginServlet extends HttpServlet {
 
 
     private void showLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/login/login.jsp");
         dispatcher.forward(request, response);
 
     }
@@ -118,28 +112,25 @@ public class LoginServlet extends HttpServlet {
         System.out.println("password = " + password);
         String message = "";
         RequestDispatcher dispatcher = null;
-        List<Product> productList = productDAO.selectAllProduct();
-        Customer customer = customerDAO.selectCustomer(userName);
+        List<Product> productList = daoManger.productDAO.selectAllProduct();
+        Customer customer = daoManger.customerDAO.selectCustomer(userName);
 
-        if (userDAO.checkUser(user)) {
+        if (daoManger.userDAO.checkUser(user)) {
             request.setAttribute("productList", productList);
-            request.setAttribute("user", user);
             request.setAttribute("customer", customer);
-            dispatcher = request.getRequestDispatcher("index.jsp");
+
+            dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
             System.out.println("dang nhap thanh cong");
             message = "dang nhap thanh cong";
-            if (userDAO.checkAdmin(user)) {
-                System.out.println(user.getUserName() + " la admin");
-                request.setAttribute("user", user);
-                request.setAttribute("customer", customer);
-
+            if (daoManger.userDAO.checkAdmin(user)) {
+                System.out.println(userName + "la admin");
                 dispatcher = request.getRequestDispatcher("index.jsp");
             } else {
                 System.out.println(userName + " khong phai la admin");
 
             }
         } else {
-            dispatcher = request.getRequestDispatcher("index.jsp");
+            dispatcher = request.getRequestDispatcher("WEB-INF/views/login/login.jsp");
             System.out.println("sai ten dang nhap hoac mat khau");
             message = "sai ten dang nhap hoac mat khau";
         }

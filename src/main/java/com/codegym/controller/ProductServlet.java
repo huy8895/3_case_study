@@ -1,11 +1,8 @@
 package com.codegym.controller;
 
-import com.codegym.dao.customer.CustomerDAO;
-import com.codegym.dao.product.ProductDAO;
-import com.codegym.dao.user.UserDAO;
+import com.codegym.dao.DAOManger;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
-import com.codegym.service.crawdata.CrawlData;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,21 +10,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ProductServlet", urlPatterns = "/products")
 public class ProductServlet extends HttpServlet {
-    private ProductDAO productDAO;
-    private CustomerDAO customerDAO;
-    private UserDAO userDAO;
+    private DAOManger daoManger;
 
     public void init() {
-        productDAO = new ProductDAO();
-        customerDAO = new CustomerDAO();
+        daoManger = new DAOManger();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -101,18 +93,26 @@ public class ProductServlet extends HttpServlet {
         String productBrand = request.getParameter("SearchBox_productBrand");
         String productLine = request.getParameter("SearchBox_productLine");
 
+        if (productBrand.trim().equalsIgnoreCase("Brand")){
+            productBrand = "";
+        }
+
+        if (productLine.trim().equalsIgnoreCase("Gender")){
+            productLine = "";
+        }
+
         System.out.println("SearchBox_productName = " + productName);
         System.out.println("SearchBox_minPrice = " + minPrice);
         System.out.println("SearchBox_maxPrice = " + maxPrice);
         System.out.println("SearchBox_productBrand = " + productBrand);
         System.out.println("SearchBox_productLine = " + productLine);
 
-        List<Product> productList = productDAO.getProductsBySearch(productName,minPrice,maxPrice,productBrand,productLine);
+        List<Product> productList = daoManger.productDAO.getProductsBySearch(productName,minPrice,maxPrice,productBrand,productLine);
         request.setAttribute("productList", productList);
         int results_count = productList.size();
         request.setAttribute("results_count", results_count);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -121,24 +121,24 @@ public class ProductServlet extends HttpServlet {
         Customer customer;
         if (request.getParameter("cusNumber") != null ){
             int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
-            customer = customerDAO.selectCustomer(cusNumber);
+            customer = daoManger.customerDAO.selectCustomer(cusNumber);
             request.setAttribute("customer", customer);
         } else {
             System.out.println("customer =  null" );
             customer = null;
         }
-        List<Product> productList = productDAO.selectAllProduct();
+        List<Product> productList = daoManger.productDAO.selectAllProduct();
         request.setAttribute("productList", productList);
         request.setAttribute("customer", customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
         dispatcher.forward(request, response);
     }
 
     private void checkCustomer(HttpServletRequest request) throws SQLException {
         Customer customer;
-        if (request.getParameter("cusNumber") != null ){
+        if (request.getParameter("cusNumber") != null && !request.getParameter("cusNumber").equals("")){
             int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
-            customer = customerDAO.selectCustomer(cusNumber);
+            customer = daoManger.customerDAO.selectCustomer(cusNumber);
             request.setAttribute("customer", customer);
         } else {
             System.out.println("customer =  null" );
