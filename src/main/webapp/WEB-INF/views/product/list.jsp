@@ -19,8 +19,14 @@
     </h2>
     <div class="container">
         <form method="get" action="/products">
-            <input type="text" name="Search">
-            <input type="submit" value="Search">
+            <input type="text" name="SearchBox_productName" placeholder="productName">
+            <input type="text" name="SearchBox_minPrice" placeholder="minPrice">
+            <input type="text" name="SearchBox_maxPrice" placeholder="maxPrice">
+            <input type="text" name="SearchBox_productBrand" placeholder="productBrand">
+            <input type="text" name="SearchBox_productLine" placeholder="productLine">
+            <input type="hidden" name="action" value="search">
+            <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
+            <input type="submit" value="search">
         </form>
     </div>
 

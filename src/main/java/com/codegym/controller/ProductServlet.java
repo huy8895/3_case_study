@@ -1,6 +1,7 @@
 package com.codegym.controller;
 
 import com.codegym.dao.product.ProductDAO;
+import com.codegym.model.Customer;
 import com.codegym.model.Product;
 import com.codegym.service.crawdata.CrawlData;
 
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @WebServlet(name = "ProductServlet", urlPatterns = "/products")
 public class ProductServlet extends HttpServlet {
@@ -42,11 +44,48 @@ public class ProductServlet extends HttpServlet {
                 case "delete":
                     deleteProduct(request,response);
                     break;
+                case "search":
+                    search(request, response);
+                    break;
+                default:
+                    listProducts(request, response);
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private void search(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        String productName = request.getParameter("SearchBox_productName");
+        String minPrice = request.getParameter("SearchBox_minPrice");
+        String maxPrice = request.getParameter("SearchBox_maxPrice");
+        String productBrand = request.getParameter("SearchBox_productBrand");
+        String productLine = request.getParameter("SearchBox_productLine");
+
+        if (productBrand.trim().equalsIgnoreCase("Brand")){
+            productBrand = "";
+        }
+
+        if (productLine.trim().equalsIgnoreCase("Gender")){
+            productLine = "";
+        }
+
+        System.out.println("SearchBox_productName = " + productName);
+        System.out.println("SearchBox_minPrice = " + minPrice);
+        System.out.println("SearchBox_maxPrice = " + maxPrice);
+        System.out.println("SearchBox_productBrand = " + productBrand);
+        System.out.println("SearchBox_productLine = " + productLine);
+
+        List<Product> productList = productDAO.getProductsBySearch(productName,minPrice,maxPrice,productBrand,productLine);
+        request.setAttribute("productList", productList);
+        int results_count = productList.size();
+        request.setAttribute("results_count", results_count);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
+        dispatcher.forward(request, response);
+    }
+
 
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int productCode = Integer.parseInt(request.getParameter("id"));
@@ -103,11 +142,9 @@ public class ProductServlet extends HttpServlet {
                 case "delete":
                     showDeleteForm(request, response);
                     break;
-                case "Search":
-                    showSearchResult(request, response);
-                    break;
-                case "searchPrice":
-                    showSearchPrice(request,response);
+                case "search":
+                    System.out.println("search click button");
+                    search(request,response);
                     break;
                 default:
                     listProducts(request, response);
@@ -120,9 +157,6 @@ public class ProductServlet extends HttpServlet {
 
     }
 
-    private void showSearchPrice(HttpServletRequest request, HttpServletResponse response) {
-
-    }
 
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
@@ -142,23 +176,6 @@ public class ProductServlet extends HttpServlet {
 
     }
 
-    private void showSearchResult(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String name = request.getParameter("Search");
-        String brand = request.getParameter("Search");
-        double price = Double.parseDouble(request.getParameter("Search"));
-        String line = request.getParameter("Search");
-
-        List<Product> product = productDAO.getProductSearch(name,brand,price,line);
-        RequestDispatcher dispatcher;
-        if (product == null) {
-            dispatcher = request.getRequestDispatcher("Error.jsp");
-        } else {
-            request.setAttribute("productList",product);
-            dispatcher = request.getRequestDispatcher("WEB-INF/views/product/search.jsp");
-        }
-        dispatcher.forward(request,response);
-    }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
