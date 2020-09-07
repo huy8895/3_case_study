@@ -118,7 +118,7 @@ public class CustomerServlet extends HttpServlet {
             status = "tao khong thanh cong";
         }
         request.setAttribute("status",status);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -159,7 +159,7 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("create.jsp");
         dispatcher.forward(request, response);
     }
 

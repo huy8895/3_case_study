@@ -68,7 +68,7 @@
                 <input type=\"text\" class=\"form-control-sm\" placeholder=\"Username..\" name=\"username\"><span>&nbsp;</span>
                 <input type=\"password\" class=\"form-control-sm\" placeholder=\"Password..\" name=\"password\"><span>&nbsp;</span>
                 <button class=\"btn btn-light btn-sm\" type=\"submit\" name=\"login\">Login</button><span>&nbsp;</span>
-                <button class=\"btn btn-light btn-sm\" type=\"button\" name=\"Sign Up\><a href=\"customers?action=\"create\"\">Sign Up</a></button>
+                <a class=\"btn btn-light btn-sm\" href=\"customers?action=create\">Sign Up</a>
                 <input type=\"hidden\" name=\"action\" value=\"login\">
             </form>" escapeXml="false"/>
             </c:if>
