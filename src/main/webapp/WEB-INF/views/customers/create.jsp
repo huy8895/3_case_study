@@ -15,31 +15,32 @@
     <form method="post">
         <table border="1" cellpadding="5">
             <caption>
-                <h2>Add New Customer</h2>
+                <h2>Tạo mới tài khoản</h2>
             </caption>
-            <a href="/customers">Back To List Customer</a>
+            <a href="/customers">back to list</a></br>
+            <a href="/login">back to login</a>
             <tr>
                 <th>User Name:</th>
                 <td>
-                    <input type="text" name="userName" id="userName" size="45"/>
+                    <input type="text" name="userName" id="userName" size="45" required/>
                 </td>
             </tr>
             <tr>
                 <th>Password:</th>
                 <td>
-                    <input type="text" name="password" id="password" size="45"/>
+                    <input type="text" name="password" id="password" size="45" required/>
                 </td>
             </tr>
             <tr>
                 <th>Full Name:</th>
                 <td>
-                    <input type="text" name="cusName" id="cusName" size="45"/>
+                    <input type="text" name="cusName" id="cusName" size="45" required/>
                 </td>
             </tr>
             <tr>
                 <th>PhoneNumber:</th>
                 <td>
-                    <input type="text" name="cusPhoneNumber" id="cusPhoneNumber" size="45"/>
+                    <input type="text" name="cusPhoneNumber" id="cusPhoneNumber" size="45" />
                 </td>
             </tr>
             <tr>
@@ -51,7 +52,7 @@
             <tr>
                 <th>Email:</th>
                 <td>
-                    <input type="text" name="cusEmail" id="cusEmail" size="45"/>
+                    <input type="text" name="cusEmail" id="cusEmail" size="15"/>
                 </td>
             </tr>
             <tr>

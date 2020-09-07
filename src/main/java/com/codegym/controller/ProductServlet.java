@@ -45,6 +45,12 @@ public class ProductServlet extends HttpServlet {
                 case "delete":
                     deleteUser(request, response);
                     break;
+                case "search":
+                    search(request, response);
+                    break;
+                default:
+                    listProducts(request, response);
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,8 +75,9 @@ public class ProductServlet extends HttpServlet {
                 case "delete":
                     showDeleteForm(request, response);
                     break;
-                case "Search":
-                    showSearchResult(request, response);
+                case "search":
+                    System.out.println("search click button");
+                    search(request, response);
                     break;
                 default:
                     listProducts(request, response);
@@ -78,18 +85,65 @@ public class ProductServlet extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
+
         }
 
 
     }
 
+
+    private void search(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        checkCustomer(request);
+        String productName = request.getParameter("SearchBox_productName");
+        String minPrice = request.getParameter("SearchBox_minPrice");
+        String maxPrice = request.getParameter("SearchBox_maxPrice");
+        String productBrand = request.getParameter("SearchBox_productBrand");
+        String productLine = request.getParameter("SearchBox_productLine");
+
+        System.out.println("SearchBox_productName = " + productName);
+        System.out.println("SearchBox_minPrice = " + minPrice);
+        System.out.println("SearchBox_maxPrice = " + maxPrice);
+        System.out.println("SearchBox_productBrand = " + productBrand);
+        System.out.println("SearchBox_productLine = " + productLine);
+
+        List<Product> productList = productDAO.getProductsBySearch(productName,minPrice,maxPrice,productBrand,productLine);
+        request.setAttribute("productList", productList);
+        int results_count = productList.size();
+        request.setAttribute("results_count", results_count);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
+        dispatcher.forward(request, response);
+    }
+
+
     private void listProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        Customer customer;
+        if (request.getParameter("cusNumber") != null ){
+            int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
+            customer = customerDAO.selectCustomer(cusNumber);
+            request.setAttribute("customer", customer);
+        } else {
+            System.out.println("customer =  null" );
+            customer = null;
+        }
         List<Product> productList = productDAO.selectAllProduct();
-        Customer customer = customerDAO.selectCustomer(6);
         request.setAttribute("productList", productList);
         request.setAttribute("customer", customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void checkCustomer(HttpServletRequest request) throws SQLException {
+        Customer customer;
+        if (request.getParameter("cusNumber") != null ){
+            int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
+            customer = customerDAO.selectCustomer(cusNumber);
+            request.setAttribute("customer", customer);
+        } else {
+            System.out.println("customer =  null" );
+            customer = null;
+        }
+        request.setAttribute("customer", customer);
     }
 
     private void showSearchResult(HttpServletRequest request, HttpServletResponse response) {

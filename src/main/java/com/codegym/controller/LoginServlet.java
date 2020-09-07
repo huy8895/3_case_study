@@ -39,8 +39,8 @@ public class LoginServlet extends HttpServlet {
                 case "login":
                     doLogin(request, response);
                     break;
+
                 case "changepassword":
-                    System.out.println("changing pass");
                     changePass(request, response);
                     break;
 
@@ -60,10 +60,8 @@ public class LoginServlet extends HttpServlet {
 
         try {
             switch (action) {
-                case "create":
-                    showNewForm(request, response);
-                    break;
                 case "changepassword":
+                    System.out.println("changing pass");
                     showChangePasswordForm(request, response);
                     break;
                 default:
@@ -77,19 +75,26 @@ public class LoginServlet extends HttpServlet {
 
     }
 
-    private void changePass(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+    private void changePass(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
         String newPassword = request.getParameter("newpassword");
         User user = new User(userName, password);
         System.out.println("userName = " + userName);
         System.out.println("password = " + password);
+        System.out.println("newPassword = " + newPassword);
+        String status = "";
 
         if (userDAO.changePassword(user, newPassword)) {
             System.out.println("doi mat khau thanh cong");
+            status = "doi mat khau thanh cong";
         } else {
             System.out.println("doi mat khau khong thanh cong");
+            status = "doi mat khau khong thanh cong";
         }
+        request.setAttribute("status",status);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/login/changepassword.jsp");
+        dispatcher.forward(request, response);
     }
 
 
@@ -103,11 +108,6 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/login/changepassword.jsp");
         dispatcher.forward(request, response);
 
-    }
-
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
-        dispatcher.forward(request, response);
     }
 
     private void doLogin(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {

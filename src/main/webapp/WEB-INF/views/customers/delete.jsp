@@ -10,37 +10,37 @@
 <html>
 <head>
     <title>Delete Customer Confirm</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<form method="post">
-    <table border="1" cellpadding="5">
-        <caption>
-            <h2>List Of Customers</h2>
-            <a href="/customers">Back To List Customers</a>
-        <tr>
-            <th>ID</th>
-            <th>UserName</th>
-            <th>Full Name</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Email</th>
+<div class="container">
+    <form method="post">
+        <table border="1" cellpadding="5">
+            <caption><h2>Delete Customer Confirm</h2></caption>
+            <c:out value="${status}"></c:out>
+            <c:if test="${customer != null}">
+                <tr>
+                    <th>ID</th>
+                    <th>userName</th>
+                    <th>Full Name</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Email</th>
 
-        </tr>
-            <tr>
-                <td><c:out value="${customer.getCusNumber()}"/></td>
-                <td><c:out value="${customer.userName}"/></td>
-                <td><c:out value="${customer.cusName}"/></td>
-                <td><c:out value="${customer.cusPhoneNumber}"/></td>
-                <td><c:out value="${customer.cusAddress}"/></td>
-                <td><c:out value="${customer.cusEmail}"/></td>
-            </tr>
-        <tr>
-            <td >
-                <input type="submit" value="Delete">
-            </td>
-        </tr>
-    </table>
+                </tr>
+                <tr>
+                    <td><c:out value="${customer.getCusNumber()}"/></td>
+                    <td><c:out value="${customer.userName}"/></td>
+                    <td><c:out value="${customer.cusName}"/></td>
+                    <td><c:out value="${customer.cusPhoneNumber}"/></td>
+                    <td><c:out value="${customer.cusAddress}"/></td>
+                    <td><c:out value="${customer.cusEmail}"/></td>
+                </tr>
+            </c:if>
 
-</form>
+        </table>
+        <button type="submit">delete</button>
+    </form>
+</div>
 </body>
 </html>

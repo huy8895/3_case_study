@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: LapTop
@@ -8,49 +9,50 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Create New Product</title>
+    <title>create new customer</title>
 </head>
 <body>
-<center>
-    <h1>Create New Product</h1>
-    <h2>
-        <a href="/products">Back To List Product</a>
-    </h2>
-</center>
 <div align="center">
     <form method="post">
         <table border="1" cellpadding="5">
             <caption>
-                <h2>Add New Product</h2>
+                <h2>Tạo mới tài khoản</h2>
+                <h3><c:out value="status"></c:out></h3>
             </caption>
             <tr>
-                <th>Product Name :</th>
+                <th>User Name:</th>
                 <td>
-                    <input type="text" name="productName" id="productName" size="55"/>
+                    <input type="text" name="userName" id="userName" size="45"/>
                 </td>
             </tr>
             <tr>
-                <th>Product Brand :</th>
+                <th>Password:</th>
                 <td>
-                    <input type="text" name="productBrand" id="productBrand" size="55"/>
+                    <input type="text" name="password" id="password" size="45"/>
                 </td>
             </tr>
             <tr>
-                <th>Product Price :</th>
+                <th>Full Name:</th>
                 <td>
-                    <input type="text" name="productPrice" id="productPrice" size="55"/>
+                    <input type="text" name="cusName" id="cusName" size="45"/>
                 </td>
             </tr>
             <tr>
-                <th>Product Image :</th>
+                <th>PhoneNumber:</th>
                 <td>
-                    <input type="text" name="productImage" id="productImage" size="55"/>
+                    <input type="text" name="cusPhoneNumber" id="cusPhoneNumber" size="45"/>
                 </td>
             </tr>
             <tr>
-                <th>Product Line :</th>
+                <th>Address:</th>
                 <td>
-                    <input type="text" name="productLine" id="productLine" size="55"/>
+                    <input type="text" name="cusAddress" id="cusAddress" size="45"/>
+                </td>
+            </tr>
+            <tr>
+                <th>Email:</th>
+                <td>
+                    <input type="text" name="cusEmail" id="cusEmail" size="15"/>
                 </td>
             </tr>
             <tr>
@@ -61,5 +63,6 @@
         </table>
     </form>
 </div>
+
 </body>
 </html>
