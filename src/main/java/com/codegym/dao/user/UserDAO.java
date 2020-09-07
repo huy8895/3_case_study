@@ -110,4 +110,20 @@ public class UserDAO implements IUserDAO {
         return preparedStatement.executeUpdate() > 0;
     }
 
+    @Override
+    public User selectUser(Customer customer) throws SQLException {
+        User user = null;
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_USERNAME);
+        preparedStatement.setString(1,customer.getUserName());
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            String userName = resultSet.getString("userName");
+            String password = resultSet.getString("password");
+            user= new User(userName,password);
+            return user;
+        }
+        return user;
+    }
+
 }

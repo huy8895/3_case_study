@@ -52,13 +52,19 @@ public class IndexServlet extends HttpServlet {
     }
 
     private void listProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        Customer customer;
+        if (request.getParameter("cusNumber") != null ){
+            int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
+            customer = daoManger.customerDAO.selectCustomer(cusNumber);
+            request.setAttribute("customer", customer);
+        } else {
+            System.out.println("customer =  null" );
+            customer = null;
+        }
         List<Product> productList = daoManger.productDAO.selectAllProduct();
-        Customer customer = daoManger.customerDAO.selectCustomer(6);
-        String test = "test";
-        request.setAttribute("test",test);
         request.setAttribute("productList", productList);
         request.setAttribute("customer", customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
         dispatcher.forward(request, response);
     }
 
