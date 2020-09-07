@@ -1,6 +1,7 @@
 package com.codegym.controller;
 
 import com.codegym.dao.DAOManger;
+import com.codegym.dao.product.ProductDAO;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
 import com.codegym.model.User;
@@ -158,8 +159,13 @@ public class ProductServlet extends HttpServlet {
     private void insertProduct(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private void updateProduct(HttpServletRequest request, HttpServletResponse response) {
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        ProductDAO list=new ProductDAO();
+        List productList=list.selectAllProduct();
         RequestDispatcher dispatcher=request.getRequestDispatcher("adminAdd.jsp");
+        request.setAttribute("productList",productList);
+        dispatcher.forward(request,response);
+
     }
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) {
@@ -169,8 +175,9 @@ public class ProductServlet extends HttpServlet {
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response) {
-
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher=request.getRequestDispatcher("adminAdd.jsp");
+        dispatcher.forward(request,response);
 
     }
 
