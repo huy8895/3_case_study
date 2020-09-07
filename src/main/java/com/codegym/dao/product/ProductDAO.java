@@ -149,14 +149,14 @@ public class ProductDAO implements IProductDAO {
             preparedStatement = connection.prepareStatement(SELECT_BY_SEARCH_FORM_ONLY_MAX);
             preparedStatement.setString(1, '%' + productName + '%');
             preparedStatement.setDouble(2, Double.parseDouble(maxPrice));
-            preparedStatement.setString(3, '%' + productLine + '%');
+            preparedStatement.setString(3, '%' + productBrand + '%');
             preparedStatement.setString(4, '%' + productLine + '%');
         } else if (maxPrice.equals("")) {
             System.out.println("SELECT_BY_SEARCH_FORM_ONLY_MIN");
             preparedStatement = connection.prepareStatement(SELECT_BY_SEARCH_FORM_ONLY_MIN);
             preparedStatement.setString(1, '%' + productName + '%');
             preparedStatement.setDouble(2, Double.parseDouble(minPrice));
-            preparedStatement.setString(3, '%' + productLine + '%');
+            preparedStatement.setString(3, '%' + productBrand + '%');
             preparedStatement.setString(4, '%' + productLine + '%');
         } else {
             System.out.println("SELECT_BY_SEARCH_FORM_BETWEEN");
