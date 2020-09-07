@@ -3,6 +3,7 @@ package com.codegym.controller;
 import com.codegym.dao.DAOManger;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
+import com.codegym.model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,6 +24,7 @@ public class ProductServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -112,7 +114,7 @@ public class ProductServlet extends HttpServlet {
         int results_count = productList.size();
         request.setAttribute("results_count", results_count);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -130,7 +132,7 @@ public class ProductServlet extends HttpServlet {
         List<Product> productList = daoManger.productDAO.selectAllProduct();
         request.setAttribute("productList", productList);
         request.setAttribute("customer", customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 

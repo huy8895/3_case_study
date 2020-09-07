@@ -71,7 +71,7 @@
 
         </ul>
         <div class="align-content-sm-end text-right">
-            <span type="text" class="text-white" name="username">${user.getUserName()}</span>
+            <span type="text" class="text-white" name="username">${user}</span>
             <div><a href="#" class="text-white">Sign Out</a></div>
         </div>
     </div>

@@ -93,13 +93,13 @@ public class LoginServlet extends HttpServlet {
 
 
     private void showLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/login/login.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
 
     }
 
     private void showChangePasswordForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/login/changepassword.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
 
     }
@@ -118,19 +118,23 @@ public class LoginServlet extends HttpServlet {
         if (daoManger.userDAO.checkUser(user)) {
             request.setAttribute("productList", productList);
             request.setAttribute("customer", customer);
+            request.setAttribute("user", user);
 
-            dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
+            dispatcher = request.getRequestDispatcher("index.jsp");
             System.out.println("dang nhap thanh cong");
             message = "dang nhap thanh cong";
             if (daoManger.userDAO.checkAdmin(user)) {
                 System.out.println(userName + "la admin");
                 dispatcher = request.getRequestDispatcher("index.jsp");
+                request.setAttribute("customer", customer);
+                request.setAttribute("user", user);
             } else {
                 System.out.println(userName + " khong phai la admin");
-
+                request.setAttribute("customer", customer);
+                request.setAttribute("user", user);
             }
         } else {
-            dispatcher = request.getRequestDispatcher("WEB-INF/views/login/login.jsp");
+            dispatcher = request.getRequestDispatcher("index.jsp");
             System.out.println("sai ten dang nhap hoac mat khau");
             message = "sai ten dang nhap hoac mat khau";
         }

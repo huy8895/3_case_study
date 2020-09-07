@@ -15,7 +15,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "CustomerServlet", urlPatterns = "/customers")
+
+
 public class CustomerServlet extends HttpServlet {
+
+
     private DAOManger daoManger;
 
     public void init() {

@@ -71,7 +71,7 @@
 
         </ul>
         <div class="align-content-sm-end">
-            <c:if test="${user==null}">
+            <c:if test="${customer==null}">
                 <c:out value= "
             <form action=\"login\" method=\"post\" class=\"form-inline\">
                 <input type=\"text\" class=\"form-control-sm\" placeholder=\"Username..\" name=\"username\"><span>&nbsp;</span>
@@ -81,14 +81,15 @@
                 <input type=\"hidden\" name=\"action\" value=\"login\">
             </form>" escapeXml="false"/>
             </c:if>
-            <c:if test="${user!=null}">
+            <c:if test="${customer!=null}">
                 <c:out value= "
-               <span type=\"text\" class=\"text-white\" name=\"username\">${user.getUserName()}</span>
-            <div><a href=\"#\" class=\"text-white\">Sign Out</a></div>" escapeXml="false"/>
+               <span type=\"text\" class=\"text-white\" name=\"username\">${customer.getUserName()}</span>
+               <div><a href=\"/products\" class=\"text-white\">Sign Out</a></div>" escapeXml="false"/>
             </c:if>
         </div>
     </div>
 </nav>
+
 </header>
 <!------------------------------------------------------------------HEADER----------------------------------------------->
 
@@ -124,6 +125,7 @@
             <!-- ]Search left size -->
             <div class="col-12 col-sm-2 col-md-2 col-lg-2">
                 <form action="/products" method="get">
+                    <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
                     <div class="form-group">
                         <input type="text" class="form-control border-dark" id="productName" name="SearchBox_productName" aria-describedby="emailHelp" placeholder="Enter Product Name">
                     </div>
@@ -131,7 +133,7 @@
                         <input type="number" class="form-control border-dark" id="maxPrice" name="SearchBox_maxPrice" aria-describedby="emailHelp" placeholder="Max Price" value="">
                     </div>
                     <div class="form-group">
-                        <input type="number" class="form-control border-dark" id="minPrice" name="SearchBox_minPrice" aria-describedby="emailHelp" placeholder="Min Price" value="">
+                        <input type="number" class="form-control border-dark" id="minPrice" name="SearchBox_minPrice" aria-describedby="emailHelp" placeholder="Min Price" value="0">
                     </div>
                     <div class="dropdown">
                         <select name="SearchBox_productBrand" style="border-radius: 3px; border-style: solid; border-color: black; border-width: thin;">
@@ -167,7 +169,6 @@
                     </div>
                     <br>
                     <input type="hidden" name="action" value="search">
-                    <input type="hidden" name="cusNumber" value="${customer.getUserName()}">
                     <button type="submit" class="btn btn-primary">Search</button>
 
                 </form>
