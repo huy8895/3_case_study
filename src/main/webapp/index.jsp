@@ -59,15 +59,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="/cart?action=cart">Cart</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Opinions</a>
-            </li>
-            <li class="nav-item">
-
-            </li>
 
         </ul>
         <div class="align-content-sm-end">

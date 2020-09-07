@@ -70,12 +70,14 @@
             </li>
 
         </ul>
-        <div class="align-content-sm-end text-right">
-            <span type="text" class="text-white" name="username">${user}</span>
-            <div><a href="#" class="text-white">Sign Out</a></div>
+        <div class="align-content-sm-end">
+            <c:out value= "
+               <span type=\"text\" class=\"text-white\" name=\"username\">${user.getUserName()}</span>
+               <div><a href=\"/products\" class=\"text-white\">Sign Out</a></div>" escapeXml="false"/>
         </div>
     </div>
 </nav>
+
 </header>
 <!------------------------------------------------------------------HEADER----------------------------------------------->
 
@@ -111,6 +113,7 @@
             <!-- ]Search left size -->
             <div class="col-12 col-sm-2 col-md-2 col-lg-2">
                 <form action="/products" method="get">
+                    <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
                     <div class="form-group">
                         <input type="text" class="form-control border-dark" id="productName" name="SearchBox_productName" aria-describedby="emailHelp" placeholder="Enter Product Name">
                     </div>
@@ -118,7 +121,7 @@
                         <input type="number" class="form-control border-dark" id="maxPrice" name="SearchBox_maxPrice" aria-describedby="emailHelp" placeholder="Max Price" value="">
                     </div>
                     <div class="form-group">
-                        <input type="number" class="form-control border-dark" id="minPrice" name="SearchBox_minPrice" aria-describedby="emailHelp" placeholder="Min Price" value="">
+                        <input type="number" class="form-control border-dark" id="minPrice" name="SearchBox_minPrice" aria-describedby="emailHelp" placeholder="Min Price" value="0">
                     </div>
                     <div class="dropdown">
                         <select name="SearchBox_productBrand" style="border-radius: 3px; border-style: solid; border-color: black; border-width: thin;">
@@ -143,13 +146,13 @@
                     <br>
                     <div class="dropdown">
                         <select name="SearchBox_productLine" style="border-radius: 3px; border-style: solid; border-color: black; border-width: thin";>
-                        <option><button class="btn btn-white dropdown-toggle border-dark" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Gender
-                        </button></option>
-                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" >
-                            <option><a class="dropdown-item">Men's Watches</a></option>
-                            <option> <a class="dropdown-item">Women's Watches</a></option>
-                        </div>
+                            <option><button class="btn btn-white dropdown-toggle border-dark" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Gender
+                            </button></option>
+                            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" >
+                                <option><a class="dropdown-item">Men's Watches</a></option>
+                                <option> <a class="dropdown-item">Women's Watches</a></option>
+                            </div>
                         </select>
                     </div>
                     <br>
