@@ -159,6 +159,7 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher dispatcher=request.getRequestDispatcher("adminAdd.jsp");
     }
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) {
