@@ -16,5 +16,5 @@ public interface IUserDAO {
 
     public boolean removeUser(Customer customero) throws SQLException;
 
-
+    public User selectUser(Customer customer) throws SQLException;
 }
