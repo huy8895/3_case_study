@@ -125,7 +125,7 @@ public class LoginServlet extends HttpServlet {
             message = "dang nhap thanh cong";
             if (daoManger.userDAO.checkAdmin(user)) {
                 System.out.println(userName + "la admin");
-                dispatcher = request.getRequestDispatcher("login.jsp");
+                dispatcher = request.getRequestDispatcher("admin.jsp");
                 request.setAttribute("customer", customer);
                 request.setAttribute("user", user);
             } else {
