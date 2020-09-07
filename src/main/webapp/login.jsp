@@ -70,22 +70,9 @@
             </li>
 
         </ul>
-        <div class="align-content-sm-end">
-            <c:if test="${user==null}">
-                <c:out value= "
-            <form action=\"login\" method=\"post\" class=\"form-inline\">
-                <input type=\"text\" class=\"form-control-sm\" placeholder=\"Username..\" name=\"username\"><span>&nbsp;</span>
-                <input type=\"password\" class=\"form-control-sm\" placeholder=\"Password..\" name=\"password\"><span>&nbsp;</span>
-                <button class=\"btn btn-light btn-sm\" type=\"submit\" name=\"login\">Login</button><span>&nbsp;</span>
-                <button class=\"btn btn-light btn-sm\" type=\"button\" name=\"Sign Up\">Sign Up</button>
-                <input type=\"hidden\" name=\"action\" value=\"login\">
-            </form>" escapeXml="false"/>
-            </c:if>
-            <c:if test="${user!=null}">
-                <c:out value= "
-               <span type=\"text\" class=\"text-white\" name=\"username\">${user.getUserName()}</span>
-            <div><a href=\"#\" class=\"text-white\">Sign Out</a></div>" escapeXml="false"/>
-            </c:if>
+        <div class="align-content-sm-end text-right">
+            <span type="text" class="text-white" name="username">${user.getUserName()}</span>
+            <div><a href="#" class="text-white">Sign Out</a></div>
         </div>
     </div>
 </nav>
@@ -167,7 +154,6 @@
                     </div>
                     <br>
                     <input type="hidden" name="action" value="search">
-                    <input type="hidden" name="cusNumber" value="${customer.getUserName()}">
                     <button type="submit" class="btn btn-primary">Search</button>
 
                 </form>

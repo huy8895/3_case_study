@@ -23,6 +23,7 @@ import java.util.List;
 public class ProductServlet extends HttpServlet {
     private ProductDAO productDAO;
     private CustomerDAO customerDAO;
+    private UserDAO userDAO;
 
     public void init() {
         productDAO = new ProductDAO();
@@ -111,7 +112,7 @@ public class ProductServlet extends HttpServlet {
         int results_count = productList.size();
         request.setAttribute("results_count", results_count);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -129,7 +130,7 @@ public class ProductServlet extends HttpServlet {
         List<Product> productList = productDAO.selectAllProduct();
         request.setAttribute("productList", productList);
         request.setAttribute("customer", customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 

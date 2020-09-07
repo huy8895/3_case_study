@@ -99,7 +99,7 @@ public class LoginServlet extends HttpServlet {
 
 
     private void showLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/login/login.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
 
     }
@@ -123,20 +123,23 @@ public class LoginServlet extends HttpServlet {
 
         if (userDAO.checkUser(user)) {
             request.setAttribute("productList", productList);
+            request.setAttribute("user", user);
             request.setAttribute("customer", customer);
-
-            dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
+            dispatcher = request.getRequestDispatcher("index.jsp");
             System.out.println("dang nhap thanh cong");
             message = "dang nhap thanh cong";
             if (userDAO.checkAdmin(user)) {
-                System.out.println(userName + "la admin");
+                System.out.println(user.getUserName() + " la admin");
+                request.setAttribute("user", user);
+                request.setAttribute("customer", customer);
+
                 dispatcher = request.getRequestDispatcher("index.jsp");
             } else {
                 System.out.println(userName + " khong phai la admin");
 
             }
         } else {
-            dispatcher = request.getRequestDispatcher("WEB-INF/views/login/login.jsp");
+            dispatcher = request.getRequestDispatcher("index.jsp");
             System.out.println("sai ten dang nhap hoac mat khau");
             message = "sai ten dang nhap hoac mat khau";
         }
