@@ -54,37 +54,27 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <c:if test="${customer==null}">
-                <c:out value= "" escapeXml="false"/>
-            </c:if>
-            <c:if test="${customer!=null}">
-                <c:out value= "<li class=\"nav-item active\">
-                </li>
-                <li class=\"nav-item\">
-                <form method=\"post\" action=\"cart\">
-                <input type=\"hidden\" name=\"action\" value=\"showCart\"/>
-                <input type=\"hidden\" name=\"cusNumber\" value=\"${customer.getCusNumber()}\"/>
-                    <input type=\"submit\" class=\"btn btn-dark nav-link\" value=\"CART\"/>
-                </form>
-                </li>\" " escapeXml="false"/>
-            </c:if>
+            <li class="nav-item active">
+                <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/cart?action=cart">Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/products?action=edit">Edit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/products?action=create">Add</a>
+            </li>
+            <li class="nav-item">
+
+            </li>
+
         </ul>
         <div class="align-content-sm-end">
-            <c:if test="${customer==null}">
-                <c:out value= "
-            <form action=\"login\" method=\"post\" class=\"form-inline\">
-                <input type=\"text\" class=\"form-control-sm\" placeholder=\"Username..\" name=\"username\"><span>&nbsp;</span>
-                <input type=\"password\" class=\"form-control-sm\" placeholder=\"Password..\" name=\"password\"><span>&nbsp;</span>
-                <button class=\"btn btn-light btn-sm\" type=\"submit\" name=\"login\">Login</button><span>&nbsp;</span>
-                <a class=\"btn btn-light btn-sm\" href=\"customers?action=create\">Sign Up</a>
-                <input type=\"hidden\" name=\"action\" value=\"login\">
-            </form>" escapeXml="false"/>
-            </c:if>
-            <c:if test="${customer!=null}">
-                <c:out value= "
-               <span type=\"text\" class=\"text-white\" name=\"username\">${customer.getUserName()}</span>
+            <c:out value= "
+               <span type=\"text\" class=\"text-white\" name=\"username\">${user.getUserName()}</span>
                <div><a href=\"/products\" class=\"text-white\">Sign Out</a></div>" escapeXml="false"/>
-            </c:if>
         </div>
     </div>
 </nav>
@@ -157,13 +147,13 @@
                     <br>
                     <div class="dropdown">
                         <select name="SearchBox_productLine" style="border-radius: 3px; border-style: solid; border-color: black; border-width: thin";>
-                        <option><button class="btn btn-white dropdown-toggle border-dark" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Gender
-                        </button></option>
-                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" >
-                            <option><a class="dropdown-item">Men's Watches</a></option>
-                            <option> <a class="dropdown-item">Women's Watches</a></option>
-                        </div>
+                            <option><button class="btn btn-white dropdown-toggle border-dark" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Gender
+                            </button></option>
+                            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" >
+                                <option><a class="dropdown-item">Men's Watches</a></option>
+                                <option> <a class="dropdown-item">Women's Watches</a></option>
+                            </div>
                         </select>
                     </div>
                     <br>
@@ -175,7 +165,6 @@
             </div>
             <!-- ]Row -->
             <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
-
                 <c:set var = "count" scope = "session" value = "${5}"/>
                 <c:forEach items="${productList}" var="product">
                     <c:if test="${count==0||count==5}">
@@ -186,15 +175,7 @@
                                 <img src=\"${product.getProductImage()}\" class=\"float-left col-lg-12 col-md-12\">
                                 <p>${product.getProductBrand()} ${product.getProductName()}</p>
                                 <p>${product.getProductPrice()}</p>
-
-                                <span>
-                                 <form action=\"/cart\" method=\"post\">
-                                <input type=\"hidden\" name=\"cusNumber\" value=\"${customer.getCusNumber()}\">
-                                <input type=\"hidden\" name=\"productCode\" value=\"${product.getProductCode()}\">
-                                <input type=\"hidden\" name=\"action\" value=\"add\">
-                                <i class=\"fa fa-shopping-cart\"></i>&nbsp;<button class=\"btn btn-white\" type=\"submit\">Add to Cart</button>
-                                </form>
-                                </span>
+                                <i class=\"fa fa-shopping-cart\"></i>&nbsp;<a href=\"#\" id=\"${product.getProductCode()}\">Add To Cart</a>
                                 <br>
                             </div>
                             " escapeXml="false"/>

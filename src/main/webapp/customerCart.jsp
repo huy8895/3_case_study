@@ -64,7 +64,7 @@
                 <form method=\"post\" action=\"cart\">
                 <input type=\"hidden\" name=\"action\" value=\"showCart\"/>
                 <input type=\"hidden\" name=\"cusNumber\" value=\"${customer.getCusNumber()}\"/>
-                    <input type=\"submit\" class=\"btn btn-dark nav-link\" value=\"CART\"/>
+                    <input style=\"height:100%\" type=\"submit\" class=\"btn btn-dark nav-link\" value=\"CART\"/>
                 </form>
                 </li>\" " escapeXml="false"/>
             </c:if>
@@ -175,45 +175,95 @@
             </div>
             <!-- ]Row -->
             <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
+                <table class="table text-center">
+                    <thead class="thead-dark">
+                    <tr class="">
+                        <th scope="col-1" style="width:12%">Name</th>
+                        <th scope="col-1" style="width:12%">Brand</th>
+                        <th scope="col-1" style="width:12%">Price</th>
+                        <th scope="col-3" style="width:24%">Image</th>
+                        <th scope="col-1" style="width:12%">quantity</th>
+                        <th scope="col" colspan="2" style="width:12%">Edit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${cartList}" var="cart">
+                        <c:set var = "product" scope = "session" value = "${productDAO.selectProduct(cart.getProductCode())}"/>
+                        <c:set var = "quantity" scope = "session" value = "${cart.getQuantity()}"/>
+                        <c:out value="
 
-                <c:set var = "count" scope = "session" value = "${5}"/>
-                <c:forEach items="${productList}" var="product">
-                    <c:if test="${count==0||count==5}">
-                        <c:out value= "<div class=\"row\">" escapeXml="false"/>
-                    </c:if>
-                    <c:out value= "
-                            <div class=\"col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item\">
-                                <img src=\"${product.getProductImage()}\" class=\"float-left col-lg-12 col-md-12\">
-                                <p>${product.getProductBrand()} ${product.getProductName()}</p>
-                                <p>${product.getProductPrice()}</p>
-
-                                <span>
-                                 <form action=\"/cart\" method=\"post\">
-                                <input type=\"hidden\" name=\"cusNumber\" value=\"${customer.getCusNumber()}\">
-                                <input type=\"hidden\" name=\"productCode\" value=\"${product.getProductCode()}\">
-                                <input type=\"hidden\" name=\"action\" value=\"add\">
-                                <i class=\"fa fa-shopping-cart\"></i>&nbsp;<button class=\"btn btn-white\" type=\"submit\">Add to Cart</button>
-                                </form>
-                                </span>
-                                <br>
+                    <tr class=\"container\">
+                        <td scope=\"row\">${product.getProductName()}</td>
+                        <td scope=\"row\">${product.getProductBrand()}</td>
+                        <td scope=\"row\">${product.getProductPrice()}</td>
+                        <td scope=\"row\"><img src=\"${product.getProductImage()}\"/></td>
+                        <td scope=\"row\">${quantity}</td>
+                    <td scope=\"row\">
+                    <input type=\"button\" class=\"btn btn-primary btn-dark\" value=\"Edit\" data-toggle=\"modal\" data-target=\"#exampleModal${product.getProductCode()}\"> </td>
+                        <div class=\"modal fade\" id=\"exampleModal${product.getProductCode()}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+                          <div class=\"modal-dialog\" role=\"document\">
+                            <div class=\"modal-content\">
+                              <div class=\"modal-header\">
+                                <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>
+                                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
+                                  <span aria-hidden=\"true\">&times;</span>
+                                </button>
+                              </div>
+                              <div class=\"modal-body\">
+                                 <form method=\"post\" action=\"products\">
+                                     <input class=\"form-control\" name=\"id\" style=\"width:100%\" readonly type=\"text\" value=\"${product.getProductCode()}\"><br>
+                                     <input class=\"form-control\" name=\"name\" style=\"width:100%\" type=\"text\" value=\"${product.getProductName()}\"><br>
+                                     <input class=\"form-control\" name=\"brand\" style=\"width:100%\" type=\"text\" value=\"${product.getProductBrand()}\"><br>
+                                     <input class=\"form-control\" name=\"price\" style=\"width:100%\" type=\"number\" value=\"${product.getProductPrice()}\"><br>
+                                     <input class=\"form-control\" name=\"image\" style=\"width:100%\" type=\"text\" value=\" ${product.getProductImage()}\"><br>
+                                    <input class=\"form-control\" name=\"line\" style=\"width:100%\" type=\"text\" value=\"${product.getProductLine()}\"><br>
+                              </div>
+                              <div class=\"modal-footer\">
+                                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
+                                <input type=\"hidden\" name=\"action\" value=\"edit\">
+                                <button type=\"submit\" class=\"btn btn-primary\">Save changes</button>
+                              </div>
+                              </form>
                             </div>
-                            " escapeXml="false"/>
-                    <c:if test="${count!=5}">
-                        <c:set var="count" value="${count+1}"/>
-                    </c:if>
-                    <c:if test="${count==5}">
-                        <c:set var="count" value="${1}"/>
-                    </c:if>
+                          </div>
+                        </div>
 
-                    <c:if test="${count==3}">
-                        <c:out value= "</div>" escapeXml="false"/>
-                        <c:out value= "<br>" escapeXml="false"/>
-                        <c:set var="count" value="${count=0}"/>
-                    </c:if>
-                </c:forEach>
-            </div>
-            <!-- Ads -->
-            <br>
+                    <td scope=\"row\">
+                    <input type=\"button\" class=\"btn btn-primary btn-dark\" value=\"Delete\" data-toggle=\"modal\" data-target=\"#exampleModalDel${product.getProductCode()}\">
+                        <div class=\"modal fade\" id=\"exampleModalDel${product.getProductCode()}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+                          <div class=\"modal-dialog\" role=\"document\">
+                            <div class=\"modal-content\">
+                              <div class=\"modal-header\">
+                                <h5 class=\"modal-title\" id=\"exampleModalLabel\">Confirm Delete</h5>
+                                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
+                                  <span aria-hidden=\"true\">&times;</span>
+                                </button>
+                              </div>
+                              <div class=\"modal-body\">
+                                 <form method=\"post\" action=\"cart\">
+                                     <input readonly class=\"form-control\" name=\"productCode\" style=\"width:100%\" readonly type=\"text\" value=\"${product.getProductCode()}\"><br>
+                                     <input readonly class=\"form-control\" name=\"name\" style=\"width:100%\" type=\"text\" value=\"${product.getProductName()}\"><br>
+                                     <input readonly class=\"form-control\" name=\"brand\" style=\"width:100%\" type=\"text\" value=\"${product.getProductBrand()}\"><br>
+                                     <input readonly class=\"form-control\" name=\"price\" style=\"width:100%\" type=\"number\" value=\"${product.getProductPrice()}\"><br>
+                                     <input readonly class=\"form-control\" name=\"line\" style=\"width:100%\" type=\"text\" value=\"${product.getProductLine()}\"><br>
+                              </div>
+                              <div class=\"modal-footer\">
+                                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
+                                <input type=\"hidden\" name=\"action\" value=\"delete\">
+                                <input type=\"hidden\" name=\"cusNumber\" value=\"${cart.getCusNumber()}\">
+                                <button type=\"submit\" class=\"btn btn-primary\">Delete</button>
+                              </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                    </td>
+                    </tr>
+
+                    " escapeXml="false"/>
+                    </c:forEach>
+                    </tbody>
+                </table>
         </div>
         <div class="col-2 d-none d-sm-block d-md-block">
             One of three columns

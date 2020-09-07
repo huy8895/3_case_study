@@ -19,6 +19,11 @@ public class ProductDAO implements IProductDAO {
             "productName = ?, productBrand = ? , productPrice = ?, productImage = ?, productLine = ?" +
             "where productCode = ?;";
 
+    private static final String SELECT_BY_SEARCH_FORM_BETWEEN = "SELECT * from Product where productName like ? and productPrice between ? and ? and productBrand like ? and productLine like  ?;";
+    private static final String SELECT_BY_SEARCH_FORM_ONLY_MIN = "SELECT * from Product where productName like ? and productPrice > ?  and productBrand like ? and productLine like  ?;";
+    private static final String SELECT_BY_SEARCH_FORM_ONLY_MAX = "SELECT * from Product where productName like ? and productPrice < ?  and productBrand like ? and productLine like  ?;";
+    private static final String SELECT_BY_SEARCH_FORM_NOT_MIN_MAX = "SELECT * from Product where productName like ?  and productBrand like ? and productLine like  ?;";
+
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -37,7 +42,7 @@ public class ProductDAO implements IProductDAO {
         System.out.println(INSERT_PRODUCT_SQL);
         try
                 (Connection connection = getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCT_SQL);){
+                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCT_SQL);) {
             preparedStatement.setString(1, product.getProductName());
             preparedStatement.setString(2, product.getProductBrand());
             preparedStatement.setDouble(3, product.getProductPrice());
@@ -46,7 +51,7 @@ public class ProductDAO implements IProductDAO {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            printSQLException(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -55,9 +60,9 @@ public class ProductDAO implements IProductDAO {
         Product product = null;
         try
                 (Connection connection = getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCT_BY_ID_SQL);) {
-                preparedStatement.setInt(1, id);
-                ResultSet resultSet = preparedStatement.executeQuery();
+                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCT_BY_ID_SQL);) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 String name = resultSet.getString("productName");
@@ -68,8 +73,8 @@ public class ProductDAO implements IProductDAO {
 
                 product = new Product(id, name, brand, price, image, line);
             }
-        }catch (SQLException e) {
-            printSQLException(e);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return product;
     }
@@ -77,22 +82,22 @@ public class ProductDAO implements IProductDAO {
     @Override
     public List<Product> selectAllProduct() throws SQLException {
         List<Product> products = new ArrayList<>();
-        try
-                (Connection connection = getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PRODUCT_SQL);) {
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PRODUCT_SQL);
+        try {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 int productCode = resultSet.getInt("productCode");
                 String name = resultSet.getString("productName");
                 String brand = resultSet.getString("productBrand");
-                Double price = resultSet.getDouble("productPrice");
+                double price = resultSet.getDouble("productPrice");
                 String image = resultSet.getString("productImage");
                 String line = resultSet.getString("productLine");
                 products.add(new Product(productCode, name, brand, price, image, line));
             }
-        }catch (SQLException e) {
-            printSQLException(e);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return products;
     }
@@ -102,7 +107,7 @@ public class ProductDAO implements IProductDAO {
         boolean rowDeleted;
         Connection connection = getConnection();
         PreparedStatement statement = connection.prepareStatement(DELETE_PRODUCT_BY_ID_SQL);
-        statement.setInt(1,id);
+        statement.setInt(1, id);
         rowDeleted = statement.executeUpdate() > 0;
         return rowDeleted;
     }
@@ -113,12 +118,12 @@ public class ProductDAO implements IProductDAO {
         Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PRODUCT_SQL);
 
-        preparedStatement.setString(1,product.getProductName());
-        preparedStatement.setString(2,product.getProductBrand());
-        preparedStatement.setDouble(3,product.getProductPrice());
-        preparedStatement.setString(4,product.getProductImage());
-        preparedStatement.setString(5,product.getProductLine());
-        preparedStatement.setInt(6,product.getProductCode());
+        preparedStatement.setString(1, product.getProductName());
+        preparedStatement.setString(2, product.getProductBrand());
+        preparedStatement.setDouble(3, product.getProductPrice());
+        preparedStatement.setString(4, product.getProductImage());
+        preparedStatement.setString(5, product.getProductLine());
+        preparedStatement.setInt(6, product.getProductCode());
 
         rowUpdated = preparedStatement.executeUpdate() > 0;
 
@@ -126,47 +131,59 @@ public class ProductDAO implements IProductDAO {
     }
 
 
-    public List<Product> getProductByName(String productName) {
+    public List<Product> getProductsBySearch(String productName, String minPrice, String maxPrice, String productBrand, String productLine) throws SQLException {
+
         List<Product> products = new ArrayList<>();
-        String query = "{CALL GET_PRODUCT_BY_NAME(?)}";
-        try
-                (Connection connection = getConnection();
-                CallableStatement callableStatement = connection.prepareCall(query);){
-                callableStatement.setString(1,productName);
-                ResultSet resultSet = callableStatement.executeQuery();
 
-                while (resultSet.next()) {
-                    int productCode = resultSet.getInt("id");
-                    String name = resultSet.getString("productName");
-                    String brand = resultSet.getString("productBrand");
-                    double price = resultSet.getDouble("productPrice");
-                    String image = resultSet.getString("productImage");
-                    String line = resultSet.getString("productLine");
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement;
 
-                    products.add(new Product(productCode,name,brand,price,image,line));
-                }
-
-            System.out.println(callableStatement);
-            callableStatement.executeUpdate();
-        } catch (SQLException e) {
-           printSQLException(e);
-           }
-           return null;
+        if (minPrice.equals("") && maxPrice.equals("")) {
+            System.out.println("SELECT_BY_SEARCH_FORM_NOT_MIN_MAX");
+            preparedStatement = connection.prepareStatement(SELECT_BY_SEARCH_FORM_NOT_MIN_MAX);
+            preparedStatement.setString(1, '%' + productName + '%');
+            preparedStatement.setString(2, '%' + productBrand + '%');
+            preparedStatement.setString(3, '%' + productLine + '%');
+        } else if (minPrice.equals("")) {
+            System.out.println("SELECT_BY_SEARCH_FORM_ONLY_MAX");
+            preparedStatement = connection.prepareStatement(SELECT_BY_SEARCH_FORM_ONLY_MAX);
+            preparedStatement.setString(1, '%' + productName + '%');
+            preparedStatement.setDouble(2, Double.parseDouble(maxPrice));
+            preparedStatement.setString(3, '%' + productBrand + '%');
+            preparedStatement.setString(4, '%' + productLine + '%');
+        } else if (maxPrice.equals("")) {
+            System.out.println("SELECT_BY_SEARCH_FORM_ONLY_MIN");
+            preparedStatement = connection.prepareStatement(SELECT_BY_SEARCH_FORM_ONLY_MIN);
+            preparedStatement.setString(1, '%' + productName + '%');
+            preparedStatement.setDouble(2, Double.parseDouble(minPrice));
+            preparedStatement.setString(3, '%' + productBrand + '%');
+            preparedStatement.setString(4, '%' + productLine + '%');
+        } else {
+            System.out.println("SELECT_BY_SEARCH_FORM_BETWEEN");
+            preparedStatement = connection.prepareStatement(SELECT_BY_SEARCH_FORM_BETWEEN);
+            preparedStatement.setString(1, '%' + productName + '%');
+            preparedStatement.setDouble(2, Double.parseDouble(minPrice));
+            preparedStatement.setDouble(3, Double.parseDouble(maxPrice));
+            preparedStatement.setString(4, '%' + productBrand + '%');
+            preparedStatement.setString(5, '%' + productLine + '%');
         }
 
-    private void printSQLException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                e.printStackTrace(System.err);
-                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
-                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
-                System.err.println("Message: " + e.getMessage());
-                Throwable t = ex.getCause();
-                while (t != null) {
-                    System.out.println("Cause: " + t);
-                    t = t.getCause();
-                }
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int productCode = resultSet.getInt("productCode");
+                String name = resultSet.getString("productName");
+                String brand = resultSet.getString("productBrand");
+                double price = resultSet.getDouble("productPrice");
+                String image = resultSet.getString("productImage");
+                String line = resultSet.getString("productLine");
+                products.add(new Product(productCode, name, brand, price, image, line));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return products;
     }
+
 }
+

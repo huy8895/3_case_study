@@ -1,7 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.dao.customer.CustomerDAO;
-import com.codegym.dao.user.UserDAO;
+import com.codegym.dao.DAOManger;
 import com.codegym.model.Customer;
 import com.codegym.model.User;
 
@@ -16,13 +15,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "CustomerServlet", urlPatterns = "/customers")
+
+
 public class CustomerServlet extends HttpServlet {
-    private UserDAO userDAO;
-    private CustomerDAO customerDAO;
+
+
+    private DAOManger daoManger;
 
     public void init() {
-        userDAO = new UserDAO();
-        customerDAO = new CustomerDAO();
+        daoManger = new DAOManger();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,6 +34,7 @@ public class CustomerServlet extends HttpServlet {
         try {
             switch (action) {
                 case "create":
+                    System.out.println("start create customer");
                     insertCustomer(request, response);
                     break;
                 case "edit":
@@ -56,7 +58,7 @@ public class CustomerServlet extends HttpServlet {
         try {
             switch (action) {
                 case "create":
-                    showNewForm(request, response);
+                    showNewForm(request,response);
                     break;
                 case "edit":
                     showEditForm(request, response);
@@ -80,7 +82,7 @@ public class CustomerServlet extends HttpServlet {
 
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         int cusNumber = Integer.parseInt(request.getParameter("id"));
-        Customer customer = customerDAO.selectCustomer(cusNumber);
+        Customer customer = daoManger.customerDAO.selectCustomer(cusNumber);
         request.setAttribute("customer",customer);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/views/customers/delete.jsp");
         requestDispatcher.forward(request, response);
@@ -95,7 +97,7 @@ public class CustomerServlet extends HttpServlet {
         String email = request.getParameter("cusEmail");
         String userName = request.getParameter("userName");
         Customer customer = new Customer(cusNumber,name, phoneNumber, address, email, userName);
-        customerDAO.updateUser(customer);
+        daoManger.customerDAO.updateUser(customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/edit.jsp");
         dispatcher.forward(request, response);
     }
@@ -109,9 +111,16 @@ public class CustomerServlet extends HttpServlet {
         String password = request.getParameter("password");
         Customer newCustomer = new Customer(name, phoneNumber, address, email, userName);
         User newUser = new User(userName, password);
-        userDAO.insertUser(newUser);
-        customerDAO.insertCustomer(newCustomer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
+        RequestDispatcher dispatcher;
+        String status;
+        if (daoManger.userDAO.insertUser(newUser) && daoManger.customerDAO.insertCustomer(newCustomer)){
+             status = "tao thanh cong";
+            dispatcher = request.getRequestDispatcher("createSuccess.jsp");
+        } else {
+            status = "tao khong thanh cong";
+            dispatcher = request.getRequestDispatcher("createFail.jsp");
+        }
+        request.setAttribute("status",status);
         dispatcher.forward(request, response);
     }
 
@@ -120,7 +129,7 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void listUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        List<Customer> customerList = customerDAO.selectAllCustomer();
+        List<Customer> customerList = daoManger.customerDAO.selectAllCustomer();
         for (Customer customer : customerList) {
             System.out.println(customer.getCusNumber());
         }
@@ -131,21 +140,28 @@ public class CustomerServlet extends HttpServlet {
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int cusNumber = Integer.parseInt(request.getParameter("id"));
-        Customer customer = customerDAO.selectCustomer(cusNumber);
-        customerDAO.deleteCustomer(cusNumber);
-        listUser(request,response);
+        Customer customer = daoManger.customerDAO.selectCustomer(cusNumber);
+        String status;
+        if (daoManger.customerDAO.deleteCustomer(cusNumber)&& daoManger.userDAO.removeUser(customer)){
+            status = "xoa thanh cong";
+        } else {
+            status =" xoa that bai";
+        }
+        request.setAttribute("status",status);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/views/customers/delete.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Customer customer = customerDAO.selectCustomer(id);
+        Customer customer = daoManger.customerDAO.selectCustomer(id);
         request.setAttribute("customer",customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/edit.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("create.jsp");
         dispatcher.forward(request, response);
     }
 

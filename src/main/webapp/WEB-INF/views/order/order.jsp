@@ -2,14 +2,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: huy8895
-  Date: 9/3/20
-  Time: 4:45 PM
+  Date: 9/6/20
+  Time: 11:05 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>cart</title>
+    <title>Order history</title>
 </head>
 
 <div class="container" align="center">
@@ -26,12 +26,6 @@
             <c:out value="customer number: null"></c:out>
         </c:if>
     </h2>
-    <div class="container">
-        <form method="post" action="/cart?action=pay">
-            <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
-            <input type="submit"  value="thanh toan">
-        </form>
-    </div>
 
     <div align="center">
         <table border="1" cellpadding="5">
@@ -43,10 +37,10 @@
                 <th>image</th>
                 <th>Quantity</th>
             </tr>
-            <c:forEach var="cart" items="${cartList}">
+            <c:forEach var="order" items="${orderList}">
                 <tr>
-                    <c:set var = "product" scope = "session" value = "${productDAO.selectProduct(cart.getProductCode())}"/>
-                    <c:set var = "quantity" scope = "session" value = "${cart.getQuantity()}"/>
+                    <c:set var = "product" scope = "session" value = "${productDAO.selectProduct(order.getProductCode())}"/>
+                    <c:set var = "quantity" scope = "session" value = "${order.getQuantityOrdered()}"/>
 
                     <td><c:out value="${product.productName}"/></td>
                     <td><c:out value="${product.productBrand}"/></td>

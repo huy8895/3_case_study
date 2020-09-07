@@ -54,20 +54,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <c:if test="${customer==null}">
-                <c:out value= "" escapeXml="false"/>
-            </c:if>
-            <c:if test="${customer!=null}">
-                <c:out value= "<li class=\"nav-item active\">
-                </li>
-                <li class=\"nav-item\">
-                <form method=\"post\" action=\"cart\">
-                <input type=\"hidden\" name=\"action\" value=\"showCart\"/>
-                <input type=\"hidden\" name=\"cusNumber\" value=\"${customer.getCusNumber()}\"/>
-                    <input type=\"submit\" class=\"btn btn-dark nav-link\" value=\"CART\"/>
-                </form>
-                </li>\" " escapeXml="false"/>
-            </c:if>
+            <li class="nav-item active">
+                <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/cart?action=cart">Cart</a>
+            </li>
+
         </ul>
         <div class="align-content-sm-end">
             <c:if test="${customer==null}">
@@ -76,7 +69,7 @@
                 <input type=\"text\" class=\"form-control-sm\" placeholder=\"Username..\" name=\"username\"><span>&nbsp;</span>
                 <input type=\"password\" class=\"form-control-sm\" placeholder=\"Password..\" name=\"password\"><span>&nbsp;</span>
                 <button class=\"btn btn-light btn-sm\" type=\"submit\" name=\"login\">Login</button><span>&nbsp;</span>
-                <a class=\"btn btn-light btn-sm\" href=\"customers?action=create\">Sign Up</a>
+                <button class=\"btn btn-light btn-sm\" type=\"button\" name=\"Sign Up><a href=\"customers?action=\"create\">Sign Up</a></button>
                 <input type=\"hidden\" name=\"action\" value=\"login\">
             </form>" escapeXml="false"/>
             </c:if>
@@ -175,42 +168,9 @@
             </div>
             <!-- ]Row -->
             <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
-
-                <c:set var = "count" scope = "session" value = "${5}"/>
-                <c:forEach items="${productList}" var="product">
-                    <c:if test="${count==0||count==5}">
-                        <c:out value= "<div class=\"row\">" escapeXml="false"/>
-                    </c:if>
-                    <c:out value= "
-                            <div class=\"col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item\">
-                                <img src=\"${product.getProductImage()}\" class=\"float-left col-lg-12 col-md-12\">
-                                <p>${product.getProductBrand()} ${product.getProductName()}</p>
-                                <p>${product.getProductPrice()}</p>
-
-                                <span>
-                                 <form action=\"/cart\" method=\"post\">
-                                <input type=\"hidden\" name=\"cusNumber\" value=\"${customer.getCusNumber()}\">
-                                <input type=\"hidden\" name=\"productCode\" value=\"${product.getProductCode()}\">
-                                <input type=\"hidden\" name=\"action\" value=\"add\">
-                                <i class=\"fa fa-shopping-cart\"></i>&nbsp;<button class=\"btn btn-white\" type=\"submit\">Add to Cart</button>
-                                </form>
-                                </span>
-                                <br>
-                            </div>
-                            " escapeXml="false"/>
-                    <c:if test="${count!=5}">
-                        <c:set var="count" value="${count+1}"/>
-                    </c:if>
-                    <c:if test="${count==5}">
-                        <c:set var="count" value="${1}"/>
-                    </c:if>
-
-                    <c:if test="${count==3}">
-                        <c:out value= "</div>" escapeXml="false"/>
-                        <c:out value= "<br>" escapeXml="false"/>
-                        <c:set var="count" value="${count=0}"/>
-                    </c:if>
-                </c:forEach>
+                <div class="row">
+                    <H3>Tao Thanh Cong</H3>
+                </div>
             </div>
             <!-- Ads -->
             <br>

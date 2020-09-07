@@ -2,11 +2,9 @@ package com.codegym.dao.customer;
 
 import com.codegym.dao.database.Jdbc;
 import com.codegym.model.Customer;
-import com.codegym.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class CustomerDAO implements ICustomerDAO {
@@ -18,7 +16,7 @@ public class CustomerDAO implements ICustomerDAO {
 
     private static final String SELECT_CUSTOMER_BY_ID_SQL = "SELECT * FROM Customer where cusNumber = ?;";
 
-    private static final String SELECT_CUSTOMER_BY_USERNAME_SQL = "SELECT * FROM Customer where cusNumber = ?;";
+    private static final String SELECT_CUSTOMER_BY_USERNAME_SQL = "SELECT * FROM Customer where userName = ?;";
 
     private static final String SELECT_ALL_CUSTOMERS_SQL = "SELECT * FROM Customer";
 
@@ -50,19 +48,22 @@ public class CustomerDAO implements ICustomerDAO {
 
 
     @Override
-    public void insertCustomer(Customer customer) throws SQLException {
+    public boolean insertCustomer(Customer customer) throws SQLException {
         Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CUSTOMER_SQL);
         try {
+            System.out.println("creating new customer");
+            System.out.println("customer.getCusName() = " + customer.getUserName());
             preparedStatement.setString(1,customer.getCusName());
             preparedStatement.setString(2,customer.getCusPhoneNumber());
             preparedStatement.setString(3,customer.getCusAddress());
             preparedStatement.setString(4,customer.getCusEmail());
             preparedStatement.setString(5,customer.getUserName());
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e){
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override

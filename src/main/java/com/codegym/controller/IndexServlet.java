@@ -1,7 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.dao.customer.CustomerDAO;
-import com.codegym.dao.product.ProductDAO;
+import com.codegym.dao.DAOManger;
 import com.codegym.model.Customer;
 import com.codegym.model.Product;
 
@@ -17,12 +16,10 @@ import java.util.List;
 
 @WebServlet(name = "IndexServlet",urlPatterns = "/index")
 public class IndexServlet extends HttpServlet {
-    private ProductDAO productDAO;
-    private CustomerDAO customerDAO;
+    private DAOManger daoManger;
 
     public void init() {
-        productDAO = new ProductDAO();
-        customerDAO = new CustomerDAO();
+        daoManger = new DAOManger();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -55,13 +52,19 @@ public class IndexServlet extends HttpServlet {
     }
 
     private void listProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        List<Product> productList = productDAO.selectAllProduct();
-        Customer customer = customerDAO.selectCustomer(6);
-        String test = "test";
-        request.setAttribute("test",test);
+        Customer customer;
+        if (request.getParameter("cusNumber") != null ){
+            int cusNumber = Integer.parseInt(request.getParameter("cusNumber"));
+            customer = daoManger.customerDAO.selectCustomer(cusNumber);
+            request.setAttribute("customer", customer);
+        } else {
+            System.out.println("customer =  null" );
+            customer = null;
+        }
+        List<Product> productList = daoManger.productDAO.selectAllProduct();
         request.setAttribute("productList", productList);
         request.setAttribute("customer", customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/product/list.jsp");
         dispatcher.forward(request, response);
     }
 
