@@ -134,8 +134,6 @@ public class CartServlet extends HttpServlet {
         Product product = daoManger.productDAO.selectProduct(productCode);
         System.out.println("add to cart of : " + customer.getCusName());
         System.out.println("product selected : " + product.getProductCode());
-        String ads = request.getParameter("cusNumber");
-        String asdf = request.getParameter("productCode");
 
 
         daoManger.cartDAO.insertCart(customer, product);

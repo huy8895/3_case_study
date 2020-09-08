@@ -187,9 +187,11 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:set var = "total" scope = "session" value = "${0}"/>
                     <c:forEach items="${cartList}" var="cart">
                         <c:set var = "product" scope = "session" value = "${productDAO.selectProduct(cart.getProductCode())}"/>
                         <c:set var = "quantity" scope = "session" value = "${cart.getQuantity()}"/>
+                        <c:set var = "total" scope = "session" value = "${total+product.getProductPrice()}"/>
                         <c:out value="
 
                     <tr class=\"container\">
@@ -198,36 +200,10 @@
                         <td scope=\"row\">${product.getProductPrice()}</td>
                         <td scope=\"row\"><img src=\"${product.getProductImage()}\"/></td>
                         <td scope=\"row\">${quantity}</td>
-                    <td scope=\"row\">
-                    <input type=\"button\" class=\"btn btn-primary btn-dark\" value=\"Edit\" data-toggle=\"modal\" data-target=\"#exampleModal${product.getProductCode()}\"> </td>
-                        <div class=\"modal fade\" id=\"exampleModal${product.getProductCode()}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
-                          <div class=\"modal-dialog\" role=\"document\">
-                            <div class=\"modal-content\">
-                              <div class=\"modal-header\">
-                                <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>
-                                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
-                                  <span aria-hidden=\"true\">&times;</span>
-                                </button>
-                              </div>
-                              <div class=\"modal-body\">
-                                 <form method=\"post\" action=\"products\">
-                                     <input class=\"form-control\" name=\"id\" style=\"width:100%\" readonly type=\"text\" value=\"${product.getProductCode()}\"><br>
-                                     <input class=\"form-control\" name=\"name\" style=\"width:100%\" type=\"text\" value=\"${product.getProductName()}\"><br>
-                                     <input class=\"form-control\" name=\"brand\" style=\"width:100%\" type=\"text\" value=\"${product.getProductBrand()}\"><br>
-                                     <input class=\"form-control\" name=\"price\" style=\"width:100%\" type=\"number\" value=\"${product.getProductPrice()}\"><br>
-                                     <input class=\"form-control\" name=\"image\" style=\"width:100%\" type=\"text\" value=\" ${product.getProductImage()}\"><br>
-                                    <input class=\"form-control\" name=\"line\" style=\"width:100%\" type=\"text\" value=\"${product.getProductLine()}\"><br>
-                              </div>
-                              <div class=\"modal-footer\">
-                                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
-                                <input type=\"hidden\" name=\"action\" value=\"edit\">
-                                <button type=\"submit\" class=\"btn btn-primary\">Save changes</button>
-                              </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
 
+                    <td scope=\"row\">
+                        &nbsp;
+                    </td>
                     <td scope=\"row\">
                     <input type=\"button\" class=\"btn btn-primary btn-dark\" value=\"Delete\" data-toggle=\"modal\" data-target=\"#exampleModalDel${product.getProductCode()}\">
                         <div class=\"modal fade\" id=\"exampleModalDel${product.getProductCode()}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
@@ -262,6 +238,15 @@
 
                     " escapeXml="false"/>
                     </c:forEach>
+                    <tr class="container">
+                        <td scope="row">&nbsp;</td>
+                        <td scope="row">Total</td>
+                        <td scope="row">$${total}</td>
+                        <td scope="row">&nbsp;</td>
+                        <td scope="row">&nbsp;</td>
+                        <td scope="row">&nbsp;</td>
+                        <td scope="row">&nbsp;</td>
+                    </tr>
                     </tbody>
                 </table>
         </div>
