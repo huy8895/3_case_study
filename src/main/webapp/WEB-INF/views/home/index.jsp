@@ -168,11 +168,10 @@
             <!-- Ads -->
             <br>
         </div>
-        <div class="col-2 d-none d-sm-block d-md-block">
+        <div class="col-sm-1 col-xs-1 col-lg-1 d-none d-sm-block d-md-block">
             One of three columns
         </div>
         <!-- Ads -->
-    </div>
     </div>
 </main>
 <!--Main Layout-->

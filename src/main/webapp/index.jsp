@@ -37,7 +37,6 @@
             /*background-position-y: px;*/
             border: thin solid black;
             border-radius: 2px;
-            margin-right: 2rem;
             padding: 2px;
             padding-right: 2px;
         }
@@ -120,13 +119,13 @@
     </div>
     <hr>
     <div class="container col-12">
-        <div class="row col-sm-12 col-xs-12">
+        <div class="row col-sm-12 col-xs-12 col-lg-12">
             <!-- ]Search left size -->
             <div class="col-12 col-sm-2 col-md-2 col-lg-2">
                 <form action="/products" method="get">
                     <input type="hidden" name="cusNumber" value="${customer.getCusNumber()}">
                     <div class="form-group">
-                        <input type="text" class="form-control border-dark" id="productName" name="SearchBox_productName" aria-describedby="emailHelp" placeholder="Enter Product Name">
+                        <input type="text" class="form-control border-dark " id="productName" name="SearchBox_productName" aria-describedby="emailHelp" placeholder="Enter Product Name">
                     </div>
                     <div class="form-group">
                         <input type="number" class="form-control border-dark" id="maxPrice" name="SearchBox_maxPrice" aria-describedby="emailHelp" placeholder="Max Price" value="">
@@ -174,8 +173,7 @@
                 <br><hr>
             </div>
             <!-- ]Row -->
-            <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
-
+            <div class="col-12 container bg-white col-sm-9 col-md-9 col-lg-9">
                 <c:set var = "count" scope = "session" value = "${5}"/>
                 <c:forEach items="${productList}" var="product">
                     <c:if test="${count==0||count==5}">
@@ -186,7 +184,6 @@
                                 <img src=\"${product.getProductImage()}\" class=\"float-left col-lg-12 col-md-12\">
                                 <p>${product.getProductBrand()} ${product.getProductName()}</p>
                                 <p>${product.getProductPrice()}</p>
-
                                 <span>
                                  <form action=\"/cart\" method=\"post\">
                                 <input type=\"hidden\" name=\"cusNumber\" value=\"${customer.getCusNumber()}\">
@@ -204,7 +201,6 @@
                     <c:if test="${count==5}">
                         <c:set var="count" value="${1}"/>
                     </c:if>
-
                     <c:if test="${count==3}">
                         <c:out value= "</div>" escapeXml="false"/>
                         <c:out value= "<br>" escapeXml="false"/>
@@ -213,13 +209,11 @@
                 </c:forEach>
             </div>
             <!-- Ads -->
-            <br>
+            <div class="col-sm-1 col-xs-1 col-lg-1 d-none d-sm-block d-md-block">
+                One of three columns
+            </div>
+            <!-- Ads -->
         </div>
-        <div class="col-2 d-none d-sm-block d-md-block">
-            One of three columns
-        </div>
-        <!-- Ads -->
-    </div>
     </div>
 </main>
 <!--Main Layout-->
