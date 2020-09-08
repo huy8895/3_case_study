@@ -173,11 +173,11 @@
                         </div>
                         <div class="form-group">
                             <label for="productBrand">Product Brand</label>
-                            <input required type="password" class="form-control col-8" id="productBrand" name="productBrand" placeholder="Enter Brand...">
+                            <input required type="text" class="form-control col-8" id="productBrand" name="productBrand" placeholder="Enter Brand...">
                         </div>
                         <div class="form-group">
                             <label for="price">Price</label>
-                            <input required type="" class="form-control col-8" id="price" name="price" placeholder="Enter Price...">
+                            <input required type="number" class="form-control col-8" id="price" name="price" placeholder="Enter Price...">
                         </div>
                         <div class="form-group">
                             <label for="imgLink">IMG Link</label>
