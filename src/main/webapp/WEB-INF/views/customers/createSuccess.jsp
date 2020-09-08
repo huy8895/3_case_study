@@ -14,11 +14,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../bootstrap/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../bootstrap/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="../bootstrap/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../../../bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../../../bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../../bootstrap/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../../../bootstrap/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="../../../bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Watch Store</title>
 
@@ -57,10 +57,6 @@
             <li class="nav-item active">
                 <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/cart?action=cart">Cart</a>
-            </li>
-
         </ul>
         <div class="align-content-sm-end">
             <c:if test="${customer==null}">
@@ -169,36 +165,7 @@
             <!-- ]Row -->
             <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
                 <div class="row">
-                    <form class="col-12" action="customers" method="post">
-                        <div class="form-group" method="post">
-                            <label for="userName">User Name</label>
-                            <input required type="text" class="form-control col-8" id="userNameCreate" name="userName" placeholder="Enter User Name...">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input required type="password" class="form-control col-8" id="password" name="password" placeholder="Enter Password...">
-                        </div>
-                        <div class="form-group">
-                            <label for="nameInput">Full Name</label>
-                            <input required type="text" class="form-control col-8" id="nameInput" name="cusName" placeholder="Enter Name...">
-                        </div>
-                        <div class="form-group">
-                            <label for="emailInput">Email address</label>
-                            <input required type="email" class="form-control col-8" id="emailInput" name="cusEmail" placeholder="Enter Email...">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Phone Number</label>
-                            <input required type="tel" class="form-control col-8" id="exampleFormControlInput1" name="cusPhoneNumber" placeholder="Enter Phone Number....">
-                        </div>
-                        <div class="form-group">
-                            <label for="userName">Address</label>
-                            <input required type="text" class="form-control col-8" id="userName" name="cusAddress" placeholder="Enter Address...">
-                        </div>
-                        <input type="hidden" name="action" value="create">
-                        <input class="btn btn-primary" type="submit" value="Save">
-                        <a class="btn btn-primary" href="/products">Cancel</a>
-                        <br><br>
-                    </form>
+                    <H3>Tao Thanh Cong</H3>
                 </div>
             </div>
             <!-- Ads -->

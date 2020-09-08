@@ -115,10 +115,10 @@ public class CustomerServlet extends HttpServlet {
         String status;
         if (daoManger.userDAO.insertUser(newUser) && daoManger.customerDAO.insertCustomer(newCustomer)){
              status = "tao thanh cong";
-            dispatcher = request.getRequestDispatcher("createSuccess.jsp");
+            dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/createSuccess.jsp");
         } else {
             status = "tao khong thanh cong";
-            dispatcher = request.getRequestDispatcher("createFail.jsp");
+            dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/createFail.jsp");
         }
         request.setAttribute("status",status);
         dispatcher.forward(request, response);
@@ -161,7 +161,7 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/create.jsp");
         dispatcher.forward(request, response);
     }
 

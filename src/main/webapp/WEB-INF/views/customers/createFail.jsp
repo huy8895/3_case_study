@@ -14,11 +14,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../bootstrap/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../bootstrap/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="../bootstrap/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../../../bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../../../bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../../bootstrap/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../../../bootstrap/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="../../../bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Watch Store</title>
 
@@ -57,24 +57,23 @@
             <li class="nav-item active">
                 <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/cart?action=cart">Cart</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/products?action=edit">Edit</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/products?action=create">Add</a>
-            </li>
-            <li class="nav-item">
-
-            </li>
-
         </ul>
         <div class="align-content-sm-end">
-            <c:out value= "
-               <span type=\"text\" class=\"text-white\" name=\"username\">${user.getUserName()}</span>
+            <c:if test="${customer==null}">
+                <c:out value= "
+            <form action=\"login\" method=\"post\" class=\"form-inline\">
+                <input type=\"text\" class=\"form-control-sm\" placeholder=\"Username..\" name=\"username\"><span>&nbsp;</span>
+                <input type=\"password\" class=\"form-control-sm\" placeholder=\"Password..\" name=\"password\"><span>&nbsp;</span>
+                <button class=\"btn btn-light btn-sm\" type=\"submit\" name=\"login\">Login</button><span>&nbsp;</span>
+                <button class=\"btn btn-light btn-sm\" type=\"button\" name=\"Sign Up><a href=\"customers?action=\"create\">Sign Up</a></button>
+                <input type=\"hidden\" name=\"action\" value=\"login\">
+            </form>" escapeXml="false"/>
+            </c:if>
+            <c:if test="${customer!=null}">
+                <c:out value= "
+               <span type=\"text\" class=\"text-white\" name=\"username\">${customer.getUserName()}</span>
                <div><a href=\"/products\" class=\"text-white\">Sign Out</a></div>" escapeXml="false"/>
+            </c:if>
         </div>
     </div>
 </nav>
@@ -147,13 +146,13 @@
                     <br>
                     <div class="dropdown">
                         <select name="SearchBox_productLine" style="border-radius: 3px; border-style: solid; border-color: black; border-width: thin";>
-                            <option><button class="btn btn-white dropdown-toggle border-dark" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Gender
-                            </button></option>
-                            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" >
-                                <option><a class="dropdown-item">Men's Watches</a></option>
-                                <option> <a class="dropdown-item">Women's Watches</a></option>
-                            </div>
+                        <option><button class="btn btn-white dropdown-toggle border-dark" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gender
+                        </button></option>
+                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" >
+                            <option><a class="dropdown-item">Men's Watches</a></option>
+                            <option> <a class="dropdown-item">Women's Watches</a></option>
+                        </div>
                         </select>
                     </div>
                     <br>
@@ -165,33 +164,9 @@
             </div>
             <!-- ]Row -->
             <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
-                <c:set var = "count" scope = "session" value = "${5}"/>
-                <c:forEach items="${productList}" var="product">
-                    <c:if test="${count==0||count==5}">
-                        <c:out value= "<div class=\"row\">" escapeXml="false"/>
-                    </c:if>
-                    <c:out value= "
-                            <div class=\"col-12 bg-white col-sm-12 col-lg-3 col-md-3 container shop-item\">
-                                <img src=\"${product.getProductImage()}\" class=\"float-left col-lg-12 col-md-12\">
-                                <p>${product.getProductBrand()} ${product.getProductName()}</p>
-                                <p>${product.getProductPrice()}</p>
-                                <i class=\"fa fa-shopping-cart\"></i>&nbsp;<a href=\"#\" id=\"${product.getProductCode()}\">Add To Cart</a>
-                                <br>
-                            </div>
-                            " escapeXml="false"/>
-                    <c:if test="${count!=5}">
-                        <c:set var="count" value="${count+1}"/>
-                    </c:if>
-                    <c:if test="${count==5}">
-                        <c:set var="count" value="${1}"/>
-                    </c:if>
-
-                    <c:if test="${count==3}">
-                        <c:out value= "</div>" escapeXml="false"/>
-                        <c:out value= "<br>" escapeXml="false"/>
-                        <c:set var="count" value="${count=0}"/>
-                    </c:if>
-                </c:forEach>
+                <div class="row">
+                   <H3>Trung Ten Dang Nhap</H3>
+                </div>
             </div>
             <!-- Ads -->
             <br>

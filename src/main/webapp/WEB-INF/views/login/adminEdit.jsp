@@ -14,14 +14,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../bootstrap/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../bootstrap/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="../bootstrap/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../../../bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../../../bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../../bootstrap/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../../../bootstrap/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="../../../bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Watch Store</title>
-
     <style>
         .shop-item:hover{
             border-color: #66afe9;
@@ -54,37 +53,27 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <c:if test="${customer==null}">
-                <c:out value= "" escapeXml="false"/>
-            </c:if>
-            <c:if test="${customer!=null}">
-                <c:out value= "<li class=\"nav-item active\">
-                </li>
-                <li class=\"nav-item\">
-                <form method=\"post\" action=\"cart\">
-                <input type=\"hidden\" name=\"action\" value=\"showCart\"/>
-                <input type=\"hidden\" name=\"cusNumber\" value=\"${customer.getCusNumber()}\"/>
-                    <input style=\"height:100%\" type=\"submit\" class=\"btn btn-dark nav-link\" value=\"CART\"/>
-                </form>
-                </li>\" " escapeXml="false"/>
-            </c:if>
+            <li class="nav-item active">
+                <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/cart?action=cart">Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/products?action=edit">Edit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/products?action=create">Add</a>
+            </li>
+            <li class="nav-item">
+
+            </li>
+
         </ul>
         <div class="align-content-sm-end">
-            <c:if test="${customer==null}">
-                <c:out value= "
-            <form action=\"login\" method=\"post\" class=\"form-inline\">
-                <input type=\"text\" class=\"form-control-sm\" placeholder=\"Username..\" name=\"username\"><span>&nbsp;</span>
-                <input type=\"password\" class=\"form-control-sm\" placeholder=\"Password..\" name=\"password\"><span>&nbsp;</span>
-                <button class=\"btn btn-light btn-sm\" type=\"submit\" name=\"login\">Login</button><span>&nbsp;</span>
-                <a class=\"btn btn-light btn-sm\" href=\"customers?action=create\">Sign Up</a>
-                <input type=\"hidden\" name=\"action\" value=\"login\">
-            </form>" escapeXml="false"/>
-            </c:if>
-            <c:if test="${customer!=null}">
-                <c:out value= "
-               <span type=\"text\" class=\"text-white\" name=\"username\">${customer.getUserName()}</span>
+            <c:out value= "
+               <span type=\"text\" class=\"text-white\" name=\"username\">${user.getUserName()}</span>
                <div><a href=\"/products\" class=\"text-white\">Sign Out</a></div>" escapeXml="false"/>
-            </c:if>
         </div>
     </div>
 </nav>
@@ -157,13 +146,13 @@
                     <br>
                     <div class="dropdown">
                         <select name="SearchBox_productLine" style="border-radius: 3px; border-style: solid; border-color: black; border-width: thin";>
-                        <option><button class="btn btn-white dropdown-toggle border-dark" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Gender
-                        </button></option>
-                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" >
-                            <option><a class="dropdown-item">Men's Watches</a></option>
-                            <option> <a class="dropdown-item">Women's Watches</a></option>
-                        </div>
+                            <option><button class="btn btn-white dropdown-toggle border-dark" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Gender
+                            </button></option>
+                            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" >
+                                <option><a class="dropdown-item">Men's Watches</a></option>
+                                <option> <a class="dropdown-item">Women's Watches</a></option>
+                            </div>
                         </select>
                     </div>
                     <br>
@@ -174,36 +163,64 @@
                 <br><hr>
             </div>
             <!-- ]Row -->
-            <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
+            <!-- Button trigger modal -->
+
+
+            <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8" style="margin-left: 12px">
+
                 <table class="table text-center">
                     <thead class="thead-dark">
                     <tr class="">
+                        <th scope="col" style="width:6%">ID</th>
                         <th scope="col-1" style="width:12%">Name</th>
                         <th scope="col-1" style="width:12%">Brand</th>
                         <th scope="col-1" style="width:12%">Price</th>
                         <th scope="col-3" style="width:24%">Image</th>
-                        <th scope="col-1" style="width:12%">quantity</th>
+                        <th scope="col-1" style="width:12%">Line</th>
                         <th scope="col" colspan="2" style="width:12%">Edit</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:set var = "total" scope = "session" value = "${0}"/>
-                    <c:forEach items="${cartList}" var="cart">
-                        <c:set var = "product" scope = "session" value = "${productDAO.selectProduct(cart.getProductCode())}"/>
-                        <c:set var = "quantity" scope = "session" value = "${cart.getQuantity()}"/>
-                        <c:set var = "total" scope = "session" value = "${total+product.getProductPrice()}"/>
+                    <c:forEach items="${productList}" var="product">
                         <c:out value="
 
                     <tr class=\"container\">
+                        <td scope=\"row\">${product.getProductCode()}</td>
                         <td scope=\"row\">${product.getProductName()}</td>
                         <td scope=\"row\">${product.getProductBrand()}</td>
                         <td scope=\"row\">${product.getProductPrice()}</td>
-                        <td scope=\"row\"><img src=\"${product.getProductImage()}\"/></td>
-                        <td scope=\"row\">${quantity}</td>
-
+                        <td scope=\"row\">${product.getProductImage()}</td>
+                        <td scope=\"row\">${product.getProductLine()}</td>
                     <td scope=\"row\">
-                        &nbsp;
-                    </td>
+                    <input type=\"button\" class=\"btn btn-primary btn-dark\" value=\"Edit\" data-toggle=\"modal\" data-target=\"#exampleModal${product.getProductCode()}\"> </td>
+                        <div class=\"modal fade\" id=\"exampleModal${product.getProductCode()}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+                          <div class=\"modal-dialog\" role=\"document\">
+                            <div class=\"modal-content\">
+                              <div class=\"modal-header\">
+                                <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>
+                                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
+                                  <span aria-hidden=\"true\">&times;</span>
+                                </button>
+                              </div>
+                              <div class=\"modal-body\">
+                                 <form method=\"post\" action=\"products\">
+                                     <input class=\"form-control\" name=\"id\" style=\"width:100%\" readonly type=\"text\" value=\"${product.getProductCode()}\"><br>
+                                     <input class=\"form-control\" name=\"name\" style=\"width:100%\" type=\"text\" value=\"${product.getProductName()}\"><br>
+                                     <input class=\"form-control\" name=\"brand\" style=\"width:100%\" type=\"text\" value=\"${product.getProductBrand()}\"><br>
+                                     <input class=\"form-control\" name=\"price\" style=\"width:100%\" type=\"number\" value=\"${product.getProductPrice()}\"><br>
+                                     <input class=\"form-control\" name=\"image\" style=\"width:100%\" type=\"text\" value=\" ${product.getProductImage()}\"><br>
+                                    <input class=\"form-control\" name=\"line\" style=\"width:100%\" type=\"text\" value=\"${product.getProductLine()}\"><br>
+                              </div>
+                              <div class=\"modal-footer\">
+                                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
+                                <input type=\"hidden\" name=\"action\" value=\"edit\">
+                                <button type=\"submit\" class=\"btn btn-primary\">Save changes</button>
+                              </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
                     <td scope=\"row\">
                     <input type=\"button\" class=\"btn btn-primary btn-dark\" value=\"Delete\" data-toggle=\"modal\" data-target=\"#exampleModalDel${product.getProductCode()}\">
                         <div class=\"modal fade\" id=\"exampleModalDel${product.getProductCode()}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
@@ -216,18 +233,18 @@
                                 </button>
                               </div>
                               <div class=\"modal-body\">
-                                 <form method=\"post\" action=\"cart\">
-                                     <input readonly class=\"form-control\" name=\"productCode\" style=\"width:100%\" readonly type=\"text\" value=\"${product.getProductCode()}\"><br>
+                                 <form method=\"post\" action=\"products\">
+                                     <input readonly class=\"form-control\" name=\"id\" style=\"width:100%\" readonly type=\"text\" value=\"${product.getProductCode()}\"><br>
                                      <input readonly class=\"form-control\" name=\"name\" style=\"width:100%\" type=\"text\" value=\"${product.getProductName()}\"><br>
                                      <input readonly class=\"form-control\" name=\"brand\" style=\"width:100%\" type=\"text\" value=\"${product.getProductBrand()}\"><br>
                                      <input readonly class=\"form-control\" name=\"price\" style=\"width:100%\" type=\"number\" value=\"${product.getProductPrice()}\"><br>
+                                     <input readonly class=\"form-control\" name=\"image\" style=\"width:100%\" type=\"text\" value=\" ${product.getProductImage()}\"><br>
                                      <input readonly class=\"form-control\" name=\"line\" style=\"width:100%\" type=\"text\" value=\"${product.getProductLine()}\"><br>
                               </div>
                               <div class=\"modal-footer\">
                                 <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
                                 <input type=\"hidden\" name=\"action\" value=\"delete\">
-                                <input type=\"hidden\" name=\"cusNumber\" value=\"${cart.getCusNumber()}\">
-                                <button type=\"submit\" class=\"btn btn-primary\">Delete</button>
+                                <button type=\"submit\" class=\"btn btn-primary\">Save changes</button>
                               </div>
                               </form>
                             </div>
@@ -238,17 +255,11 @@
 
                     " escapeXml="false"/>
                     </c:forEach>
-                    <tr class="container">
-                        <td scope="row">&nbsp;</td>
-                        <td scope="row">Total</td>
-                        <td scope="row">$${total}</td>
-                        <td scope="row">&nbsp;</td>
-                        <td scope="row">&nbsp;</td>
-                        <td scope="row">&nbsp;</td>
-                        <td scope="row">&nbsp;</td>
-                    </tr>
                     </tbody>
                 </table>
+            </div>
+            <!-- Ads -->
+            <br>
         </div>
         <div class="col-2 d-none d-sm-block d-md-block">
             One of three columns

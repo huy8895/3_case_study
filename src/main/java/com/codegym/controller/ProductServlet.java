@@ -176,13 +176,13 @@ public class ProductServlet extends HttpServlet {
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         List<Product> productList=daoManger.productDAO.selectAllProduct();
-        RequestDispatcher dispatcher=request.getRequestDispatcher("adminEdit.jsp");
+        RequestDispatcher dispatcher=request.getRequestDispatcher("WEB-INF/views/login/adminEdit.jsp");
         request.setAttribute("productList",productList);
         dispatcher.forward(request,response);
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher=request.getRequestDispatcher("adminAdd.jsp");
+        RequestDispatcher dispatcher=request.getRequestDispatcher("WEB-INF/views/login/adminAdd.jsp");
         dispatcher.forward(request,response);
     }
 

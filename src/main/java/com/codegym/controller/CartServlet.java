@@ -78,12 +78,12 @@ public class CartServlet extends HttpServlet {
             request.setAttribute("cartList", cartList);
             request.setAttribute("customer", customer);
             request.setAttribute("productDAO", daoManger.productDAO);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("customerCart.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/customerCart.jsp");
             dispatcher.forward(request, response);
         } else {
             List<Product> productList = daoManger.productDAO.selectAllProduct();
             request.setAttribute("productList", productList);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("customerCart.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/customerCart.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -119,7 +119,7 @@ public class CartServlet extends HttpServlet {
         request.setAttribute("customer", customer);
         request.setAttribute("cartList", cartList);
         request.setAttribute("productDAO", daoManger.productDAO);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("customerCart.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/customers/customerCart.jsp");
         dispatcher.forward(request, response);
 
     }
