@@ -154,7 +154,14 @@ public class ProductServlet extends HttpServlet {
     }
 
 
-    private void insertProduct(HttpServletRequest request, HttpServletResponse response) {
+    private void insertProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        String name= request.getParameter("productDesc");
+        String brand= request.getParameter("productBrand");
+        double price= Double.parseDouble(request.getParameter("price"));
+        String image= request.getParameter("imgLink");
+        String line= request.getParameter("line");
+        daoManger.productDAO.insertProduct(new Product(name,brand,price,image,line));
+        showEditForm(request,response);
     }
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {

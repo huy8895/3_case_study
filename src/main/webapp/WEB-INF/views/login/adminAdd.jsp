@@ -166,30 +166,26 @@
             <!-- ]Row -->
             <div class="col-12 container bg-white col-sm-8 col-md-8 col-lg-8">
                 <div class="row">
-                    <form class="col-12" action="customers" method="post">
+                    <form class="col-12" action="products" method="post">
                         <div class="form-group" method="post">
-                            <label for="userName">User Name</label>
-                            <input required type="text" class="form-control col-8" id="userNameCreate" name="userName" placeholder="Enter User Name...">
+                            <label for="productDesc">Product Details</label>
+                            <input required type="text" class="form-control col-8" id="productDesc" name="productDesc" placeholder="Enter Product Details...">
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input required type="password" class="form-control col-8" id="password" name="password" placeholder="Enter Password...">
+                            <label for="productBrand">Product Brand</label>
+                            <input required type="password" class="form-control col-8" id="productBrand" name="productBrand" placeholder="Enter Brand...">
                         </div>
                         <div class="form-group">
-                            <label for="nameInput">Full Name</label>
-                            <input required type="text" class="form-control col-8" id="nameInput" name="cusName" placeholder="Enter Name...">
+                            <label for="price">Price</label>
+                            <input required type="" class="form-control col-8" id="price" name="price" placeholder="Enter Price...">
                         </div>
                         <div class="form-group">
-                            <label for="emailInput">Email address</label>
-                            <input required type="email" class="form-control col-8" id="emailInput" name="cusEmail" placeholder="Enter Email...">
+                            <label for="imgLink">IMG Link</label>
+                            <input required type="text" class="form-control col-8" id="imgLink" name="imgLink" placeholder="Enter IMG Link....">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Phone Number</label>
-                            <input required type="tel" class="form-control col-8" id="exampleFormControlInput1" name="cusPhoneNumber" placeholder="Enter Phone Number....">
-                        </div>
-                        <div class="form-group">
-                            <label for="userName">Address</label>
-                            <input required type="text" class="form-control col-8" id="userName" name="cusAddress" placeholder="Enter Address...">
+                            <label for="line">Line</label>
+                            <input required type="text" class="form-control col-8" id="line" name="line" placeholder="Enter Product Line....">
                         </div>
                         <input type="hidden" name="action" value="create">
                         <input class="btn btn-primary" type="submit" value="Save">
